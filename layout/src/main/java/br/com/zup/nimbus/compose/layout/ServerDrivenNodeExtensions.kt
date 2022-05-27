@@ -8,3 +8,8 @@ fun <T> ServerDrivenNode.parse(typeRef: TypeReference<T>): T {
     val mapper = jacksonObjectMapper()
     return mapper.convertValue(this.properties, typeRef)
 }
+
+fun <T> Map<String, Any?>?.parse(typeRef: TypeReference<T>): T {
+    val mapper = jacksonObjectMapper()
+    return mapper.convertValue(this, typeRef)
+}

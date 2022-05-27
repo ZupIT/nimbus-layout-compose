@@ -6,9 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import br.com.zup.nimbus.compose.layout.layoutComponents
 import br.com.zup.nimbus.compose.layout.sample.components.CustomError
 import br.com.zup.nimbus.compose.layout.sample.components.customComponents
-import br.com.zup.nimbus.compose.layout.layoutComponents
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusConfig
@@ -32,9 +32,7 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     Column {
                         Nimbus(config = config) {
-                            Column {
-                                NimbusNavigator(json = TOUCHABLE_JSON)
-                            }
+                            NimbusNavigator(json = TOUCHABLE_JSON)
                         }
                     }
 

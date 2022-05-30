@@ -62,3 +62,94 @@ const val TOUCHABLE_JSON = """{
           }
   }]
 }"""
+
+const val ROW_JSON = """{
+  "_:component": "layout:row",
+  "children": [
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "r"
+        }
+      }],
+      "properties": {
+        "flex":2,
+        "backgroundColor": "#ff0000"
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "g"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#00ff00"
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "b"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#0000ff"
+      }
+    }]
+}"""
+
+const val COLUMN_JSON = """{
+  "_:component": "layout:column",
+  "children": [
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "r"
+        }
+      }],
+      "properties": {
+        "flex":2,
+        "backgroundColor": "#ff0000"
+      }
+    },
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "g"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#00ff00"
+      }
+    },
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "b"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#0000ff"
+      }
+    }],
+      "properties": {
+        "height": 150.0
+      }
+}"""

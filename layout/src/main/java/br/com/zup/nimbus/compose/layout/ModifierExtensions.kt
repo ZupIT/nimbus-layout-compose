@@ -29,13 +29,13 @@ internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
 )
 
 internal fun Modifier.container(
-    container: Container? = null,
+    container: Container,
     @LayoutScopeMarker
     scope: Any? = null) = this.then(
 
-    container?.let { c ->
-        var modifier = this
-        c.backgroundColor?.let {
+    with(container) {
+        var modifier = this@container
+        container.backgroundColor?.let {
             modifier = modifier.background(it.color)
         }
 
@@ -62,11 +62,10 @@ internal fun Modifier.container(
             modifier = modifier.width(it.dp)
         }
 
-
         //TODO add other properties
 
-        return@let modifier
-    } ?: this
+        return@with modifier
+    }
 )
 
 val String.color

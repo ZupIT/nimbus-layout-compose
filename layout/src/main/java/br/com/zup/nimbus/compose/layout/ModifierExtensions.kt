@@ -39,16 +39,16 @@ internal fun Modifier.container(
             modifier = modifier.background(it.color)
         }
 
-        if (container.flex != null) {
+        container.flex?.let { flex ->
             when(scope) {
                 is RowScope -> {
                     with(scope) {
-                        modifier = modifier.weight(container.flex!!.toFloat())
+                        modifier = modifier.weight(flex.toFloat())
                     }
                 }
                 is ColumnScope -> {
                     with(scope) {
-                        modifier = modifier.weight(container.flex!!.toFloat())
+                        modifier = modifier.weight(flex.toFloat())
                     }
                 }
             }

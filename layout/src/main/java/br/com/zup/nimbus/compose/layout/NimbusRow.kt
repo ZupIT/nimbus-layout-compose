@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.Container
 import br.com.zup.nimbus.compose.layout.model.LayoutComponent
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 private object NimbusRowScope {
     private val kClass =

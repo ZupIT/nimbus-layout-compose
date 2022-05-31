@@ -18,13 +18,13 @@ private object NimbusColumnScope {
 @Composable
 internal fun NimbusColumn(
     model: ColumnModel,
-    modelLayout: LayoutComponent? = null,
+    parentLayout: LayoutComponent? = null,
     modifier: Modifier = Modifier,
     content: Component,
 ) {
     Column(
         modifier = modifier.container(container = model,
-            parentLayout = modelLayout,
+            parentLayout = parentLayout,
             scope = NimbusColumnScope.instance)
     ) {
         content()

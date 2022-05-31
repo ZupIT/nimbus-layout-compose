@@ -18,13 +18,13 @@ private object NimbusRowScope {
 @Composable
 internal fun NimbusRow(
     model: RowModel,
-    modelLayout: LayoutComponent? = null,
+    parentLayout: LayoutComponent? = null,
     modifier: Modifier = Modifier,
     content: Component,
 ) {
     Row(
         modifier = modifier.container(container = model,
-            parentLayout = modelLayout,
+            parentLayout = parentLayout,
             scope = NimbusRowScope.instance)
     ) {
         content()

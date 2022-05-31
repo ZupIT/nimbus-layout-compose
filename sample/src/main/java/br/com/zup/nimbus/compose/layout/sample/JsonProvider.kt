@@ -63,7 +63,7 @@ const val TOUCHABLE_JSON = """{
   }]
 }"""
 //1. Row: 3 elementos de tamanhos iguais que ocupam todo o espaço disponível (flex: 1).
-const val ROW_JSON = """{
+const val EXAMPLE_1 = """{
   "_:component": "layout:row",
   "children": [
     {
@@ -113,7 +113,7 @@ const val ROW_JSON = """{
       }
 }"""
 //2.Igual ao anterior, mas com margin-left de 10 entre cada item.
-const val ROW_MARGIN_JSON = """{
+const val EXAMPLE_2 = """{
   "_:component": "layout:row",
   "children": [
     {
@@ -167,7 +167,7 @@ const val ROW_MARGIN_JSON = """{
 }"""
 
 //3.Igual ao anterior, mas com padding-left de 10 entre cada item.
-const val ROW_PADDING_JSON = """{
+const val EXAMPLE_3 = """{
   "_:component": "layout:row",
   "children": [
     {
@@ -221,7 +221,7 @@ const val ROW_PADDING_JSON = """{
 }"""
 
 //4. Igual ao primeiro, mas o primeiro ocupa o dobro de espaço que os demais (flex 2).
-const val ROW_FLEX_2_JSON = """{
+const val EXAMPLE_4 = """{
   "_:component": "layout:row",
   "children": [
     {
@@ -272,7 +272,7 @@ const val ROW_FLEX_2_JSON = """{
 }"""
 
 //5. Igual ao anterior, mas o primeiro tem margin top e bottom de 10 e o último padding e bottom de 10.
-const val ROW_MARGIN_TOP_BOTTOM_JSON = """{
+const val EXAMPLE_5 = """{
   "_:component": "layout:row",
   "children": [
     {
@@ -329,7 +329,7 @@ const val ROW_MARGIN_TOP_BOTTOM_JSON = """{
 //6. Imagem com 100 de largura à esquerda de um componente que ocupa o resto do espaço disponível.
 // Margem de 20 entre a imagem e o componente. O Retangulo deve ocupar a
 // altura da imagem de maneira implícita.
-const val ROW_IMAGE_FILL_HEIGHT = """{
+const val EXAMPLE_6 = """{
   "_:component": "layout:row",
   "children": [
     {
@@ -358,6 +358,46 @@ const val ROW_IMAGE_FILL_HEIGHT = """{
         "flex":1,
         "backgroundColor": "#00ff00",
         "marginStart": 20.0
+      }
+    }],
+      "properties": {
+        "backgroundColor": "#FFCCCCCC",  
+        "crossAxisAlignment": "stretch"
+      }
+}"""
+
+//6.1 Imagem com 100 de largura à esquerda de um componente que ocupa o resto do espaço disponível.
+// Margem de 20 entre a imagem e o componente. O Retangulo deve ocupar a
+// altura da imagem de maneira implícita.
+const val EXAMPLE_6_1 = """{
+  "_:component": "layout:column",
+  "children": [
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "r"
+        }
+      }],
+      "properties": {      
+        "backgroundColor": "#ff0000",
+        "height": 100.0,
+        "width": 100.0
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "g"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#00ff00",
+        "marginTop": 20.0
       }
     }],
       "properties": {

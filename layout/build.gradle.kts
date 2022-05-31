@@ -9,7 +9,7 @@ val serializationVersion = "1.3.2"
 val ktorVersion = "2.0.0"
 
 dependencies {
-    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha1")
+    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha2")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("com.google.android.material:material:1.6.0")
     implementation("androidx.appcompat:appcompat:1.4.1")

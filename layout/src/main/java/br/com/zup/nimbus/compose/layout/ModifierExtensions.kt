@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -15,7 +17,10 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.model.Accessibility
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
 import br.com.zup.nimbus.compose.layout.model.Container
+import br.com.zup.nimbus.compose.layout.model.LayoutComponent
 
 internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
     accessibility?.let { a ->
@@ -32,6 +37,7 @@ internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
 
 internal fun Modifier.container(
     container: Container,
+    parentLayout: LayoutComponent? = null,
     @LayoutScopeMarker
     scope: Any? = null,
 ) = this.then(
@@ -48,12 +54,32 @@ internal fun Modifier.container(
 
         modifier = modifier.applyScopeModifier(scope, container)
 
-        height?.let {
-            modifier = modifier.height(it.dp)
+        if (parentLayout != null) {
+            if (parentLayout.component == NIMBUS_ROW) {
+                if (container.height == null) {
+                    parentLayout.properties?.crossAxisAlignment?.let { crossAxis ->
+                        if (crossAxis == "stretch") {
+                            modifier = modifier.fillMaxHeight()
+                        }
+                    }
+                }
+            } else if (parentLayout.component == NIMBUS_COLUMN) {
+                if (container.width == null) {
+                    parentLayout.properties?.crossAxisAlignment?.let { crossAxis ->
+                        if (crossAxis == "stretch") {
+                            modifier = modifier.fillMaxWidth()
+                        }
+                    }
+                }
+            }
         }
 
-        width?.let {
+        container.width?.let {
             modifier = modifier.width(it.dp)
+        }
+
+        container.height?.let {
+            modifier = modifier.height(it.dp)
         }
 
         //Padding should be after background
@@ -76,10 +102,11 @@ internal fun Modifier.applyScopeModifier(
                 container.flex?.let {
                     modifier = modifier.weight(it.toFloat())
                 }
-            }
-            container.crossAxisAlignment?.let { crossAxis ->
-                if (crossAxis == "stretch") {
-                    modifier = modifier.height(IntrinsicSize.Min)
+
+                container.crossAxisAlignment?.let { crossAxis ->
+                    if (crossAxis == "stretch") {
+                        modifier = modifier.height(IntrinsicSize.Min)
+                    }
                 }
             }
         }
@@ -88,10 +115,11 @@ internal fun Modifier.applyScopeModifier(
                 container.flex?.let {
                     modifier = modifier.weight(it.toFloat())
                 }
-            }
-            container.crossAxisAlignment?.let { crossAxis ->
-                if (crossAxis == "stretch") {
-                    modifier = modifier.width(IntrinsicSize.Min)
+
+                container.crossAxisAlignment?.let { crossAxis ->
+                    if (crossAxis == "stretch") {
+                        modifier = modifier.width(IntrinsicSize.Min)
+                    }
                 }
             }
         }

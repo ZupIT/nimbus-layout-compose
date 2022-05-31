@@ -32,10 +32,9 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     Column {
                         Nimbus(config = config) {
-                            NimbusNavigator(json = TOUCHABLE_JSON)
+                            NimbusNavigator(json = ROW_MARGIN_TOP_BOTTOM_JSON)
                         }
                     }
-
                 }
             }
         }

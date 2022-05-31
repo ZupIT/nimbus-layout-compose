@@ -26,11 +26,11 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     NIMBUS_ROW to @Composable { element, children, parentElement ->
         val modelParent = parentElement?.let { parse(it, object : TypeReference<LayoutComponent>() {}) }
         val model = element.parse(object : TypeReference<RowModel>() {}) ?: RowModel()
-        NimbusRow(model = model, modelLayout = modelParent, content = children)
+        NimbusRow(model = model, parentLayout = modelParent, content = children)
     },
     NIMBUS_COLUMN to @Composable { element, children, parentElement ->
         val modelParent = parentElement?.let { parse(it, object : TypeReference<LayoutComponent>() {}) }
         val model = element.parse(object : TypeReference<ColumnModel>() {}) ?: ColumnModel()
-        NimbusColumn(model = model, modelLayout = modelParent, content = children)
+        NimbusColumn(model = model, parentLayout = modelParent, content = children)
     },
 )

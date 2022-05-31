@@ -2,8 +2,11 @@ package br.com.zup.nimbus.compose.layout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -38,39 +41,53 @@ internal fun Modifier.container(
         var modifier = this@container
 
         //Should apply margin before background
-        modifier = modifier.margin(container)
+        modifier = modifier.margin(this)
 
         container.backgroundColor?.let {
             modifier = modifier.background(it.color)
         }
 
-        //Padding should be after background
-        modifier = modifier.padding(container)
 
-        container.flex?.let { flex ->
-            when(scope) {
-                is RowScope -> {
-                    with(scope) {
-                        modifier = modifier.weight(flex.toFloat())
+        when(scope) {
+            is RowScope -> {
+                with(scope)
+                {
+                    flex?.let {
+                        modifier = modifier.weight(it.toFloat())
                     }
                 }
-                is ColumnScope -> {
-                    with(scope) {
-                        modifier = modifier.weight(flex.toFloat())
+                crossAxisAlignment?.let { crossAxis ->
+                    if (crossAxis == "stretch") {
+                        modifier = modifier.height(IntrinsicSize.Min)
                     }
                 }
             }
+            is ColumnScope -> {
+                with(scope) {
+                    flex?.let {
+                        modifier = modifier.weight(it.toFloat())
+                    }
+                }
+                crossAxisAlignment?.let { crossAxis ->
+                    if (crossAxis == "stretch") {
+                        modifier = modifier.width(IntrinsicSize.Min)
+                    }
+                }
+            }
+            else -> {}
         }
 
-        container.height?.let {
+
+        height?.let {
             modifier = modifier.height(it.dp)
         }
 
-        container.width?.let {
+        width?.let {
             modifier = modifier.width(it.dp)
         }
 
-
+        //Padding should be after background
+        modifier = modifier.padding(this)
         //TODO add other properties
 
         return@with modifier

@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -35,7 +33,8 @@ internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
 internal fun Modifier.container(
     container: Container,
     @LayoutScopeMarker
-    scope: Any? = null) = this.then(
+    scope: Any? = null,
+) = this.then(
 
     with(container) {
         var modifier = this@container
@@ -47,36 +46,7 @@ internal fun Modifier.container(
             modifier = modifier.background(it.color)
         }
 
-
-        when(scope) {
-            is RowScope -> {
-                with(scope)
-                {
-                    flex?.let {
-                        modifier = modifier.weight(it.toFloat())
-                    }
-                }
-                crossAxisAlignment?.let { crossAxis ->
-                    if (crossAxis == "stretch") {
-                        modifier = modifier.height(IntrinsicSize.Min)
-                    }
-                }
-            }
-            is ColumnScope -> {
-                with(scope) {
-                    flex?.let {
-                        modifier = modifier.weight(it.toFloat())
-                    }
-                }
-                crossAxisAlignment?.let { crossAxis ->
-                    if (crossAxis == "stretch") {
-                        modifier = modifier.width(IntrinsicSize.Min)
-                    }
-                }
-            }
-            else -> {}
-        }
-
+        modifier = modifier.applyScopeModifier(scope, container)
 
         height?.let {
             modifier = modifier.height(it.dp)
@@ -93,6 +63,42 @@ internal fun Modifier.container(
         return@with modifier
     }
 )
+
+internal fun Modifier.applyScopeModifier(
+    scope: Any?,
+    container: Container,
+) = this.then(with(container) {
+    var modifier = this@applyScopeModifier
+    when (scope) {
+        is RowScope -> {
+            with(scope)
+            {
+                container.flex?.let {
+                    modifier = modifier.weight(it.toFloat())
+                }
+            }
+            container.crossAxisAlignment?.let { crossAxis ->
+                if (crossAxis == "stretch") {
+                    modifier = modifier.height(IntrinsicSize.Min)
+                }
+            }
+        }
+        is ColumnScope -> {
+            with(scope) {
+                container.flex?.let {
+                    modifier = modifier.weight(it.toFloat())
+                }
+            }
+            container.crossAxisAlignment?.let { crossAxis ->
+                if (crossAxis == "stretch") {
+                    modifier = modifier.width(IntrinsicSize.Min)
+                }
+            }
+        }
+        else -> {}
+    }
+    return@with modifier
+})
 
 internal fun Modifier.margin(
     container: Container,

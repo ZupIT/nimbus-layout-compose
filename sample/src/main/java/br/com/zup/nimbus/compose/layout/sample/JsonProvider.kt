@@ -326,6 +326,46 @@ const val ROW_MARGIN_TOP_BOTTOM_JSON = """{
       }
 }"""
 
+//6. Imagem com 100 de largura à esquerda de um componente que ocupa o resto do espaço disponível.
+// Margem de 20 entre a imagem e o componente. O Retangulo deve ocupar a
+// altura da imagem de maneira implícita.
+const val ROW_IMAGE_FILL_HEIGHT = """{
+  "_:component": "layout:row",
+  "children": [
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "r"
+        }
+      }],
+      "properties": {      
+        "backgroundColor": "#ff0000",
+        "height": 100.0,
+        "width": 100.0
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "g"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#00ff00",
+        "marginStart": 20.0
+      }
+    }],
+      "properties": {
+        "backgroundColor": "#FFCCCCCC",  
+        "crossAxisAlignment": "stretch"
+      }
+}"""
+
 const val COLUMN_JSON = """{
   "_:component": "layout:column",
   "children": [

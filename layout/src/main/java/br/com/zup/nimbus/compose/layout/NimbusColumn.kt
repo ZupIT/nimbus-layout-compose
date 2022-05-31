@@ -17,19 +17,16 @@ private object NimbusColumnScope {
 
 @Composable
 internal fun NimbusColumn(
-    model: ColumnModel,
+    container: Container,
     parentLayout: LayoutComponent? = null,
     modifier: Modifier = Modifier,
     content: Component,
 ) {
     Column(
-        modifier = modifier.container(container = model,
+        modifier = modifier.container(container = container,
             parentLayout = parentLayout,
             scope = NimbusColumnScope.instance)
     ) {
         content()
     }
 }
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-internal class ColumnModel : Container()

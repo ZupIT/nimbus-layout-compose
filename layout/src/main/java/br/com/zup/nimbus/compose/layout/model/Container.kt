@@ -1,5 +1,8 @@
 package br.com.zup.nimbus.compose.layout.model
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 internal open class Container(
     val flex: Int? = null,
     //'stretch' | 'start' | 'end' | 'center', // default: start

@@ -7,6 +7,7 @@ import br.com.zup.nimbus.compose.layout.model.Accessibility
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_TOUCHABLE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
+import br.com.zup.nimbus.compose.layout.model.Container
 import br.com.zup.nimbus.compose.layout.model.LayoutComponent
 import br.zup.com.nimbus.compose.ComponentHandler
 import com.fasterxml.jackson.core.type.TypeReference
@@ -25,12 +26,12 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     },
     NIMBUS_ROW to @Composable { element, children, parentElement ->
         val modelParent = parentElement?.let { parse(it, object : TypeReference<LayoutComponent>() {}) }
-        val model = element.parse(object : TypeReference<RowModel>() {}) ?: RowModel()
-        NimbusRow(model = model, parentLayout = modelParent, content = children)
+        val model = element.parse(object : TypeReference<Container>() {}) ?: Container()
+        NimbusRow(container = model, parentLayout = modelParent, content = children)
     },
     NIMBUS_COLUMN to @Composable { element, children, parentElement ->
         val modelParent = parentElement?.let { parse(it, object : TypeReference<LayoutComponent>() {}) }
-        val model = element.parse(object : TypeReference<ColumnModel>() {}) ?: ColumnModel()
-        NimbusColumn(model = model, parentLayout = modelParent, content = children)
+        val model = element.parse(object : TypeReference<Container>() {}) ?: Container()
+        NimbusColumn(container = model, parentLayout = modelParent, content = children)
     },
 )

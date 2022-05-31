@@ -17,13 +17,13 @@ private object NimbusRowScope {
 
 @Composable
 internal fun NimbusRow(
-    model: RowModel,
+    container: Container,
     parentLayout: LayoutComponent? = null,
     modifier: Modifier = Modifier,
     content: Component,
 ) {
     Row(
-        modifier = modifier.container(container = model,
+        modifier = modifier.container(container = container,
             parentLayout = parentLayout,
             scope = NimbusRowScope.instance)
     ) {
@@ -31,5 +31,3 @@ internal fun NimbusRow(
     }
 }
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-internal class RowModel : Container()

@@ -6,9 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.ComponentStructure
-import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.ParentComponent
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 private object NimbusColumnScope {
     private val kClass =
@@ -19,7 +16,7 @@ private object NimbusColumnScope {
 @Composable
 internal fun NimbusColumn(
     model: ComponentStructure,
-    parentComponent: ParentComponent? = null,
+    parentComponent: ComponentStructure? = null,
     modifier: Modifier = Modifier,
     content: Component,
 ) {
@@ -31,12 +28,3 @@ internal fun NimbusColumn(
         content()
     }
 }
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-internal class NimbusColumnModel : Container()
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-internal class NimbusColumnApi(
-    override val component: String? = null,
-    override val properties: NimbusColumnModel? = null
-): ComponentStructure

@@ -19,8 +19,9 @@ import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.model.Accessibility
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
+import br.com.zup.nimbus.compose.layout.model.ComponentStructure
 import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.ParentComponent
+import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
 
 internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
     accessibility?.let { a ->
@@ -37,7 +38,7 @@ internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
 
 internal fun Modifier.container(
     container: Container,
-    parentComponent: ParentComponent? = null,
+    parentComponent: ComponentStructure? = null,
     @LayoutScopeMarker
     scope: Any? = null,
 ) = this.then(

@@ -1,5 +1,5 @@
 package br.com.zup.nimbus.compose.layout.sample
 
 
-const val BASE_URL = "https://gist.githubusercontent.com/Tiagoperes/" +
-        "74808ebd7ad7f0645491fc60436223a6/raw/85702801aa8b5c6d62d8d500ef9a262b767ec94c"
+const val BASE_URL = "https://gist.githubusercontent.com/hernandazevedozup/" +
+        "eba4f2eb6afd6d6769a549fe037c1613/raw/73d83ad09524658b9965453ff4dbbb7d68151daa"

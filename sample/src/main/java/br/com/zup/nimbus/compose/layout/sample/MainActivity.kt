@@ -13,6 +13,7 @@ import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusConfig
 import br.zup.com.nimbus.compose.NimbusNavigator
+import com.zup.nimbus.core.network.ViewRequest
 
 class MainActivity : ComponentActivity() {
     private val config = NimbusConfig(
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     Column {
                         Nimbus(config = config) {
-                            NimbusNavigator(json = EXAMPLE_7_1)
+                            NimbusNavigator(ViewRequest("/8_4"))
                         }
                     }
                 }

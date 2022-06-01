@@ -76,7 +76,7 @@ const val EXAMPLE_1 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#ff0000",
+        "backgroundColor": "#FF0000",
         "height": 50.0
       }
     },
@@ -90,7 +90,7 @@ const val EXAMPLE_1 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#00ff00",
+        "backgroundColor": "#00FF00",
         "height": 50.0
       }
     },
@@ -104,7 +104,7 @@ const val EXAMPLE_1 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#0000ff",
+        "backgroundColor": "#0000FF",
         "height": 50.0
       }
     }],
@@ -126,7 +126,7 @@ const val EXAMPLE_2 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#ff0000",
+        "backgroundColor": "#FF0000",
         "height": 50.0,
         "marginStart": 10
       }
@@ -141,7 +141,7 @@ const val EXAMPLE_2 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#00ff00",
+        "backgroundColor": "#00FF00",
         "height": 50.0,
         "marginStart": 10
       }
@@ -156,7 +156,7 @@ const val EXAMPLE_2 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#0000ff",
+        "backgroundColor": "#0000FF",
         "height": 50.0,
         "marginStart": 10
       }
@@ -180,7 +180,7 @@ const val EXAMPLE_3 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#ff0000",
+        "backgroundColor": "#FF0000",
         "height": 50.0,
         "paddingStart": 10
       }
@@ -195,7 +195,7 @@ const val EXAMPLE_3 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#00ff00",
+        "backgroundColor": "#00FF00",
         "height": 50.0,
         "paddingStart": 10
       }
@@ -210,7 +210,7 @@ const val EXAMPLE_3 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#0000ff",
+        "backgroundColor": "#0000FF",
         "height": 50.0,
         "paddingStart": 10
       }
@@ -234,7 +234,7 @@ const val EXAMPLE_4 = """{
       }],
       "properties": {
         "flex":2,
-        "backgroundColor": "#ff0000",
+        "backgroundColor": "#FF0000",
         "height": 50.0
       }
     },
@@ -248,7 +248,7 @@ const val EXAMPLE_4 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#00ff00",
+        "backgroundColor": "#00FF00",
         "height": 50.0
       }
     },
@@ -262,7 +262,7 @@ const val EXAMPLE_4 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#0000ff",
+        "backgroundColor": "#0000FF",
         "height": 50.0
       }
     }],
@@ -285,7 +285,7 @@ const val EXAMPLE_5 = """{
       }],
       "properties": {
         "flex":2,
-        "backgroundColor": "#ff0000",
+        "backgroundColor": "#FF0000",
         "height": 50.0,
         "marginTop": 10,
         "marginBottom": 10
@@ -301,7 +301,7 @@ const val EXAMPLE_5 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#00ff00",
+        "backgroundColor": "#00FF00",
         "height": 50.0
       }
     },
@@ -315,7 +315,7 @@ const val EXAMPLE_5 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#0000ff",
+        "backgroundColor": "#0000FF",
         "height": 50.0,
         "paddingTop": 10,
         "paddingBottom": 10
@@ -341,7 +341,7 @@ const val EXAMPLE_6 = """{
         }
       }],
       "properties": {      
-        "backgroundColor": "#ff0000",
+        "backgroundColor": "#FF0000",
         "height": 100.0,
         "width": 100.0
       }
@@ -356,7 +356,7 @@ const val EXAMPLE_6 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#00ff00",
+        "backgroundColor": "#00FF00",
         "marginStart": 20.0
       }
     }],
@@ -381,7 +381,7 @@ const val EXAMPLE_6_1 = """{
         }
       }],
       "properties": {      
-        "backgroundColor": "#ff0000",
+        "backgroundColor": "#FF0000",
         "height": 100.0,
         "width": 100.0
       }
@@ -396,13 +396,53 @@ const val EXAMPLE_6_1 = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#00ff00",
+        "backgroundColor": "#00FF00",
         "marginTop": 20.0
       }
     }],
       "properties": {
         "backgroundColor": "#FFCCCCCC",  
         "crossAxisAlignment": "stretch"
+      }
+}"""
+
+//1. Row: 3 elementos de tamanhos iguais que ocupam todo o espaço disponível (flex: 1).
+const val EXAMPLE_7_1 = """{
+  "_:component": "layout:row",
+  "children": [
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "flex-end"
+        }
+      }],
+      "properties": {
+        "backgroundColor": "#0000FF",
+        "height": 100.0,
+        "width": 100.0
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": ""
+        }
+      }],
+      "properties": {
+        "backgroundColor": "#FF0000",
+        "height": 100.0,
+        "width": 100.0
+      }
+    }],
+      "properties": {
+        "backgroundColor": "#FFCCCCCC",   
+        "mainAxisAlignment": "end",
+        "height": 250.0,
+        "width": 250.0
       }
 }"""
 
@@ -419,7 +459,7 @@ const val COLUMN_JSON = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#ff0000"
+        "backgroundColor": "#FF0000"
       }
     },
     {
@@ -432,7 +472,7 @@ const val COLUMN_JSON = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#00ff00"
+        "backgroundColor": "#00FF00"
       }
     },
     {
@@ -445,7 +485,7 @@ const val COLUMN_JSON = """{
       }],
       "properties": {
         "flex":1,
-        "backgroundColor": "#0000ff"
+        "backgroundColor": "#0000FF"
       }
     }],
       "properties": {

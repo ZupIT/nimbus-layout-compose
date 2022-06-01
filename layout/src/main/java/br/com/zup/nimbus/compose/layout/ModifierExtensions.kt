@@ -17,11 +17,10 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.model.Accessibility
-import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
-import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
+import br.com.zup.nimbus.compose.layout.model.ComponentNames
 import br.com.zup.nimbus.compose.layout.model.ComponentStructure
 import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
+import br.com.zup.nimbus.compose.layout.model.CrossAxisAlignment
 
 internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
     accessibility?.let { a ->
@@ -55,33 +54,9 @@ internal fun Modifier.container(
 
         modifier = modifier.applyScopeModifier(scope, container)
 
-        if (parentComponent != null) {
-            if (parentComponent.component == NIMBUS_ROW) {
-                if (container.height == null) {
-                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
-                        if (crossAxis == "stretch") {
-                            modifier = modifier.fillMaxHeight()
-                        }
-                    }
-                }
-            } else if (parentComponent.component == NIMBUS_COLUMN) {
-                if (container.width == null) {
-                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
-                        if (crossAxis == "stretch") {
-                            modifier = modifier.fillMaxWidth()
-                        }
-                    }
-                }
-            }
-        }
+        modifier = modifier.fillMaxSize(container, parentComponent)
 
-        container.width?.let {
-            modifier = modifier.width(it.dp)
-        }
-
-        container.height?.let {
-            modifier = modifier.height(it.dp)
-        }
+        modifier = modifier.size(container)
 
         //Padding should be after background
         modifier = modifier.padding(this)
@@ -105,7 +80,7 @@ internal fun Modifier.applyScopeModifier(
                 }
 
                 container.crossAxisAlignment?.let { crossAxis ->
-                    if (crossAxis == "stretch") {
+                    if (crossAxis == CrossAxisAlignment.STRETCH) {
                         modifier = modifier.height(IntrinsicSize.Min)
                     }
                 }
@@ -118,7 +93,7 @@ internal fun Modifier.applyScopeModifier(
                 }
 
                 container.crossAxisAlignment?.let { crossAxis ->
-                    if (crossAxis == "stretch") {
+                    if (crossAxis == CrossAxisAlignment.STRETCH) {
                         modifier = modifier.width(IntrinsicSize.Min)
                     }
                 }
@@ -128,6 +103,55 @@ internal fun Modifier.applyScopeModifier(
     }
     return@with modifier
 })
+
+internal fun Modifier.fillMaxSize(
+    container: Container,
+    parentComponent: ComponentStructure?,
+) = this.then(
+    with(container) {
+        var modifier = this@fillMaxSize
+
+        if (parentComponent != null) {
+            if (parentComponent.component == ComponentNames.NIMBUS_ROW) {
+                if (container.height == null) {
+                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
+                        if (crossAxis == CrossAxisAlignment.STRETCH) {
+                            modifier = modifier.fillMaxHeight()
+                        }
+                    }
+                }
+            } else if (parentComponent.component == ComponentNames.NIMBUS_COLUMN) {
+                if (container.width == null) {
+                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
+                        if (crossAxis == CrossAxisAlignment.STRETCH) {
+                            modifier = modifier.fillMaxWidth()
+                        }
+                    }
+                }
+            }
+        }
+
+        return@with modifier
+    }
+)
+
+internal fun Modifier.size(
+    container: Container,
+) = this.then(
+    with(container) {
+        var modifier = this@size
+
+        container.width?.let {
+            modifier = modifier.width(it.dp)
+        }
+
+        container.height?.let {
+            modifier = modifier.height(it.dp)
+        }
+
+        return@with modifier
+    }
+)
 
 internal fun Modifier.margin(
     container: Container,
@@ -207,7 +231,6 @@ internal fun Modifier.padding(
         return@with modifier
     }
 )
-
 
 val String.color
     get() = Color(android.graphics.Color.parseColor(this))

@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.lang.IllegalArgumentException
 
 const val COLOR_BLACK = "#000000"
 
@@ -29,14 +28,13 @@ internal object ComponentNames {
     const val NIMBUS_TOUCHABLE = "layout:touchable"
 }
 
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal class NimbusRowModel : Container()
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal class NimbusRowApi(
     override val component: String? = null,
-    override val properties: NimbusRowModel? = null
+    override val properties: NimbusRowModel? = NimbusRowModel()
 ): ComponentStructure
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -45,7 +43,7 @@ internal class NimbusColumnModel : Container()
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal class NimbusColumnApi(
     override val component: String? = null,
-    override val properties: NimbusColumnModel? = null
+    override val properties: NimbusColumnModel? = NimbusColumnModel()
 ): ComponentStructure
 
 internal enum class CrossAxisAlignment {

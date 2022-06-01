@@ -20,7 +20,7 @@ import br.com.zup.nimbus.compose.layout.model.Accessibility
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
 import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.LayoutComponent
+import br.com.zup.nimbus.compose.layout.model.ParentComponent
 
 internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
     accessibility?.let { a ->
@@ -37,7 +37,7 @@ internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
 
 internal fun Modifier.container(
     container: Container,
-    parentLayout: LayoutComponent? = null,
+    parentComponent: ParentComponent? = null,
     @LayoutScopeMarker
     scope: Any? = null,
 ) = this.then(
@@ -54,18 +54,18 @@ internal fun Modifier.container(
 
         modifier = modifier.applyScopeModifier(scope, container)
 
-        if (parentLayout != null) {
-            if (parentLayout.component == NIMBUS_ROW) {
+        if (parentComponent != null) {
+            if (parentComponent.component == NIMBUS_ROW) {
                 if (container.height == null) {
-                    parentLayout.properties?.crossAxisAlignment?.let { crossAxis ->
+                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
                         if (crossAxis == "stretch") {
                             modifier = modifier.fillMaxHeight()
                         }
                     }
                 }
-            } else if (parentLayout.component == NIMBUS_COLUMN) {
+            } else if (parentComponent.component == NIMBUS_COLUMN) {
                 if (container.width == null) {
-                    parentLayout.properties?.crossAxisAlignment?.let { crossAxis ->
+                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
                         if (crossAxis == "stretch") {
                             modifier = modifier.fillMaxWidth()
                         }

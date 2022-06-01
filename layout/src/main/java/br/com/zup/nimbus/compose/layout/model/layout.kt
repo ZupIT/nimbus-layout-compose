@@ -9,10 +9,15 @@ typealias Component = @Composable() () -> Unit
 typealias Action = (Any?) -> Unit
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class LayoutComponent(
-    val component: String? = null,
-    val properties: Container? = null
-)
+internal open class ParentComponent(
+    override val component: String? = null,
+    override val properties: Container? = null
+): ComponentStructure
+
+internal interface ComponentStructure {
+    val component: String?
+    val properties: Container?
+}
 
 internal object ComponentNames {
     const val NIMBUS_ROW = "layout:row"

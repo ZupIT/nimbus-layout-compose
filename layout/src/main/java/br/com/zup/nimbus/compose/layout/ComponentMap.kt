@@ -5,10 +5,9 @@ package br.com.zup.nimbus.compose.layout
 import androidx.compose.runtime.Composable
 import br.com.zup.nimbus.compose.layout.model.Accessibility
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
-import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_TOUCHABLE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
-import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.LayoutComponent
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_TOUCHABLE
+import br.com.zup.nimbus.compose.layout.model.ParentComponent
 import br.zup.com.nimbus.compose.ComponentHandler
 import com.fasterxml.jackson.core.type.TypeReference
 
@@ -25,13 +24,13 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
         NimbusTouchable(model)
     },
     NIMBUS_ROW to @Composable { element, children, parentElement ->
-        val modelParent = parentElement?.let { parse(it, object : TypeReference<LayoutComponent>() {}) }
-        val model = element.parse(object : TypeReference<Container>() {}) ?: Container()
-        NimbusRow(container = model, parentLayout = modelParent, content = children)
+        val modelParent = parentElement?.let { parse(it, object : TypeReference<ParentComponent>() {}) }
+        val model = element.parse(object : TypeReference<NimbusRowApi>() {}) ?: NimbusRowApi()
+        NimbusRow(model = model, parentComponent = modelParent, content = children)
     },
     NIMBUS_COLUMN to @Composable { element, children, parentElement ->
-        val modelParent = parentElement?.let { parse(it, object : TypeReference<LayoutComponent>() {}) }
-        val model = element.parse(object : TypeReference<Container>() {}) ?: Container()
-        NimbusColumn(container = model, parentLayout = modelParent, content = children)
+        val modelParent = parentElement?.parse(object : TypeReference<ParentComponent>() {})
+        val model = element.parse(object : TypeReference<NimbusColumnApi>() {}) ?: NimbusColumnApi()
+        NimbusColumn(model = model, parentComponent = modelParent, content = children)
     },
 )

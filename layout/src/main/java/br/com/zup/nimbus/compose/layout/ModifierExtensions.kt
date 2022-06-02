@@ -180,42 +180,42 @@ internal fun Modifier.margin(
 
 internal fun Modifier.padding(
     container: Container,
-    newModifier: Modifier = Modifier
+    modifier: Modifier = Modifier
 ) = this.then(
     with(container) {
-        var modifier = newModifier
+        var newModifier = modifier
 
         container.padding?.let {
-            modifier = modifier.padding(it.dp)
+            newModifier = newModifier.padding(it.dp)
         }
 
         container.paddingStart?.let {
-            modifier = modifier.padding(start = it.dp)
+            newModifier = newModifier.padding(start = it.dp)
         }
 
         container.paddingEnd?.let {
-            modifier = modifier.padding(end = it.dp)
+            newModifier = newModifier.padding(end = it.dp)
         }
 
         container.paddingTop?.let {
-            modifier = modifier.padding(top = it.dp)
+            newModifier = newModifier.padding(top = it.dp)
         }
 
         container.paddingBottom?.let {
-            modifier = modifier.padding(bottom = it.dp)
+            newModifier = newModifier.padding(bottom = it.dp)
         }
 
         container.paddingHorizontal?.let {
-            modifier = modifier.padding(start = it.dp)
-            modifier = modifier.padding(end = it.dp)
+            newModifier = newModifier.padding(start = it.dp)
+            newModifier = newModifier.padding(end = it.dp)
         }
 
         container.paddingVertical?.let {
-            modifier = modifier.padding(top = it.dp)
-            modifier = modifier.padding(bottom = it.dp)
+            newModifier = newModifier.padding(top = it.dp)
+            newModifier = newModifier.padding(bottom = it.dp)
         }
 
-        return@with modifier
+        return@with newModifier
     }
 )
 

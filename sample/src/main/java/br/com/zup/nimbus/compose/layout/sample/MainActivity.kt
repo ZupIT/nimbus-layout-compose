@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Nimbus(config = config) {
-                        NimbusNavigator(ViewRequest("/8_4"))
+                        NimbusNavigator(ViewRequest("/5"))
                     }
                 }
             }

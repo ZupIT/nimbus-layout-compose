@@ -18,8 +18,8 @@ private object NimbusColumnScope {
 @Composable
 internal fun NimbusColumn(
     model: ComponentStructure,
-    parentComponent: ComponentStructure? = null,
     modifier: Modifier = Modifier,
+    parentComponent: ComponentStructure? = null,
     content: Component,
 ) {
     val container = requireNotNull(model.properties)
@@ -28,9 +28,7 @@ internal fun NimbusColumn(
     Column(
         verticalArrangement = verticalArrangement ?: Arrangement.Top,
         horizontalAlignment = horizontalAlignment ?: Alignment.Start,
-        modifier = modifier.container(container = model.properties!!,
-            parentComponent = parentComponent,
-            scope = NimbusColumnScope.instance)
+        modifier = modifier.container(container, parentComponent, NimbusColumnScope.instance)
     ) {
         content()
     }

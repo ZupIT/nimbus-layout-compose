@@ -19,8 +19,8 @@ private object NimbusRowScope {
 @Composable
 internal fun NimbusRow(
     model: ComponentStructure,
-    parentComponent: GenericComponentApi? = null,
     modifier: Modifier = Modifier,
+    parentComponent: GenericComponentApi? = null,
     content: Component,
 ) {
     val container = requireNotNull(model.properties)
@@ -30,9 +30,7 @@ internal fun NimbusRow(
     Row(
         horizontalArrangement = horizontalArrangement ?: Arrangement.Start,
         verticalAlignment = verticalAlignment ?: Alignment.Top,
-        modifier = modifier.container(container = container,
-            parentComponent = parentComponent,
-            scope = NimbusRowScope.instance)
+        modifier = modifier.container(container, parentComponent, NimbusRowScope.instance)
     ) {
         content()
     }

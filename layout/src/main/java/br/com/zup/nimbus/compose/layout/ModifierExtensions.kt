@@ -35,39 +35,25 @@ internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
     } ?: this
 )
 
+internal fun Modifier.background(color: String?) = this.then(
+    color?.let { this.background(it.color) } ?: this
+)
+
 internal fun Modifier.container(
     container: Container,
     parentComponent: ComponentStructure? = null,
     @LayoutScopeMarker
-    scope: Any? = null,
+    scope: Any,
 ) = this.then(
-
-    with(container) {
-        var modifier = this@container
-
-        //Should apply margin before background
-        modifier = modifier.margin(this)
-
-        container.backgroundColor?.let {
-            modifier = modifier.background(it.color)
-        }
-
-        modifier = modifier.applyScopeModifier(scope, container)
-
-        modifier = modifier.fillMaxSize(container, parentComponent)
-
-        modifier = modifier.size(container)
-
-        //Padding should be after background
-        modifier = modifier.padding(this)
-        //TODO add other properties
-
-        return@with modifier
-    }
-)
+        this.applyScopeModifier(scope, container)
+            .size(container)
+            .fillMaxSize(container, parentComponent)
+            .margin(container)
+            .background(container.backgroundColor)
+            .padding(container))
 
 internal fun Modifier.applyScopeModifier(
-    scope: Any?,
+    scope: Any,
     container: Container,
 ) = this.then(with(container) {
     var modifier = this@applyScopeModifier
@@ -194,9 +180,10 @@ internal fun Modifier.margin(
 
 internal fun Modifier.padding(
     container: Container,
+    newModifier: Modifier = Modifier
 ) = this.then(
     with(container) {
-        var modifier = this@padding
+        var modifier = newModifier
 
         container.padding?.let {
             modifier = modifier.padding(it.dp)

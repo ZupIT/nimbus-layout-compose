@@ -62,7 +62,7 @@ jobs:
           DEVICE_NAME: ci_pixel_api_${{steps.sets-android-api-level.outputs.result}}
           ANDROID_VERSION: ${{ matrix.android-version }}
         with:
-          avd-name: ci_pixel_api_${{steps.sets-android-api-level.outputs.result}} #ci_pixel_api_${{steps.sets-android-api-level.outputs.result}}
+          avd-name: ${{env.DEVICE_NAME}} #ci_pixel_api_${{steps.sets-android-api-level.outputs.result}}
           api-level: ${{steps.sets-android-api-level.outputs.result}}
           target: google_apis
           profile: pixel

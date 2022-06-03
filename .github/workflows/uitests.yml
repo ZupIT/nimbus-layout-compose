@@ -1,0 +1,80 @@
+name: Pull request validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  uitests:
+    runs-on: macos-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        android-version: [ 5, 6, 8, 11 ]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+      - name: AVD cache
+        uses: actions/cache@v2
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.android-version }}
+
+      - name: Setup Java version
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Returns Android API level
+        id: sets-android-api-level
+        env:
+          ANDROID_VERSION: ${{ matrix.android-version }}
+        run: |
+          case $ANDROID_VERSION in
+          5) echo ::set-output name=result::"21" ;;
+          6) echo ::set-output name=result::"23" ;;
+          8) echo ::set-output name=result::"26" ;;
+          11) echo ::set-output name=result::"30" ;;
+          *) echo "Invalid option!" && exit 1 ;;
+          esac
+
+      - name: Run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          avd-name: ${{env.DEVICE_NAME}} #ci_pixel_api_${{steps.sets-android-api-level.outputs.result}}
+          api-level: ${{steps.sets-android-api-level.outputs.result}}
+          target: google_apis
+          profile: pixel
+          script: |
+            bash ./gradlew executeScreenshotTests -Pverify
+
+      - name: "Add build scan URL as PR comment"
+        uses: actions/github-script@v5
+        if: github.event_name == 'pull_request' && failure()
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ ${{ github.workflow }} failed: ${{ steps.gradle.outputs.build-scan-url }}'
+            })

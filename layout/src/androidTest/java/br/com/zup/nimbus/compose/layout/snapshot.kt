@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.ComponentHandler
 import br.zup.com.nimbus.compose.Nimbus
@@ -36,3 +38,26 @@ fun ScreenTest(json: String) {
         }
     }
 }
+
+
+private const val WAIT_UNTIL_TIMEOUT = 1_000L
+
+fun ComposeContentTestRule.waitUntilNodeCount(
+    matcher: SemanticsMatcher,
+    count: Int,
+    timeoutMillis: Long = WAIT_UNTIL_TIMEOUT
+) {
+    waitUntil(timeoutMillis) {
+        onAllNodes(matcher).fetchSemanticsNodes().size == count
+    }
+}
+
+fun ComposeContentTestRule.waitUntilExists(
+    matcher: SemanticsMatcher,
+    timeoutMillis: Long = WAIT_UNTIL_TIMEOUT
+) = waitUntilNodeCount(matcher, 1, timeoutMillis)
+
+fun ComposeContentTestRule.waitUntilDoesNotExist(
+    matcher: SemanticsMatcher,
+    timeoutMillis: Long = WAIT_UNTIL_TIMEOUT
+) = waitUntilNodeCount(matcher, 0, timeoutMillis)

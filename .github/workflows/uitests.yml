@@ -59,9 +59,9 @@ jobs:
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
         env:
+          EMULATOR_API_LEVEL: ${{ env.API_LEVEL }}
           DEVICE_NAME: ci_pixel_api_${{env.API_LEVEL}}
           ANDROID_VERSION: ${{ matrix.android-version }}
-          EMULATOR_API_LEVEL: ${{ env.API_LEVEL }}
         with:
           api-level: ${{env.EMULATOR_API_LEVEL}}
           avd-name: ${{env.DEVICE_NAME}}

@@ -62,7 +62,7 @@ jobs:
           DEVICE_NAME: ci_pixel_api_${{ env.API_LEVEL }}
           ANDROID_VERSION: ${{ matrix.android-version }}
         with:
-          api-level: 21
+          api-level: {{ env.API_LEVEL }}
           avd-name: ${{ env.DEVICE_NAME }}
           target: google_apis
           profile: pixel

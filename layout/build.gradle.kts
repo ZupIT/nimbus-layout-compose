@@ -8,6 +8,7 @@ plugins {
 
 val serializationVersion = "1.3.2"
 val ktorVersion = "2.0.0"
+val applicationId by extra("br.com.zup.nimbus.android.layout.test")
 
 dependencies {
     implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha2")
@@ -41,7 +42,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        testApplicationId = "br.com.zup.nimbus.android.layout.test"
+        testApplicationId = applicationId
         testInstrumentationRunner = "com.karumi.shot.ShotTestRunner"
     }
     buildTypes {

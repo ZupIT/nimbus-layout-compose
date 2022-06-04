@@ -66,9 +66,17 @@ jobs:
           avd-name: ${{ env.DEVICE_NAME }}
           target: google_apis
           profile: pixel
+          force-avd-creation: false
+          arch: x86
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: bash ./gradlew executeScreenshotTests -Pverify --stacktrace
-
+          script: bash ./gradlew executeScreenshotTests --stacktrace
+      - name: Upload Reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test-Reports
+          path: layout/build/reports
+        if: always()
       - name: "Add build scan URL as PR comment"
         uses: actions/github-script@v5
         if: github.event_name == 'pull_request' && failure()

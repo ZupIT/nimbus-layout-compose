@@ -63,7 +63,7 @@ jobs:
           ANDROID_VERSION: ${{ matrix.android-version }}
         with:
           avd-name: ${{env.DEVICE_NAME}} #ci_pixel_api_${{steps.sets-android-api-level.outputs.result}}
-          api-level: ${{steps.sets-android-api-level.outputs.result}}
+          api-level: ${{env.API_LEVEL}}
           target: google_apis
           profile: pixel
           script: bash ./gradlew executeScreenshotTests -Pverify

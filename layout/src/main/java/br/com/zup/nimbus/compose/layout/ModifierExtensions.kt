@@ -17,11 +17,10 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.model.Accessibility
-import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
-import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
+import br.com.zup.nimbus.compose.layout.model.ComponentNames
 import br.com.zup.nimbus.compose.layout.model.ComponentStructure
 import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
+import br.com.zup.nimbus.compose.layout.model.CrossAxisAlignment
 
 internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
     accessibility?.let { a ->
@@ -36,77 +35,41 @@ internal fun Modifier.accessibility(accessibility: Accessibility?) = this.then(
     } ?: this
 )
 
+internal fun Modifier.background(color: String?) = this.then(
+    color?.let { Modifier.background(it.color) } ?: this
+)
+
 internal fun Modifier.container(
     container: Container,
     parentComponent: ComponentStructure? = null,
     @LayoutScopeMarker
-    scope: Any? = null,
+    scope: Any,
 ) = this.then(
-
-    with(container) {
-        var modifier = this@container
-
-        //Should apply margin before background
-        modifier = modifier.margin(this)
-
-        container.backgroundColor?.let {
-            modifier = modifier.background(it.color)
-        }
-
-        modifier = modifier.applyScopeModifier(scope, container)
-
-        if (parentComponent != null) {
-            if (parentComponent.component == NIMBUS_ROW) {
-                if (container.height == null) {
-                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
-                        if (crossAxis == "stretch") {
-                            modifier = modifier.fillMaxHeight()
-                        }
-                    }
-                }
-            } else if (parentComponent.component == NIMBUS_COLUMN) {
-                if (container.width == null) {
-                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
-                        if (crossAxis == "stretch") {
-                            modifier = modifier.fillMaxWidth()
-                        }
-                    }
-                }
-            }
-        }
-
-        container.width?.let {
-            modifier = modifier.width(it.dp)
-        }
-
-        container.height?.let {
-            modifier = modifier.height(it.dp)
-        }
-
-        //Padding should be after background
-        modifier = modifier.padding(this)
-        //TODO add other properties
-
-        return@with modifier
-    }
+        this.applyScopeModifier(scope, container)
+            .margin(container)
+            .size(container)
+            .fillMaxSize(container, parentComponent)
+            .background(container.backgroundColor)
+            .padding(container)
 )
 
 internal fun Modifier.applyScopeModifier(
-    scope: Any?,
+    scope: Any,
     container: Container,
+    modifier: Modifier = Modifier
 ) = this.then(with(container) {
-    var modifier = this@applyScopeModifier
+    var newModifier = modifier
     when (scope) {
         is RowScope -> {
             with(scope)
             {
                 container.flex?.let {
-                    modifier = modifier.weight(it.toFloat())
+                    newModifier = newModifier.weight(it.toFloat())
                 }
 
                 container.crossAxisAlignment?.let { crossAxis ->
-                    if (crossAxis == "stretch") {
-                        modifier = modifier.height(IntrinsicSize.Min)
+                    if (crossAxis == CrossAxisAlignment.STRETCH) {
+                        newModifier = newModifier.height(IntrinsicSize.Min)
                     }
                 }
             }
@@ -114,100 +77,152 @@ internal fun Modifier.applyScopeModifier(
         is ColumnScope -> {
             with(scope) {
                 container.flex?.let {
-                    modifier = modifier.weight(it.toFloat())
+                    newModifier = newModifier.weight(it.toFloat())
                 }
 
                 container.crossAxisAlignment?.let { crossAxis ->
-                    if (crossAxis == "stretch") {
-                        modifier = modifier.width(IntrinsicSize.Min)
+                    if (crossAxis == CrossAxisAlignment.STRETCH) {
+                        newModifier = newModifier.width(IntrinsicSize.Min)
                     }
                 }
             }
         }
         else -> {}
     }
-    return@with modifier
+    return@with newModifier
 })
+
+internal fun Modifier.fillMaxSize(
+    container: Container,
+    parentComponent: ComponentStructure?,
+    modifier: Modifier = Modifier
+) = this.then(
+    with(container) {
+        var newModifier = modifier
+
+        if (parentComponent != null) {
+            if (parentComponent.component == ComponentNames.NIMBUS_ROW) {
+                if (container.height == null) {
+                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
+                        if (crossAxis == CrossAxisAlignment.STRETCH) {
+                            newModifier = newModifier.fillMaxHeight()
+                        }
+                    }
+                }
+            } else if (parentComponent.component == ComponentNames.NIMBUS_COLUMN) {
+                if (container.width == null) {
+                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
+                        if (crossAxis == CrossAxisAlignment.STRETCH) {
+                            newModifier = newModifier.fillMaxWidth()
+                        }
+                    }
+                }
+            }
+        }
+
+        return@with newModifier
+    }
+)
+
+internal fun Modifier.size(
+    container: Container,
+    modifier: Modifier = Modifier
+) = this.then(
+    with(container) {
+        var newModifier = modifier
+
+        container.width?.let {
+            newModifier = newModifier.width(it.dp)
+        }
+
+        container.height?.let {
+            newModifier = newModifier.height(it.dp)
+        }
+
+        return@with newModifier
+    }
+)
 
 internal fun Modifier.margin(
     container: Container,
+    modifier: Modifier = Modifier
 ) = this.then(
     with(container) {
-        var modifier = this@margin
+        var newModifier = modifier
 
         container.margin?.let {
-            modifier = modifier.padding(it.dp)
+            newModifier = newModifier.padding(it.dp)
         }
 
         container.marginStart?.let {
-            modifier = modifier.padding(start = it.dp)
+            newModifier = newModifier.padding(start = it.dp)
         }
 
         container.marginEnd?.let {
-            modifier = modifier.padding(end = it.dp)
+            newModifier = newModifier.padding(end = it.dp)
         }
 
         container.marginTop?.let {
-            modifier = modifier.padding(top = it.dp)
+            newModifier = newModifier.padding(top = it.dp)
         }
 
         container.marginBottom?.let {
-            modifier = modifier.padding(bottom = it.dp)
+            newModifier = newModifier.padding(bottom = it.dp)
         }
 
         container.marginHorizontal?.let {
-            modifier = modifier.padding(start = it.dp)
-            modifier = modifier.padding(end = it.dp)
+            newModifier = newModifier.padding(start = it.dp)
+            newModifier = newModifier.padding(end = it.dp)
         }
 
         container.marginVertical?.let {
-            modifier = modifier.padding(top = it.dp)
-            modifier = modifier.padding(bottom = it.dp)
+            newModifier = newModifier.padding(top = it.dp)
+            newModifier = newModifier.padding(bottom = it.dp)
         }
-        return@with modifier
+        return@with newModifier
     }
 )
 
 internal fun Modifier.padding(
     container: Container,
+    modifier: Modifier = Modifier
 ) = this.then(
     with(container) {
-        var modifier = this@padding
+        var newModifier = modifier
 
         container.padding?.let {
-            modifier = modifier.padding(it.dp)
+            newModifier = newModifier.padding(it.dp)
         }
 
         container.paddingStart?.let {
-            modifier = modifier.padding(start = it.dp)
+            newModifier = newModifier.padding(start = it.dp)
         }
 
         container.paddingEnd?.let {
-            modifier = modifier.padding(end = it.dp)
+            newModifier = newModifier.padding(end = it.dp)
         }
 
         container.paddingTop?.let {
-            modifier = modifier.padding(top = it.dp)
+            newModifier = newModifier.padding(top = it.dp)
         }
 
         container.paddingBottom?.let {
-            modifier = modifier.padding(bottom = it.dp)
+            newModifier = newModifier.padding(bottom = it.dp)
         }
 
         container.paddingHorizontal?.let {
-            modifier = modifier.padding(start = it.dp)
-            modifier = modifier.padding(end = it.dp)
+            newModifier = newModifier.padding(start = it.dp)
+            newModifier = newModifier.padding(end = it.dp)
         }
 
         container.paddingVertical?.let {
-            modifier = modifier.padding(top = it.dp)
-            modifier = modifier.padding(bottom = it.dp)
+            newModifier = newModifier.padding(top = it.dp)
+            newModifier = newModifier.padding(bottom = it.dp)
         }
 
-        return@with modifier
+        return@with newModifier
     }
 )
-
 
 val String.color
     get() = Color(android.graphics.Color.parseColor(this))

@@ -66,8 +66,7 @@ jobs:
           api-level: ${{steps.sets-android-api-level.outputs.result}}
           target: google_apis
           profile: pixel
-          script: |
-          bash ./gradlew executeScreenshotTests -Pverify
+          script: bash ./gradlew executeScreenshotTests -Pverify
 
       - name: "Add build scan URL as PR comment"
         uses: actions/github-script@v5

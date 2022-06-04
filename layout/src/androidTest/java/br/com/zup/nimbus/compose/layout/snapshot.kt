@@ -12,7 +12,7 @@ import br.zup.com.nimbus.compose.NimbusNavigator
 
 val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
     "material:text" to @Composable { element, _, _ ->
-        Text(text = element.properties?.get("text").toString() ?: "")
+        Text(text = element.properties?.get("text").toString())
     })
 
 private val config = NimbusConfig(

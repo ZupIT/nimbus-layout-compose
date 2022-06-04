@@ -5,10 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal open class Container(
     val flex: Int? = null,
-    //'stretch' | 'start' | 'end' | 'center', // default: start
-    val crossAxisAlignment: String? = "start",
-    //'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly', // default: start
-    val mainAxisAlignment: String? = "start",
+    val crossAxisAlignment: CrossAxisAlignment? = CrossAxisAlignment.START,
+    val mainAxisAlignment: MainAxisAlignment? = MainAxisAlignment.START,
     override val backgroundColor: String? = null,
     override val shadow: List<Shadow>? = null,
     override var children: Component? = null,

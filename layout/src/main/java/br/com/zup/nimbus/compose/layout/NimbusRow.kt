@@ -1,8 +1,10 @@
 package br.com.zup.nimbus.compose.layout
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.ComponentStructure
@@ -17,14 +19,18 @@ private object NimbusRowScope {
 @Composable
 internal fun NimbusRow(
     model: ComponentStructure,
-    parentComponent: GenericComponentApi? = null,
     modifier: Modifier = Modifier,
+    parentComponent: GenericComponentApi? = null,
     content: Component,
 ) {
+    val container = requireNotNull(model.properties)
+    val horizontalArrangement = container.mainAxisAlignment?.toHorizontalArrangement()
+    val verticalAlignment = container.crossAxisAlignment?.toVerticalAlignment()
+
     Row(
-        modifier = modifier.container(container = model.properties!!,
-            parentComponent = parentComponent,
-            scope = NimbusRowScope.instance)
+        horizontalArrangement = horizontalArrangement ?: Arrangement.Start,
+        verticalAlignment = verticalAlignment ?: Alignment.Top,
+        modifier = modifier.container(container, parentComponent, NimbusRowScope.instance)
     ) {
         content()
     }

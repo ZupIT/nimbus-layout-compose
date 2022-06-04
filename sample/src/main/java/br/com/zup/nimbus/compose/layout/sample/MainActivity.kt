@@ -3,9 +3,21 @@ package br.com.zup.nimbus.compose.layout.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.layoutComponents
 import br.com.zup.nimbus.compose.layout.sample.components.CustomError
 import br.com.zup.nimbus.compose.layout.sample.components.customComponents
@@ -13,6 +25,7 @@ import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusConfig
 import br.zup.com.nimbus.compose.NimbusNavigator
+import com.zup.nimbus.core.network.ViewRequest
 
 class MainActivity : ComponentActivity() {
     private val config = NimbusConfig(
@@ -30,10 +43,8 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Column {
-                        Nimbus(config = config) {
-                            NimbusNavigator(json = EXAMPLE_6)
-                        }
+                    Nimbus(config = config) {
+                        NimbusNavigator(ViewRequest("/5"))
                     }
                 }
             }

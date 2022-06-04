@@ -40,7 +40,7 @@ fun ScreenTest(json: String) {
 }
 
 
-private const val WAIT_UNTIL_TIMEOUT = 1_000L
+private const val WAIT_UNTIL_TIMEOUT = 4_000L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,

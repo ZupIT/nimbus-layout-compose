@@ -2,10 +2,8 @@ package br.com.zup.nimbus.compose.layout
 
 import android.os.Build
 import androidx.compose.ui.test.ExperimentalTestApi
-import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.test.filters.SdkSuppress
 import com.karumi.shot.ScreenshotTest
 import org.junit.Rule

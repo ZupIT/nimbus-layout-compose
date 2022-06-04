@@ -15,8 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        android-version: [ 8, 11 ]
-
+        android-version: [ 8 ]
+    # TODO generate screenshots for multiple devices and test the tolerance
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -59,7 +59,7 @@ jobs:
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
         env:
-          DEVICE_NAME: ci_pixel_api_${{ env.API_LEVEL }}
+          DEVICE_NAME: Nexus_5X_API_${{ env.API_LEVEL }}
           ANDROID_VERSION: ${{ matrix.android-version }}
         with:
           api-level: ${{ env.API_LEVEL }}

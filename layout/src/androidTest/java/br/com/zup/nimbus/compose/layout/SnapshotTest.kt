@@ -3,6 +3,7 @@ package br.com.zup.nimbus.compose.layout
 import android.os.Build
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.test.filters.SdkSuppress
 import com.karumi.shot.ScreenshotTest
 import org.junit.Rule
@@ -20,6 +21,7 @@ class SnapshotTest : ScreenshotTest {
         composeTestRule.setContent {
             ScreenTest(jsonFactory["1"] ?: "")
         }
+        composeTestRule.onNodeWithTag(loadingTag).assertDoesNotExist()
         compareScreenshot(composeTestRule)
     }
 
@@ -28,6 +30,7 @@ class SnapshotTest : ScreenshotTest {
         composeTestRule.setContent {
             ScreenTest(jsonFactory["2"] ?: "")
         }
+        composeTestRule.onNodeWithTag(loadingTag).assertDoesNotExist()
         compareScreenshot(composeTestRule)
     }
 

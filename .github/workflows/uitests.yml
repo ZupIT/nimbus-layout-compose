@@ -49,17 +49,17 @@ jobs:
           ANDROID_VERSION: ${{ matrix.android-version }}
         run: |
           case $ANDROID_VERSION in
-          5) echo ::set-output name=result::"21" ;;
-          6) echo ::set-output name=result::"23" ;;
-          8) echo ::set-output name=result::"26" ;;
-          11) echo ::set-output name=result::"30" ;;
+          5) echo "API_LEVEL=21" >> $GITHUB_ENV ;;
+          6) echo "API_LEVEL=23" >> $GITHUB_ENV ;;
+          8) echo "API_LEVEL=26" >> $GITHUB_ENV ;;
+          11) echo "API_LEVEL=30" >> $GITHUB_ENV ;;
           *) echo "Invalid option!" && exit 1 ;;
           esac
 
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
         env:
-          DEVICE_NAME: ci_pixel_api_${{steps.sets-android-api-level.outputs.result}}
+          DEVICE_NAME: ci_pixel_api_${{env.API_LEVEL}}
           ANDROID_VERSION: ${{ matrix.android-version }}
         with:
           avd-name: ${{env.DEVICE_NAME}} #ci_pixel_api_${{steps.sets-android-api-level.outputs.result}}

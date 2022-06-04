@@ -65,10 +65,9 @@ jobs:
           api-level: ${{ env.API_LEVEL }}
           avd-name: ${{ env.DEVICE_NAME }}
           target: google_apis
-          profile: pixel
+          profile: Nexus 5X
           force-avd-creation: false
           arch: x86
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: bash ./gradlew executeScreenshotTests --stacktrace
       - name: Upload Reports

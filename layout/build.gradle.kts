@@ -71,7 +71,7 @@ android {
 }
 
 shot {
-    tolerance =  0.5 // 0,5% tolerance
+    tolerance =  50.0 // 0,5% tolerance
 }
 
 apply("$rootDir/maven-publish.gradle")

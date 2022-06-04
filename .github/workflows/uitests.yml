@@ -1,4 +1,4 @@
-name: Pull request validation
+name: Ui tests
 
 on:
   push:

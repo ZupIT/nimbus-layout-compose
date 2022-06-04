@@ -66,7 +66,6 @@ jobs:
           avd-name: ${{ env.DEVICE_NAME }}
           target: google_apis
           profile: pixel
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: bash ./gradlew executeScreenshotTests -Pverify --stacktrace
 

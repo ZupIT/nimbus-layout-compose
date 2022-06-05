@@ -10,7 +10,6 @@ on:
 
 jobs:
   uitests:
-    name: uitestjob
     runs-on: macos-latest
     timeout-minutes: 90
     strategy:

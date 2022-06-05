@@ -79,7 +79,7 @@ fun ScreenshotTest.executeScreenshotTest(jsonFile: String, composeTestRule: Comp
         ScreenTest(getJson(jsonFile) ?: "")
     }
     composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
-    Thread.sleep(300)
+    Thread.sleep(600)
     compareScreenshot(composeTestRule)
 }
 

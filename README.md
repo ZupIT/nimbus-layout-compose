@@ -16,9 +16,9 @@ Nimbus will be first released with support for SwiftUI and Compose, this repo ho
 3. Select the sample module run on emulator or device.
 
 ## **Running the snapshots tests**
-
-1. Regenerate screenshots for later verification git p```./gradlew executeScreenshotTests -Precord ```
-2. Runs verification ```./gradlew executeScreenshotTests ```
+1. Create the emulator Nexus 5X with Api 26 (Google Apis), default resolution (1080x1920)
+2. Regenerate screenshots for later verification git p```./gradlew executeScreenshotTests -Precord ```
+3. Runs verification ```./gradlew executeScreenshotTests ```
 
 ## **License**
 

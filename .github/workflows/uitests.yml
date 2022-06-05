@@ -67,7 +67,6 @@ jobs:
           target: google_apis
           profile: Nexus 5X
           force-avd-creation: false
-          arch: x86
           disable-animations: true
           script: bash ./gradlew executeScreenshotTests --stacktrace
       - name: Upload Reports

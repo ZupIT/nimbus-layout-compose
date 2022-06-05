@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.test.platform.app.InstrumentationRegistry
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
@@ -25,7 +24,6 @@ import java.io.InputStream
 import java.util.Scanner
 
 val loadingTag = "loadingTag"
-var loaded = false
 val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
     "material:text" to @Composable { element, _, _ ->
         Text(text = element.properties?.get("text").toString())
@@ -34,24 +32,23 @@ val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
 private val config = NimbusConfig(
     baseUrl = "https://dummy.com",
     components = customComponents + layoutComponents,
-    loadingDone = { loaded = true },
     loadingView = {
         Text("Loading...", Modifier.semantics { testTag = loadingTag })
     }
 )
 
 @Composable
-fun ScreenTest(json: String) {
+fun ScreenTest(json: String, screenLoadingHandler: (loading: Boolean) -> Unit) {
     AppTheme {
         Surface(color = MaterialTheme.colors.background) {
             Nimbus(config = config) {
-                NimbusNavigator(json = json)
+                NimbusNavigator(json = json, screenLoadingHandler = screenLoadingHandler)
             }
         }
     }
 }
 
-private const val WAIT_UNTIL_TIMEOUT = 4_000L
+private const val WAIT_UNTIL_TIMEOUT = 10_000L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
@@ -76,12 +73,13 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 
 fun ScreenshotTest.getContext(): Context = InstrumentationRegistry.getInstrumentation().targetContext
 fun ScreenshotTest.executeScreenshotTest(jsonFile: String, composeTestRule: ComposeContentTestRule) {
-    loaded = false
+    var screenLoading = true
     composeTestRule.setContent {
-        ScreenTest(getJson(jsonFile) ?: "")
+        ScreenTest(getJson(jsonFile) ?: "", screenLoadingHandler = {
+            screenLoading = it
+        })
     }
-    composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
-    composeTestRule.waitUntil { loaded }
+    composeTestRule.waitUntil(WAIT_UNTIL_TIMEOUT) { screenLoading.not() }
     compareScreenshot(composeTestRule)
 }
 

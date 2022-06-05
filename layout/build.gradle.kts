@@ -11,7 +11,7 @@ val ktorVersion = "2.0.0"
 val applicationId by extra("br.com.zup.nimbus.android.layout.test")
 
 dependencies {
-    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha3")
+    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha4")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("com.google.android.material:material:1.6.0")
     implementation("androidx.appcompat:appcompat:1.4.1")

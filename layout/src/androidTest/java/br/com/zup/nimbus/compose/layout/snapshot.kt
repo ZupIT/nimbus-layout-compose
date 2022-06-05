@@ -25,6 +25,7 @@ import java.io.InputStream
 import java.util.Scanner
 
 val loadingTag = "loadingTag"
+var loaded = false
 val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
     "material:text" to @Composable { element, _, _ ->
         Text(text = element.properties?.get("text").toString())
@@ -33,6 +34,7 @@ val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
 private val config = NimbusConfig(
     baseUrl = "https://dummy.com",
     components = customComponents + layoutComponents,
+    loadingDone = { loaded = true },
     loadingView = {
         Text("Loading...", Modifier.semantics { testTag = loadingTag })
     }
@@ -48,7 +50,6 @@ fun ScreenTest(json: String) {
         }
     }
 }
-
 
 private const val WAIT_UNTIL_TIMEOUT = 4_000L
 
@@ -75,11 +76,12 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 
 fun ScreenshotTest.getContext(): Context = InstrumentationRegistry.getInstrumentation().targetContext
 fun ScreenshotTest.executeScreenshotTest(jsonFile: String, composeTestRule: ComposeContentTestRule) {
+    loaded = false
     composeTestRule.setContent {
         ScreenTest(getJson(jsonFile) ?: "")
     }
     composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
-    Thread.sleep(1000)
+    composeTestRule.waitUntil { loaded }
     compareScreenshot(composeTestRule)
 }
 

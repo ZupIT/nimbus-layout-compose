@@ -1,0 +1,36 @@
+{
+  "_:component": "layout:row",
+  "children": [
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "no height, stretch"
+        }
+      }],
+      "properties": {
+        "backgroundColor": "#0000FF",
+        "width": 100.0
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": ""
+        }
+      }],
+      "properties": {
+        "backgroundColor": "#FF0000",
+        "width": 100.0
+      }
+    }],
+  "properties": {
+    "backgroundColor": "#FFCCCCCC",
+    "crossAxisAlignment": "stretch",
+    "width": 250.0,
+    "height": 450.0
+  }
+}

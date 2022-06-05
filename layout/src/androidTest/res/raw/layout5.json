@@ -1,0 +1,53 @@
+{
+  "_:component": "layout:row",
+  "children": [
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "r"
+        }
+      }],
+      "properties": {
+        "flex":2,
+        "backgroundColor": "#FF0000",
+        "height": 150.0,
+        "marginTop": 10,
+        "marginBottom": 10
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "g"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#00FF00",
+        "height": 150.0
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "b"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#0000FF",
+        "height": 150.0,
+        "paddingTop": 10,
+        "paddingBottom": 10
+      }
+    }],
+  "properties": {
+    "backgroundColor": "#FFCCCCCC"
+  }
+}

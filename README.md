@@ -18,7 +18,7 @@ Nimbus will be first released with support for SwiftUI and Compose, this repo ho
 ## **Running the snapshots tests**
 
 1. Regenerate screenshots for later verification git p```./gradlew executeScreenshotTests -Precord ```
-2. Runs verification ```./gradlew executeScreenshotTests -Pverify ```
+2. Runs verification ```./gradlew executeScreenshotTests ```
 
 ## **License**
 

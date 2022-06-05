@@ -1,0 +1,47 @@
+{
+  "_:component": "layout:column",
+  "children": [
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "r"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#FF0000"
+      }
+    },
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "g"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#00FF00"
+      }
+    },
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "b"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#0000FF"
+      }
+    }],
+  "properties": {
+    "height": 150.0,
+    "backgroundColor": "#FFCCCCCC"
+  }
+}

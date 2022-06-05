@@ -1,0 +1,38 @@
+{
+  "_:component": "layout:row",
+  "children": [
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "space-evenly"
+        }
+      }],
+      "properties": {
+        "backgroundColor": "#0000FF",
+        "height": 100.0,
+        "width": 100.0
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": ""
+        }
+      }],
+      "properties": {
+        "backgroundColor": "#FF0000",
+        "height": 100.0,
+        "width": 100.0
+      }
+    }],
+  "properties": {
+    "backgroundColor": "#FFCCCCCC",
+    "mainAxisAlignment": "spaceEvenly",
+    "height": 250.0,
+    "width": 250.0
+  }
+}

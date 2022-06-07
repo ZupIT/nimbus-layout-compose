@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.test.platform.app.InstrumentationRegistry
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
@@ -38,11 +39,11 @@ private val config = NimbusConfig(
 )
 
 @Composable
-fun ScreenTest(json: String, screenLoadingHandler: (loading: Boolean) -> Unit) {
+fun ScreenTest(json: String) {
     AppTheme {
         Surface(color = MaterialTheme.colors.background) {
             Nimbus(config = config) {
-                NimbusNavigator(json = json, screenLoadingHandler = screenLoadingHandler)
+                NimbusNavigator(json = json)
             }
         }
     }
@@ -73,13 +74,10 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 
 fun ScreenshotTest.getContext(): Context = InstrumentationRegistry.getInstrumentation().targetContext
 fun ScreenshotTest.executeScreenshotTest(jsonFile: String, composeTestRule: ComposeContentTestRule) {
-    var screenLoading = true
     composeTestRule.setContent {
-        ScreenTest(getJson(jsonFile) ?: "", screenLoadingHandler = {
-            screenLoading = it
-        })
+        ScreenTest(getJson(jsonFile) ?: "")
     }
-    composeTestRule.waitUntil(WAIT_UNTIL_TIMEOUT) { screenLoading.not() }
+    composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
     compareScreenshot(composeTestRule)
 }
 

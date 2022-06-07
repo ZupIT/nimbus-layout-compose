@@ -406,10 +406,10 @@ internal fun Modifier.border(
 
         this.drawIntoCanvas {
             drawRoundRect(cornerRadius =
-            CornerRadius(cornerRadius.toFloat(), cornerRadius.toFloat())
+            CornerRadius(cornerRadius.dp.toPx())
                 ,color = color, style = dottedStroke)
         }
-    }.clip(RoundedCornerShape(size = cornerRadius.toFloat()))
+    }.clip(RoundedCornerShape(size = cornerRadius.dp))
 )
 
 val String.color

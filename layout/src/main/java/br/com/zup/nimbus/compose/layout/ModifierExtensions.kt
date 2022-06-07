@@ -188,35 +188,50 @@ internal fun Modifier.margin(
     with(container) {
         var newModifier = modifier
 
+        var paddingStart: Double? = null
+        var paddingEnd: Double? = null
+        var paddingTop: Double? = null
+        var paddingBottom: Double? = null
+
         container.margin?.let {
-            newModifier = newModifier.padding(it.dp)
+            paddingStart = it
+            paddingEnd = it
+            paddingTop = it
+            paddingBottom = it
         }
 
         container.marginStart?.let {
-            newModifier = newModifier.padding(start = it.dp)
+            paddingStart = it
         }
 
         container.marginEnd?.let {
-            newModifier = newModifier.padding(end = it.dp)
+            paddingEnd = it
         }
 
         container.marginTop?.let {
-            newModifier = newModifier.padding(top = it.dp)
+            paddingTop = it
         }
 
         container.marginBottom?.let {
-            newModifier = newModifier.padding(bottom = it.dp)
+            paddingBottom = it
         }
 
         container.marginHorizontal?.let {
-            newModifier = newModifier.padding(start = it.dp)
-            newModifier = newModifier.padding(end = it.dp)
+            paddingStart = it
+            paddingEnd = it
         }
 
         container.marginVertical?.let {
-            newModifier = newModifier.padding(top = it.dp)
-            newModifier = newModifier.padding(bottom = it.dp)
+            paddingTop = it
+            paddingBottom = it
         }
+
+        newModifier = padding(modifier = newModifier,
+            paddingStart = paddingStart,
+            paddingEnd = paddingEnd,
+            paddingTop = paddingTop,
+            paddingBottom = paddingBottom)
+
         return@with newModifier
     }
 )
@@ -227,40 +242,79 @@ internal fun Modifier.padding(
 ) = this.then(
     with(container) {
         var newModifier = modifier
+        var paddingStart: Double? = null
+        var paddingEnd: Double? = null
+        var paddingTop: Double? = null
+        var paddingBottom: Double? = null
 
         container.padding?.let {
-            newModifier = newModifier.padding(it.dp)
+            paddingStart = it
+            paddingEnd = it
+            paddingTop = it
+            paddingBottom = it
         }
 
         container.paddingStart?.let {
-            newModifier = newModifier.padding(start = it.dp)
+            paddingStart = it
         }
 
         container.paddingEnd?.let {
-            newModifier = newModifier.padding(end = it.dp)
+            paddingEnd = it
         }
 
         container.paddingTop?.let {
-            newModifier = newModifier.padding(top = it.dp)
+            paddingTop = it
         }
 
         container.paddingBottom?.let {
-            newModifier = newModifier.padding(bottom = it.dp)
+            paddingBottom = it
         }
 
         container.paddingHorizontal?.let {
-            newModifier = newModifier.padding(start = it.dp)
-            newModifier = newModifier.padding(end = it.dp)
+            paddingStart = it
+            paddingEnd = it
         }
 
         container.paddingVertical?.let {
-            newModifier = newModifier.padding(top = it.dp)
-            newModifier = newModifier.padding(bottom = it.dp)
+            paddingTop = it
+            paddingBottom = it
         }
+
+        newModifier = padding(modifier = newModifier,
+            paddingStart = paddingStart,
+            paddingEnd = paddingEnd,
+            paddingTop = paddingTop,
+            paddingBottom = paddingBottom)
 
         return@with newModifier
     }
 )
+
+private fun padding(
+    modifier: Modifier = Modifier,
+    paddingStart: Double?,
+    paddingEnd: Double?,
+    paddingTop: Double?,
+    paddingBottom: Double?,
+): Modifier {
+    var newModifier = modifier
+    paddingStart?.let {
+        newModifier = newModifier.padding(start = it.dp)
+    }
+
+    paddingEnd?.let {
+        newModifier = newModifier.padding(end = it.dp)
+    }
+
+    paddingTop?.let {
+        newModifier = newModifier.padding(top = it.dp)
+    }
+
+    paddingBottom?.let {
+        newModifier = newModifier.padding(bottom = it.dp)
+    }
+    return newModifier
+}
 
 internal fun Modifier.border(
     container: Container,
@@ -398,19 +452,20 @@ internal fun Modifier.border(
     color: Color,
     modifier: Modifier = Modifier
 ) = this.then(
-    modifier.drawBehind {
-        val dottedStroke = Stroke(width = borderWidth.toFloat(),
-            pathEffect = PathEffect.dashPathEffect(floatArrayOf(borderDashLength.toFloat(),
-                (borderDashSpacing).toFloat()), 0f)
-        )
+    modifier
+        .drawBehind {
+            val dottedStroke = Stroke(width = borderWidth.toFloat(),
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(borderDashLength.toFloat(),
+                    (borderDashSpacing).toFloat()), 0f)
+            )
 
-        this.drawIntoCanvas {
-            drawRoundRect(cornerRadius =
-            CornerRadius(cornerRadius.dp.toPx())
-                ,color = color, style = dottedStroke)
+            this.drawIntoCanvas {
+                drawRoundRect(cornerRadius =
+                CornerRadius(cornerRadius.dp.toPx()), color = color, style = dottedStroke)
+            }
         }
-    }.clip(RoundedCornerShape(size = cornerRadius.dp))
+        .clip(RoundedCornerShape(size = cornerRadius.dp))
 )
 
 val String.color
-    get() = Color(android.graphics.Color.parseColor(this))
+    get() = Color(ColorUtils.hexColor(this))

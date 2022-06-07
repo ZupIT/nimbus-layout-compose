@@ -30,7 +30,8 @@ const val NIMBUS_PAGE = "NimbusPage"
 val loadingTag = "loadingTag"
 val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
     "material:text" to @Composable { element, _, _ ->
-        Text(text = element.properties?.get("text").toString())
+        Text(text = element.properties?.get("text").toString(),
+            maxLines = element.properties?.get("maxLines")?.toString()?.toInt() ?: Int.MAX_VALUE)
     })
 
 private val config = NimbusConfig(

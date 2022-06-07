@@ -1,0 +1,15 @@
+{
+  "_:component": "layout:row",
+  "children": [{
+    "_:component": "material:text",
+    "properties": {
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et ipsum eu nunc semper dapibus vitae id urna. Aenean fermentum purus vitae leo congue varius vel nec ligula. Ut feugiat consectetur augue mattis tempus. Curabitur a erat nec lectus convallis vestibulum. Pellentesque suscipit id tellus ac dapibus. Vivamus aliquam, urna eu ornare euismod, arcu purus vestibulum dolor, ac tempus ante metus mollis ipsum. Ut eget tellus mollis, efficitur sapien in, pulvinar neque.",
+      "maxLines": 1
+    }
+  }],
+  "properties": {
+    "backgroundColor": "#CCCCCCFF",
+    "width": 300.0,
+    "clipped": true
+  }
+}

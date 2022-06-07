@@ -11,22 +11,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
-import androidx.test.espresso.Espresso
 import androidx.test.platform.app.InstrumentationRegistry
+import br.com.zup.nimbus.android.layout.test.BuildConfig
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.ComponentHandler
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusConfig
 import br.zup.com.nimbus.compose.NimbusNavigator
-import br.com.zup.nimbus.android.layout.test.BuildConfig
 import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 val loadingTag = "loadingTag"
 val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
@@ -77,17 +73,15 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 
 
 fun ScreenshotTest.getContext(): Context = InstrumentationRegistry.getInstrumentation().targetContext
-fun ScreenshotTest.executeScreenshotTest(jsonFile: String, composeTestRule: ComposeContentTestRule) {
+fun ScreenshotTest.executeScreenshotTest(jsonFile: String, composeTestRule: ComposeContentTestRule,
+                                         screenName: String = "NimbusPage:root") {
     composeTestRule.setContent {
         ScreenTest(getJson(jsonFile) ?: "")
     }
-//    try {
-        composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        Espresso.onIdle()
-//    } catch (e: Throwable) {
-//        e.printStackTrace()
-//    }
+
+    composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
+    composeTestRule.waitUntilExists(hasTestTag(screenName))
+
     compareScreenshot(composeTestRule)
 }
 

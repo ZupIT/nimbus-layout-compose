@@ -3,13 +3,15 @@ plugins {
     kotlin("android")
     id("kotlin-android")
     id("kotlin-parcelize")
+    id("shot")
 }
 
 val serializationVersion = "1.3.2"
 val ktorVersion = "2.0.0"
+val applicationId by extra("br.com.zup.nimbus.android.layout.test")
 
 dependencies {
-    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha2")
+    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha7")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("com.google.android.material:material:1.6.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
@@ -20,9 +22,16 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_version"]}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
     implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.4")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation ("androidx.test.espresso:espresso-contrib:3.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
+    androidTestImplementation ("androidx.compose.ui:ui-test:${rootProject.extra["compose_version"]}")
+
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
     debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["compose_version"]}")
 }
 
 android {
@@ -33,6 +42,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        testApplicationId = applicationId
+        testInstrumentationRunner = "com.karumi.shot.ShotTestRunner"
     }
     buildTypes {
         getByName("release") {
@@ -57,6 +68,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+}
+
+shot {
+    tolerance =  8.5 // 8,5% tolerance
 }
 
 apply("$rootDir/maven-publish.gradle")

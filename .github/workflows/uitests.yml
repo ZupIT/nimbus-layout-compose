@@ -1,0 +1,89 @@
+name: Ui tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  uitests:
+    runs-on: macos-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        android-version: [ 8 ]
+    # TODO generate screenshots for multiple devices and test the tolerance
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+      - name: AVD cache
+        uses: actions/cache@v2
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.android-version }}
+
+      - name: Setup Java version
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Returns Android API level
+        id: sets-android-api-level
+        env:
+          ANDROID_VERSION: ${{ matrix.android-version }}
+        run: |
+          case $ANDROID_VERSION in
+          5) echo "API_LEVEL=21" >> $GITHUB_ENV ;;
+          6) echo "API_LEVEL=23" >> $GITHUB_ENV ;;
+          8) echo "API_LEVEL=26" >> $GITHUB_ENV ;;
+          11) echo "API_LEVEL=30" >> $GITHUB_ENV ;;
+          *) echo "Invalid option!" && exit 1 ;;
+          esac
+
+      - name: Run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        env:
+          DEVICE_NAME: Nexus_5X_API_${{ env.API_LEVEL }}
+          ANDROID_VERSION: ${{ matrix.android-version }}
+        with:
+          api-level: ${{ env.API_LEVEL }}
+          avd-name: ${{ env.DEVICE_NAME }}
+          target: google_apis
+          profile: Nexus 5X
+          force-avd-creation: false
+          disable-animations: true
+          script: bash ./gradlew executeScreenshotTests --stacktrace
+      - name: Upload Reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test-Reports
+          path: layout/build/reports
+        if: always()
+      - name: "Add build scan URL as PR comment"
+        uses: actions/github-script@v5
+        if: github.event_name == 'pull_request' && failure()
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ ${{ github.workflow }} failed: ${{ steps.gradle.outputs.build-scan-url }}'
+            })

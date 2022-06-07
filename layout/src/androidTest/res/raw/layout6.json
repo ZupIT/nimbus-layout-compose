@@ -1,0 +1,36 @@
+{
+  "_:component": "layout:row",
+  "children": [
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "r"
+        }
+      }],
+      "properties": {
+        "backgroundColor": "#FF0000",
+        "height": 100.0,
+        "width": 100.0
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "g"
+        }
+      }],
+      "properties": {
+        "flex":1,
+        "backgroundColor": "#00FF00",
+        "marginStart": 20.0
+      }
+    }],
+  "properties": {
+    "backgroundColor": "#FFCCCCCC",
+    "crossAxisAlignment": "stretch"
+  }
+}

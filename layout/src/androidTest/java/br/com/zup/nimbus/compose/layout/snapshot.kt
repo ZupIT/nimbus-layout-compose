@@ -11,8 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
+import androidx.test.espresso.Espresso
 import androidx.test.platform.app.InstrumentationRegistry
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.ComponentHandler
@@ -23,6 +25,8 @@ import br.com.zup.nimbus.android.layout.test.BuildConfig
 import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 val loadingTag = "loadingTag"
 val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
@@ -77,12 +81,13 @@ fun ScreenshotTest.executeScreenshotTest(jsonFile: String, composeTestRule: Comp
     composeTestRule.setContent {
         ScreenTest(getJson(jsonFile) ?: "")
     }
-    try {
-        composeTestRule.waitForIdle()
+//    try {
         composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
-    } catch (e: Throwable) {
-        e.printStackTrace()
-    }
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+        Espresso.onIdle()
+//    } catch (e: Throwable) {
+//        e.printStackTrace()
+//    }
     compareScreenshot(composeTestRule)
 }
 

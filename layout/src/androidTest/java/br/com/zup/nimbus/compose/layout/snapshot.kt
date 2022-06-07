@@ -20,9 +20,12 @@ import br.zup.com.nimbus.compose.ComponentHandler
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusConfig
 import br.zup.com.nimbus.compose.NimbusNavigator
+import br.zup.com.nimbus.compose.VIEW_INITIAL_URL
 import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner
+
+const val NIMBUS_PAGE = "NimbusPage"
 
 val loadingTag = "loadingTag"
 val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
@@ -74,7 +77,7 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 
 fun ScreenshotTest.getContext(): Context = InstrumentationRegistry.getInstrumentation().targetContext
 fun ScreenshotTest.executeScreenshotTest(jsonFile: String, composeTestRule: ComposeContentTestRule,
-                                         screenName: String = "NimbusPage:root") {
+                                         screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}") {
     composeTestRule.setContent {
         ScreenTest(getJson(jsonFile) ?: "")
     }

@@ -41,7 +41,6 @@ import br.com.zup.nimbus.compose.layout.model.ComponentStructure
 import br.com.zup.nimbus.compose.layout.model.Container
 import br.com.zup.nimbus.compose.layout.model.CrossAxisAlignment
 
-
 internal fun Modifier.accessibility(accessibility: Accessibility?, modifier: Modifier = Modifier) = this.then(
     accessibility?.let { a ->
         modifier.semantics(mergeDescendants = true) {
@@ -85,7 +84,7 @@ internal fun Modifier.container(
 internal fun Modifier.applyScopeModifier(
     scope: Any,
     container: Container,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) = this.then(with(container) {
     var newModifier = modifier
     when (scope) {
@@ -124,7 +123,7 @@ internal fun Modifier.applyScopeModifier(
 internal fun Modifier.fillMaxSize(
     container: Container,
     parentComponent: ComponentStructure?,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) = this.then(
     with(container) {
         var newModifier = modifier
@@ -155,7 +154,7 @@ internal fun Modifier.fillMaxSize(
 
 internal fun Modifier.size(
     container: Container,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) = this.then(
     with(container) {
         var newModifier = modifier
@@ -190,84 +189,138 @@ internal fun Modifier.size(
 
 internal fun Modifier.margin(
     container: Container,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) = this.then(
     with(container) {
         var newModifier = modifier
 
+        var paddingStart: Double? = null
+        var paddingEnd: Double? = null
+        var paddingTop: Double? = null
+        var paddingBottom: Double? = null
+
         container.margin?.let {
-            newModifier = newModifier.padding(it.dp)
+            paddingStart = it
+            paddingEnd = it
+            paddingTop = it
+            paddingBottom = it
         }
 
         container.marginStart?.let {
-            newModifier = newModifier.padding(start = it.dp)
+            paddingStart = it
         }
 
         container.marginEnd?.let {
-            newModifier = newModifier.padding(end = it.dp)
+            paddingEnd = it
         }
 
         container.marginTop?.let {
-            newModifier = newModifier.padding(top = it.dp)
+            paddingTop = it
         }
 
         container.marginBottom?.let {
-            newModifier = newModifier.padding(bottom = it.dp)
+            paddingBottom = it
         }
 
         container.marginHorizontal?.let {
-            newModifier = newModifier.padding(start = it.dp)
-            newModifier = newModifier.padding(end = it.dp)
+            paddingStart = it
+            paddingEnd = it
         }
 
         container.marginVertical?.let {
-            newModifier = newModifier.padding(top = it.dp)
-            newModifier = newModifier.padding(bottom = it.dp)
+            paddingTop = it
+            paddingBottom = it
         }
+
+        newModifier = padding(modifier = newModifier,
+            paddingStart = paddingStart,
+            paddingEnd = paddingEnd,
+            paddingTop = paddingTop,
+            paddingBottom = paddingBottom)
+
         return@with newModifier
     }
 )
 
 internal fun Modifier.padding(
     container: Container,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) = this.then(
     with(container) {
         var newModifier = modifier
+        var paddingStart: Double? = null
+        var paddingEnd: Double? = null
+        var paddingTop: Double? = null
+        var paddingBottom: Double? = null
 
         container.padding?.let {
-            newModifier = newModifier.padding(it.dp)
+            paddingStart = it
+            paddingEnd = it
+            paddingTop = it
+            paddingBottom = it
         }
 
         container.paddingStart?.let {
-            newModifier = newModifier.padding(start = it.dp)
+            paddingStart = it
         }
 
         container.paddingEnd?.let {
-            newModifier = newModifier.padding(end = it.dp)
+            paddingEnd = it
         }
 
         container.paddingTop?.let {
-            newModifier = newModifier.padding(top = it.dp)
+            paddingTop = it
         }
 
         container.paddingBottom?.let {
-            newModifier = newModifier.padding(bottom = it.dp)
+            paddingBottom = it
         }
 
         container.paddingHorizontal?.let {
-            newModifier = newModifier.padding(start = it.dp)
-            newModifier = newModifier.padding(end = it.dp)
+            paddingStart = it
+            paddingEnd = it
         }
 
         container.paddingVertical?.let {
-            newModifier = newModifier.padding(top = it.dp)
-            newModifier = newModifier.padding(bottom = it.dp)
+            paddingTop = it
+            paddingBottom = it
         }
+
+        newModifier = padding(modifier = newModifier,
+            paddingStart = paddingStart,
+            paddingEnd = paddingEnd,
+            paddingTop = paddingTop,
+            paddingBottom = paddingBottom)
 
         return@with newModifier
     }
 )
+
+private fun padding(
+    modifier: Modifier = Modifier,
+    paddingStart: Double?,
+    paddingEnd: Double?,
+    paddingTop: Double?,
+    paddingBottom: Double?,
+): Modifier {
+    var newModifier = modifier
+    paddingStart?.let {
+        newModifier = newModifier.padding(start = it.dp)
+    }
+
+    paddingEnd?.let {
+        newModifier = newModifier.padding(end = it.dp)
+    }
+
+    paddingTop?.let {
+        newModifier = newModifier.padding(top = it.dp)
+    }
+
+    paddingBottom?.let {
+        newModifier = newModifier.padding(bottom = it.dp)
+    }
+    return newModifier
+}
 
 internal fun Modifier.border(
     container: Container,
@@ -439,7 +492,7 @@ internal fun Modifier.border(
     borderDashSpacing: Double = 0.0,
     cornerRadius: Double = 0.0,
     color: Color,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) = this.then(
     modifier
         .drawBehind {
@@ -483,4 +536,4 @@ private fun DrawScope.clipToRadius(cornerRadius: Double) {
 }
 
 val String.color
-    get() = Color(android.graphics.Color.parseColor(this))
+    get() = Color(ColorUtils.hexColor(this))

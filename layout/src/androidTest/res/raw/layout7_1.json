@@ -30,7 +30,7 @@
       }
     }],
   "properties": {
-    "backgroundColor": "#FFCCCCCC",
+    "backgroundColor": "#CCCCCCFF",
     "mainAxisAlignment": "start",
     "height": 250.0,
     "width": 250.0

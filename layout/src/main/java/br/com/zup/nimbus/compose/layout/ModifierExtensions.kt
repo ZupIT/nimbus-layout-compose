@@ -35,6 +35,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.model.Accessibility
+import br.com.zup.nimbus.compose.layout.model.COLOR_WHITE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames
 import br.com.zup.nimbus.compose.layout.model.ComponentStructure
 import br.com.zup.nimbus.compose.layout.model.Container
@@ -311,6 +312,21 @@ internal fun Modifier.border(
     }
 )
 
+internal fun Modifier.applyBackgroundForShadow(
+    container: Container,
+    modifier: Modifier = Modifier,
+) = this.then(with(container) {
+    var newModifier = modifier
+    container.shadow?.let { shadowList ->
+        if (shadowList.isNotEmpty() && container.backgroundColor == null) {
+            newModifier = newModifier.background(COLOR_WHITE)
+        }
+    }
+
+    return@with newModifier
+}
+)
+
 internal fun Modifier.shadow(
     container: Container,
     modifier: Modifier = Modifier,
@@ -365,6 +381,7 @@ internal fun Modifier.shadow(
                 )
             }
         }
+        newModifier = newModifier.applyBackgroundForShadow(container)
         return@with newModifier
     }
 )
@@ -385,11 +402,11 @@ internal fun Modifier.coloredShadow(
         this.drawIntoCanvas {
             val paint = Paint()
             val frameworkPaint = paint.asFrameworkPaint()
-
-            val leftPixel = (0f - spread.dp.toPx()) + offsetX.toPx()
-            val topPixel = (0f - spread.dp.toPx()) + offsetY.toPx()
-            val rightPixel = (this.size.width + spread.dp.toPx())
-            val bottomPixel =  (this.size.height + spread.dp.toPx())
+            val spreadPixel = spread.dp.toPx()
+            val leftPixel = (0f - spreadPixel) + offsetX.toPx()
+            val topPixel = (0f - spreadPixel) + offsetY.toPx()
+            val rightPixel = (this.size.width + spreadPixel)
+            val bottomPixel =  (this.size.height + spreadPixel)
 
             if (blurRadius != 0.dp) {
                 /*

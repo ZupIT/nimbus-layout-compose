@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
 const val COLOR_BLACK = "#000000"
+const val COLOR_WHITE = "#FFFFFF"
 
 typealias Component = @Composable() () -> Unit
 typealias Action = (Any?) -> Unit

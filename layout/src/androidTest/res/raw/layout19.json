@@ -1,0 +1,38 @@
+{
+  "_:component": "layout:row",
+  "children": [
+    {
+      "_:component": "layout:row",
+      "children": [
+        {
+          "_:component": "material:text",
+          "properties": {
+            "text": "Shadow example"
+          }
+        }
+      ],
+      "properties": {
+        "width": 200.0,
+        "height": 200.0,
+        "margin": 60.0,
+        "shadow": [
+          {
+            "x": 0.0,
+            "y": 5.0,
+            "blur": 15.0,
+            "spread": 5,
+            "color": "#0000FF"
+          }
+        ],
+        "crossAxisAlignment": "center",
+        "mainAxisAlignment": "center"
+      }
+    }
+  ],
+  "properties": {
+    "backgroundColor": "#FFFFFF",
+    "crossAxisAlignment": "center",
+    "height": 350.0,
+    "width": 350.0
+  }
+}

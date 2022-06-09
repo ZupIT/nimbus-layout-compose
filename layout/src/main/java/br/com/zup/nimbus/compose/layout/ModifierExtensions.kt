@@ -1,5 +1,7 @@
 package br.com.zup.nimbus.compose.layout
 
+import android.graphics.BlurMaskFilter
+import android.graphics.RectF
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -17,9 +19,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
@@ -29,11 +35,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.model.Accessibility
-import br.com.zup.nimbus.compose.layout.model.COLOR_BLACK
+import br.com.zup.nimbus.compose.layout.model.COLOR_WHITE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames
 import br.com.zup.nimbus.compose.layout.model.ComponentStructure
 import br.com.zup.nimbus.compose.layout.model.Container
 import br.com.zup.nimbus.compose.layout.model.CrossAxisAlignment
+
 
 internal fun Modifier.accessibility(accessibility: Accessibility?, modifier: Modifier = Modifier) = this.then(
     accessibility?.let { a ->
@@ -66,10 +73,10 @@ internal fun Modifier.container(
     modifier
         .applyScopeModifier(scope, container)
         .margin(container)
-        .shadow(container)
         .clipped(container.clipped)
         .size(container)
         .fillMaxSize(container, parentComponent)
+        .shadow(container)
         .border(container)
         .background(container.backgroundColor)
         .padding(container)
@@ -78,7 +85,7 @@ internal fun Modifier.container(
 internal fun Modifier.applyScopeModifier(
     scope: Any,
     container: Container,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = this.then(with(container) {
     var newModifier = modifier
     when (scope) {
@@ -117,7 +124,7 @@ internal fun Modifier.applyScopeModifier(
 internal fun Modifier.fillMaxSize(
     container: Container,
     parentComponent: ComponentStructure?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = this.then(
     with(container) {
         var newModifier = modifier
@@ -148,7 +155,7 @@ internal fun Modifier.fillMaxSize(
 
 internal fun Modifier.size(
     container: Container,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = this.then(
     with(container) {
         var newModifier = modifier
@@ -183,7 +190,7 @@ internal fun Modifier.size(
 
 internal fun Modifier.margin(
     container: Container,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = this.then(
     with(container) {
         var newModifier = modifier
@@ -223,7 +230,7 @@ internal fun Modifier.margin(
 
 internal fun Modifier.padding(
     container: Container,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = this.then(
     with(container) {
         var newModifier = modifier
@@ -268,12 +275,11 @@ internal fun Modifier.border(
 ) = this.then(
     with(container) {
         var newModifier = modifier
-        container.borderWidth?.let {
             var borderWidth = 0.0
-            var borderDashLength = 1.0
+            var borderDashLength =  1.0
             var borderDashSpacing = 0.0
             var cornerRadius = 0.0
-            var color: Color = COLOR_BLACK.color // default: black
+            var color: Color = Color.Black // default: black
 
             container.borderWidth?.let {
                 borderWidth = it
@@ -302,24 +308,43 @@ internal fun Modifier.border(
                 cornerRadius = cornerRadius,
                 color = color
             )
-        }
         return@with newModifier
     }
+)
+
+internal fun Modifier.applyBackgroundForShadow(
+    container: Container,
+    modifier: Modifier = Modifier,
+) = this.then(with(container) {
+    var newModifier = modifier
+    container.shadow?.let { shadowList ->
+        if (shadowList.isNotEmpty() && container.backgroundColor == null) {
+            newModifier = newModifier.background(COLOR_WHITE)
+        }
+    }
+
+    return@with newModifier
+}
 )
 
 internal fun Modifier.shadow(
     container: Container,
     modifier: Modifier = Modifier,
-) = this.then(
-    with(container) {
+) = this.then(with(container) {
         var newModifier = modifier
         container.shadow?.let { shadowList ->
             shadowList.forEach { shadow ->
                 var offsetX: Dp = 0.dp // default: 0
                 var offsetY: Dp = 0.dp // default: 0
-                var shadowRadius: Dp = 0.dp // blur default: 0
-                var color: Color = COLOR_BLACK.color // default: black
-                var spread = 0 // only if it's easy to do in SwiftUI
+                var blur: Dp = 0.dp // blur default: 0
+                var borderRadius: Dp = 0.dp // blur default: 0
+                var color: Color = Color.Black // default: black
+                var spread = 0f
+                var inset = false
+
+                container.cornerRadius?.let {
+                    borderRadius = it.dp
+                }
 
                 shadow.x?.let {
                     offsetX = it.dp
@@ -330,7 +355,7 @@ internal fun Modifier.shadow(
                 }
 
                 shadow.blur?.let {
-                    shadowRadius = it.dp
+                    blur = it.dp
                 }
 
                 shadow.color?.let {
@@ -338,52 +363,70 @@ internal fun Modifier.shadow(
                 }
 
                 shadow.spread?.let {
-                    spread = it
+                    spread = it.toFloat()
+                }
+
+                shadow.inset?.let {
+                    inset = it
                 }
 
                 newModifier = newModifier.coloredShadow(
+                    borderRadius = borderRadius,
                     offsetX = offsetX,
                     offsetY = offsetY,
-                    shadowRadius = shadowRadius,
+                    blurRadius = blur,
                     color = color,
-                    spread = spread.toFloat()
+                    spread = spread,
+//                    inset = inset
                 )
             }
         }
+        newModifier = newModifier.applyBackgroundForShadow(container)
         return@with newModifier
     }
 )
 
+//TODO implement negative spread logic, for now its only working with positive values
+//TODO implement inset logic
 internal fun Modifier.coloredShadow(
-    color: Color,
+    color: Color = Color.Black,
     borderRadius: Dp = 0.dp,
-    shadowRadius: Dp = 0.dp,
+    blurRadius: Dp = 0.dp,
     offsetY: Dp = 0.dp,
     offsetX: Dp = 0.dp,
     spread: Float = 0f,
-    modifier: Modifier = Modifier
+//    inset: Boolean = false,
+    modifier: Modifier = Modifier,
 ) = this.then(
     modifier.drawBehind {
-        val shadowColor = color.toArgb()
-        val transparent = color.copy(alpha= 0f).toArgb()
         this.drawIntoCanvas {
             val paint = Paint()
             val frameworkPaint = paint.asFrameworkPaint()
-            frameworkPaint.color = transparent
+            val spreadPixel = spread.dp.toPx()
+            val leftPixel = (0f - spreadPixel) + offsetX.toPx()
+            val topPixel = (0f - spreadPixel) + offsetY.toPx()
+            val rightPixel = (this.size.width + spreadPixel)
+            val bottomPixel =  (this.size.height + spreadPixel)
 
-            frameworkPaint.setShadowLayer(
-                shadowRadius.toPx(),
-                offsetX.toPx(),
-                offsetY.toPx(),
-                shadowColor
-            )
+            if (blurRadius != 0.dp) {
+                /*
+                    The feature maskFilter used below to apply the blur effect only works
+                    with hardware acceleration disabled.
+                    This is accomplished by the composable below
+                    @see br.com.zup.nimbus.compose.layout.NimbusSoftwareLayer
+                 */
+                frameworkPaint.maskFilter =
+                    (BlurMaskFilter(blurRadius.toPx(), BlurMaskFilter.Blur.NORMAL))
+            }
+
+            frameworkPaint.color = color.toArgb()
             it.drawRoundRect(
-                0f,
-                0f,
-                this.size.width + spread,
-                this.size.height + spread,
-                borderRadius.toPx(),
-                borderRadius.toPx(),
+                left = leftPixel,
+                top = topPixel,
+                right = rightPixel,
+                bottom = bottomPixel,
+                radiusX = borderRadius.toPx(),
+                radiusY = borderRadius.toPx(),
                 paint
             )
         }
@@ -396,21 +439,48 @@ internal fun Modifier.border(
     borderDashSpacing: Double = 0.0,
     cornerRadius: Double = 0.0,
     color: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) = this.then(
-    modifier.drawBehind {
-        val dottedStroke = Stroke(width = borderWidth.toFloat(),
-            pathEffect = PathEffect.dashPathEffect(floatArrayOf(borderDashLength.toFloat(),
-                (borderDashSpacing).toFloat()), 0f)
+    modifier
+        .drawBehind {
+            applyBorder(borderWidth, borderDashLength, borderDashSpacing, cornerRadius, color)
+            clipToRadius(cornerRadius)
+        }
+)
+
+private fun DrawScope.applyBorder(
+    borderWidth: Double,
+    borderDashLength: Double,
+    borderDashSpacing: Double,
+    cornerRadius: Double,
+    color: Color,
+) {
+    if (borderWidth != 0.0) {
+        val dottedStroke = Stroke(
+            width = borderWidth.dp.toPx(),
+            pathEffect = PathEffect.dashPathEffect(
+                floatArrayOf(borderDashLength.dp.toPx(),
+                    (borderDashSpacing).dp.toPx()), 0f)
         )
 
         this.drawIntoCanvas {
             drawRoundRect(cornerRadius =
-            CornerRadius(cornerRadius.dp.toPx())
-                ,color = color, style = dottedStroke)
+            CornerRadius(cornerRadius.dp.toPx()), color = color, style = dottedStroke)
         }
-    }.clip(RoundedCornerShape(size = cornerRadius.dp))
-)
+    }
+}
+
+private fun DrawScope.clipToRadius(cornerRadius: Double) {
+    this.drawIntoCanvas {
+        val path = Path()
+        path.addRoundRect(RoundRect(left = 0f,
+            top = 0f,
+            right = (this.size.width),
+            bottom = (this.size.height),
+            cornerRadius = CornerRadius(cornerRadius.dp.toPx(), cornerRadius.dp.toPx())))
+        it.clipPath(path)
+    }
+}
 
 val String.color
     get() = Color(android.graphics.Color.parseColor(this))

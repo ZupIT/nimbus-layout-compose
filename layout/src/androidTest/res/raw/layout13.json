@@ -1,0 +1,62 @@
+{
+  "_:component": "layout:row",
+  "children": [{
+    "_:component": "layout:row",
+    "children": [{
+      "_:component": "material:text",
+      "properties": {
+        "text": "Hello"
+      }
+    }],
+    "properties": {
+      "width": 100.0,
+      "height": 100.0,
+      "margin": 10.0,
+      "borderWidth": 10.0,
+      "cornerRadius": 50.0,
+      "borderColor": "#FF0000",
+      "crossAxisAlignment": "center",
+      "mainAxisAlignment": "center"
+    }
+  },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "Hello"
+        }
+      }],
+      "properties": {
+        "width": 100.0,
+        "height": 100.0,
+        "margin": 10.0,
+        "borderWidth": 10.0,
+        "cornerRadius": 33.3,
+        "borderColor": "#00FF00",
+        "borderDashLength": 10.0,
+        "borderDashSpacing": 10.0,
+        "backgroundColor": "#0000FF"
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "Hello"
+        }
+      }],
+      "properties": {
+        "width": 100.0,
+        "height": 100.0,
+        "margin": 10.0,
+        "borderWidth": 10.0,
+        "borderColor": "#0000FF",
+        "borderDashLength": 10.0,
+        "borderDashSpacing": 10.0,
+        "crossAxisAlignment": "center",
+        "mainAxisAlignment": "center"
+      }
+    }]
+}

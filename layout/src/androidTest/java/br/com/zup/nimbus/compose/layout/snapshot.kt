@@ -83,9 +83,13 @@ fun ScreenshotTest.executeScreenshotTest(jsonFile: String, composeTestRule: Comp
         ScreenTest(getJson(jsonFile) ?: "")
     }
 
-    composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
-    composeTestRule.waitUntilExists(hasTestTag(screenName))
-    Thread.sleep(50)
+    try {
+        composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
+        composeTestRule.waitUntilExists(hasTestTag(screenName))
+        Thread.sleep(50)
+    } catch (e: Throwable) {
+        e.printStackTrace()
+    }
 
     compareScreenshot(composeTestRule)
 }

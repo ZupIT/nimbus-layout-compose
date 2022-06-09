@@ -72,7 +72,6 @@ internal fun Modifier.container(
     modifier
         .applyScopeModifier(scope, container)
         .margin(container)
-        .shadow(container)
         .clipped(container.clipped)
         .size(container)
         .fillMaxSize(container, parentComponent)

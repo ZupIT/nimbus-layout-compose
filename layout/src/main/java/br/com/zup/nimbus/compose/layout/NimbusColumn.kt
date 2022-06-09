@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.ComponentStructure
+import br.com.zup.nimbus.compose.layout.model.needBlurForShadow
 
 private object NimbusColumnScope {
     private val kClass =
@@ -25,11 +26,13 @@ internal fun NimbusColumn(
     val container = requireNotNull(model.properties)
     val verticalArrangement = container.mainAxisAlignment?.toVerticalArrangement()
     val horizontalAlignment = container.crossAxisAlignment?.toHorizontalAlignment()
-    Column(
-        verticalArrangement = verticalArrangement ?: Arrangement.Top,
-        horizontalAlignment = horizontalAlignment ?: Alignment.Start,
-        modifier = modifier.container(container, parentComponent, NimbusColumnScope.instance)
-    ) {
-        content()
+    NimbusSoftwareLayer(condition = container.needBlurForShadow()) {
+        Column(
+            verticalArrangement = verticalArrangement ?: Arrangement.Top,
+            horizontalAlignment = horizontalAlignment ?: Alignment.Start,
+            modifier = modifier.container(container, parentComponent, NimbusColumnScope.instance)
+        ) {
+            content()
+        }
     }
 }

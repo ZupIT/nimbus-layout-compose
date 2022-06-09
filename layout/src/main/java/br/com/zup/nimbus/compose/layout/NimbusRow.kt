@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.ComponentStructure
 import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
-import br.com.zup.nimbus.compose.layout.model.needBlurForShadow
+import br.com.zup.nimbus.compose.layout.model.shouldDisableHardwareAcceleration
 
 private object NimbusRowScope {
     private val kClass =
@@ -27,7 +27,7 @@ internal fun NimbusRow(
     val container = requireNotNull(model.properties)
     val horizontalArrangement = container.mainAxisAlignment?.toHorizontalArrangement()
     val verticalAlignment = container.crossAxisAlignment?.toVerticalAlignment()
-    NimbusSoftwareLayer(condition = container.needBlurForShadow()) {
+    NimbusSoftwareLayer(condition = container.shouldDisableHardwareAcceleration()) {
         Row(
             horizontalArrangement = horizontalArrangement ?: Arrangement.Start,
             verticalAlignment = verticalAlignment ?: Alignment.Top,

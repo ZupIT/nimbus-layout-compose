@@ -7,7 +7,7 @@ internal interface Box : Margin, Padding, Size, Border {
 }
 
 
-internal fun Box.needBlurForShadow(): Boolean {
+internal fun Box.shouldDisableHardwareAcceleration(): Boolean {
     return shadow?.let { shadowList ->
         shadowList.any { it.blur != null && it.blur > 0.0 }
     } ?: false

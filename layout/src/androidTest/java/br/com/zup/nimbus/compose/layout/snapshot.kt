@@ -86,7 +86,7 @@ fun ScreenshotTest.executeScreenshotTest(jsonFile: String, composeTestRule: Comp
     try {
         composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
         composeTestRule.waitUntilExists(hasTestTag(screenName))
-        composeTestRule.waitForIdle()
+        Thread.sleep(300)
     } catch (e: Throwable) {
         e.printStackTrace()
     }

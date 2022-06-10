@@ -3,7 +3,6 @@ package br.com.zup.nimbus.compose.layout.extensions
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.foundation.layout.offset
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.model.Positioned

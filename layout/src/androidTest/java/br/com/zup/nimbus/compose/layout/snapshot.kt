@@ -95,12 +95,8 @@ fun ScreenshotTest.executeScreenshotTest(
         ScreenTest(getJson(jsonFile) ?: "")
     }
 
-    try {
-        composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
-        composeTestRule.waitUntilExists(hasTestTag(screenName))
-    } catch (e: Throwable) {
-        e.printStackTrace()
-    }
+    composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
+    composeTestRule.waitUntilExists(hasTestTag(screenName))
 
     if (useActivityScreenshot) {
         getCurrentActivity()?.let {

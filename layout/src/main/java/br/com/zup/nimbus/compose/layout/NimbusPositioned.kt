@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.positioned
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.NimbusPositionedApi
+import br.com.zup.nimbus.compose.layout.model.shouldDisableHardwareAcceleration
 
 private object NimbusBoxScope {
     private val kClass =
@@ -24,12 +25,13 @@ internal fun NimbusPositioned(
     val nimbusAlignment = requireNotNull(positioned.alignment)
 
     val alignment = nimbusAlignment.toAlignment()
-
-    Box(
-        contentAlignment = alignment,
-        modifier = modifier.positioned(positioned = positioned, scope = NimbusBoxScope.instance)
-    ) {
-        content()
+    NimbusSoftwareLayer(condition = positioned.shouldDisableHardwareAcceleration()) {
+        Box(
+            contentAlignment = alignment,
+            modifier = modifier.positioned(positioned = positioned, scope = NimbusBoxScope.instance)
+        ) {
+            content()
+        }
     }
 
 }

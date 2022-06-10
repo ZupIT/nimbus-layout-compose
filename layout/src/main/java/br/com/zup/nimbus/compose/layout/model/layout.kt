@@ -27,6 +27,7 @@ internal object ComponentNames {
     const val NIMBUS_ROW = "layout:row"
     const val NIMBUS_COLUMN = "layout:column"
     const val NIMBUS_TOUCHABLE = "layout:touchable"
+    const val NIMBUS_POSITIONED = "layout:positioned"
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -37,6 +38,12 @@ internal class NimbusRowApi(
     override val component: String? = null,
     override val properties: NimbusRowModel? = NimbusRowModel()
 ): ComponentStructure
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+internal class NimbusPositionedApi(
+    val component: String? = null,
+    val properties: Positioned? = Positioned()
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal class NimbusColumnModel : Container()
@@ -57,17 +64,17 @@ internal enum class CrossAxisAlignment {
     @JsonProperty("center")
     CENTER;
 
-    fun toVerticalAlignment(): Alignment.Vertical? =
+    fun toVerticalAlignment(): Alignment.Vertical =
         when (this) {
-            STRETCH -> null
+            STRETCH -> Alignment.Top
             START -> Alignment.Top
             END -> Alignment.Bottom
             CENTER -> Alignment.CenterVertically
         }
 
-    fun toHorizontalAlignment(): Alignment.Horizontal? =
+    fun toHorizontalAlignment(): Alignment.Horizontal =
         when (this) {
-            STRETCH -> null
+            STRETCH -> Alignment.Start
             START -> Alignment.Start
             END -> Alignment.End
             CENTER -> Alignment.CenterHorizontally

@@ -1,11 +1,10 @@
 package br.com.zup.nimbus.compose.layout
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import br.com.zup.nimbus.compose.layout.extensions.container
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.ComponentStructure
 import br.com.zup.nimbus.compose.layout.model.shouldDisableHardwareAcceleration
@@ -24,12 +23,14 @@ internal fun NimbusColumn(
     content: Component,
 ) {
     val container = requireNotNull(model.properties)
-    val verticalArrangement = container.mainAxisAlignment?.toVerticalArrangement()
-    val horizontalAlignment = container.crossAxisAlignment?.toHorizontalAlignment()
+    val mainAxisAlignment = requireNotNull(container.mainAxisAlignment)
+    val crossAxisAlignment = requireNotNull(container.crossAxisAlignment)
+    val verticalArrangement = mainAxisAlignment.toVerticalArrangement()
+    val horizontalAlignment = crossAxisAlignment.toHorizontalAlignment()
     NimbusSoftwareLayer(condition = container.shouldDisableHardwareAcceleration()) {
         Column(
-            verticalArrangement = verticalArrangement ?: Arrangement.Top,
-            horizontalAlignment = horizontalAlignment ?: Alignment.Start,
+            verticalArrangement = verticalArrangement,
+            horizontalAlignment = horizontalAlignment,
             modifier = modifier.container(container, parentComponent, NimbusColumnScope.instance)
         ) {
             content()

@@ -1,11 +1,10 @@
 package br.com.zup.nimbus.compose.layout
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import br.com.zup.nimbus.compose.layout.extensions.container
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.ComponentStructure
 import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
@@ -25,12 +24,14 @@ internal fun NimbusRow(
     content: Component,
 ) {
     val container = requireNotNull(model.properties)
-    val horizontalArrangement = container.mainAxisAlignment?.toHorizontalArrangement()
-    val verticalAlignment = container.crossAxisAlignment?.toVerticalAlignment()
+    val mainAxisAlignment = requireNotNull(container.mainAxisAlignment)
+    val crossAxisAlignment = requireNotNull(container.crossAxisAlignment)
+    val horizontalArrangement = mainAxisAlignment.toHorizontalArrangement()
+    val verticalAlignment = crossAxisAlignment.toVerticalAlignment()
     NimbusSoftwareLayer(condition = container.shouldDisableHardwareAcceleration()) {
         Row(
-            horizontalArrangement = horizontalArrangement ?: Arrangement.Start,
-            verticalAlignment = verticalAlignment ?: Alignment.Top,
+            horizontalArrangement = horizontalArrangement,
+            verticalAlignment = verticalAlignment,
             modifier = modifier.container(container, parentComponent, NimbusRowScope.instance)
         ) {
             content()

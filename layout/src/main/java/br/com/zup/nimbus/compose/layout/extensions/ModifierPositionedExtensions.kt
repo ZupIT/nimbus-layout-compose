@@ -39,8 +39,7 @@ internal fun Modifier.applyScopeModifier(
             {
                 val nimbusAlignment = requireNotNull(positioned.selfAlignment)
                 val alignment = nimbusAlignment.toAlignment()
-                if (alignment != Alignment.TopStart)
-                    newModifier = newModifier.align(alignment)
+                newModifier = newModifier.align(alignment)
             }
         }
     }

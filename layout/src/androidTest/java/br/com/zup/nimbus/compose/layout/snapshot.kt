@@ -29,6 +29,7 @@ import br.zup.com.nimbus.compose.NimbusConfig
 import br.zup.com.nimbus.compose.NimbusNavigator
 import br.zup.com.nimbus.compose.VIEW_INITIAL_URL
 import com.karumi.shot.ScreenshotTest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import java.io.InputStream
 import java.util.Scanner
@@ -86,6 +87,7 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 
 
 fun ScreenshotTest.getContext(): Context = getInstrumentation().targetContext
+@OptIn(ExperimentalCoroutinesApi::class)
 fun ScreenshotTest.executeScreenshotTest(
     jsonFile: String, composeTestRule: ComposeContentTestRule,
     screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",

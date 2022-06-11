@@ -87,6 +87,7 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 
 
 fun ScreenshotTest.getContext(): Context = getInstrumentation().targetContext
+
 @OptIn(ExperimentalCoroutinesApi::class)
 fun ScreenshotTest.executeScreenshotTest(
     jsonFile: String, composeTestRule: ComposeContentTestRule,

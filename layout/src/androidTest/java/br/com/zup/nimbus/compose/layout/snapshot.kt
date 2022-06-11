@@ -18,7 +18,6 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.core.graphics.applyCanvas
 import androidx.core.view.ViewCompat
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
@@ -85,7 +84,7 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 ) = waitUntilNodeCount(matcher, 0, timeoutMillis)
 
 
-fun ScreenshotTest.getContext(): Context = InstrumentationRegistry.getInstrumentation().targetContext
+fun ScreenshotTest.getContext(): Context = getInstrumentation().targetContext
 fun ScreenshotTest.executeScreenshotTest(
     jsonFile: String, composeTestRule: ComposeContentTestRule,
     screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
@@ -97,7 +96,7 @@ fun ScreenshotTest.executeScreenshotTest(
 
     composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
     composeTestRule.waitUntilExists(hasTestTag(screenName))
-
+    composeTestRule.mainClock.autoAdvance = false
     if (useActivityScreenshot) {
         getCurrentActivity()?.let {
             compareScreenshot(it)
@@ -105,6 +104,7 @@ fun ScreenshotTest.executeScreenshotTest(
     } else {
         compareScreenshot(composeTestRule)
     }
+    composeTestRule.mainClock.autoAdvance = true
 }
 
 fun getCurrentActivity(): Activity? {

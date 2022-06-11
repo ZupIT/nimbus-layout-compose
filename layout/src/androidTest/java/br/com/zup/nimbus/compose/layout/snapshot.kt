@@ -29,6 +29,7 @@ import br.zup.com.nimbus.compose.NimbusConfig
 import br.zup.com.nimbus.compose.NimbusNavigator
 import br.zup.com.nimbus.compose.VIEW_INITIAL_URL
 import com.karumi.shot.ScreenshotTest
+import kotlinx.coroutines.test.runTest
 import java.io.InputStream
 import java.util.Scanner
 
@@ -89,7 +90,7 @@ fun ScreenshotTest.executeScreenshotTest(
     jsonFile: String, composeTestRule: ComposeContentTestRule,
     screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
     useActivityScreenshot: Boolean = true,
-) {
+)= runTest {
     composeTestRule.setContent {
         ScreenTest(getJson(jsonFile) ?: "")
     }

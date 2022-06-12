@@ -34,7 +34,7 @@ import java.util.Scanner
 
 const val NIMBUS_PAGE = "NimbusPage"
 
-val loadingTag = "loadingTag"
+const val loadingTag = "loadingTag"
 val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
     "material:text" to @Composable { element, _, _ ->
         Text(text = element.properties?.get("text").toString(),
@@ -83,7 +83,7 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 ) = waitUntilNodeCount(matcher, 0, timeoutMillis)
 
 
-fun ScreenshotTest.getContext(): Context = getInstrumentation().targetContext
+fun getContext(): Context = getInstrumentation().targetContext
 
 fun ScreenshotTest.executeScreenshotTest(
     jsonFile: String, composeTestRule: ComposeContentTestRule,
@@ -117,30 +117,6 @@ fun getCurrentActivity(): Activity? {
         }
     }
     return currentActivity[0]
-}
-
-/**
- * Return a [Bitmap] representation of this [View].
- *
- * The resulting bitmap will be the same width and height as this view's current layout
- * dimensions. This does not take into account any transformations such as scale or translation.
- *
- * Note, this will use the software rendering pipeline to draw the view to the bitmap. This may
- * result with different drawing to what is rendered on a hardware accelerated canvas (such as
- * the device screen).
- *
- * If this view has not been laid out this method will throw a [IllegalStateException].
- *
- * @param config Bitmap config of the desired bitmap. Defaults to [Bitmap.Config.ARGB_8888].
- */
-fun View.drawToBitmap(config: Bitmap.Config = Bitmap.Config.ARGB_8888): Bitmap {
-    if (!ViewCompat.isLaidOut(this)) {
-        throw IllegalStateException("View needs to be laid out before calling drawToBitmap()")
-    }
-    return Bitmap.createBitmap(width, height, config).applyCanvas {
-        translate(-scrollX.toFloat(), -scrollY.toFloat())
-        draw(this)
-    }
 }
 
 fun Context.readRawResource(@RawRes res: Int): String? {

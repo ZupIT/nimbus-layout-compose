@@ -13,7 +13,7 @@
         }]
       }],
       "properties": {
-        "selfAlignment": "topStart",
+        "alignmentSelf": "topStart",
         "backgroundColor": "#FF0000",
         "width": 50.0,
         "height": 50.0,
@@ -33,7 +33,7 @@
         }]
       }],
       "properties": {
-        "selfAlignment": "topEnd",
+        "alignmentSelf": "topEnd",
         "backgroundColor": "#00FF00",
         "width": 50.0,
         "height": 50.0,
@@ -53,7 +53,7 @@
         }]
       }],
       "properties": {
-        "selfAlignment": "bottomStart",
+        "alignmentSelf": "bottomStart",
         "backgroundColor": "#0000FF",
         "width": 50.0,
         "height": 50.0,
@@ -73,7 +73,7 @@
         }]
       }],
       "properties": {
-        "selfAlignment": "bottomEnd",
+        "alignmentSelf": "bottomEnd",
         "backgroundColor": "#FFFF00",
         "width": 50.0,
         "height": 50.0,

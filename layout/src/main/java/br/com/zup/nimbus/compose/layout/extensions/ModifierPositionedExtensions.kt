@@ -36,7 +36,7 @@ internal fun Modifier.applyScopeModifier(
         is BoxScope -> {
             with(scope)
             {
-                val nimbusAlignment = requireNotNull(positioned.selfAlignment)
+                val nimbusAlignment = requireNotNull(positioned.alignmentSelf)
                 val alignment = nimbusAlignment.toAlignment()
                 newModifier = newModifier.align(alignment)
             }

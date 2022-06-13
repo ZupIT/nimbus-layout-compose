@@ -9,7 +9,7 @@ internal class Positioned (
     //Alignment for child components
     val alignment: PositionedAlignment? = PositionedAlignment.TOP_START,
     //Overrides parent alignment
-    val selfAlignment: PositionedAlignment? = alignment,
+    val alignmentSelf: PositionedAlignment? = alignment,
     val x: Double? = null,
     val y: Double? = null,
     override val width: Double? = null,

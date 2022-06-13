@@ -18,7 +18,6 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.core.graphics.applyCanvas
 import androidx.core.view.ViewCompat
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
@@ -33,10 +32,9 @@ import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner
 
-
 const val NIMBUS_PAGE = "NimbusPage"
 
-val loadingTag = "loadingTag"
+const val loadingTag = "loadingTag"
 val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
     "material:text" to @Composable { element, _, _ ->
         Text(text = element.properties?.get("text").toString(),
@@ -62,7 +60,7 @@ fun ScreenTest(json: String) {
     }
 }
 
-private const val WAIT_UNTIL_TIMEOUT = 20_000L
+private const val WAIT_UNTIL_TIMEOUT = 10_000L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
@@ -85,7 +83,8 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 ) = waitUntilNodeCount(matcher, 0, timeoutMillis)
 
 
-fun ScreenshotTest.getContext(): Context = InstrumentationRegistry.getInstrumentation().targetContext
+fun getContext(): Context = getInstrumentation().targetContext
+
 fun ScreenshotTest.executeScreenshotTest(
     jsonFile: String, composeTestRule: ComposeContentTestRule,
     screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
@@ -95,13 +94,18 @@ fun ScreenshotTest.executeScreenshotTest(
         ScreenTest(getJson(jsonFile) ?: "")
     }
 
-    try {
-        composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
-        composeTestRule.waitUntilExists(hasTestTag(screenName))
-    } catch (e: Throwable) {
-        e.printStackTrace()
+    var count = 1
+    val maxTryCount = 3
+    while (count <= maxTryCount) {
+        try {
+            composeTestRule.waitUntilExists(hasTestTag(screenName))
+            count = Int.MAX_VALUE
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
     }
 
+    composeTestRule.mainClock.autoAdvance = false
     if (useActivityScreenshot) {
         getCurrentActivity()?.let {
             compareScreenshot(it)
@@ -109,6 +113,7 @@ fun ScreenshotTest.executeScreenshotTest(
     } else {
         compareScreenshot(composeTestRule)
     }
+    composeTestRule.mainClock.autoAdvance = true
 }
 
 fun getCurrentActivity(): Activity? {
@@ -121,30 +126,6 @@ fun getCurrentActivity(): Activity? {
         }
     }
     return currentActivity[0]
-}
-
-/**
- * Return a [Bitmap] representation of this [View].
- *
- * The resulting bitmap will be the same width and height as this view's current layout
- * dimensions. This does not take into account any transformations such as scale or translation.
- *
- * Note, this will use the software rendering pipeline to draw the view to the bitmap. This may
- * result with different drawing to what is rendered on a hardware accelerated canvas (such as
- * the device screen).
- *
- * If this view has not been laid out this method will throw a [IllegalStateException].
- *
- * @param config Bitmap config of the desired bitmap. Defaults to [Bitmap.Config.ARGB_8888].
- */
-fun View.drawToBitmap(config: Bitmap.Config = Bitmap.Config.ARGB_8888): Bitmap {
-    if (!ViewCompat.isLaidOut(this)) {
-        throw IllegalStateException("View needs to be laid out before calling drawToBitmap()")
-    }
-    return Bitmap.createBitmap(width, height, config).applyCanvas {
-        translate(-scrollX.toFloat(), -scrollY.toFloat())
-        draw(this)
-    }
 }
 
 fun Context.readRawResource(@RawRes res: Int): String? {

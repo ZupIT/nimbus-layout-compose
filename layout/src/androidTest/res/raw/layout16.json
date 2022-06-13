@@ -1,0 +1,91 @@
+{
+  "_:component": "layout:positioned",
+  "children": [
+    {
+      "_:component": "layout:positioned",
+      "children": [{
+        "_:component": "layout:row",
+        "children" : [{
+          "_:component": "material:text",
+          "properties": {
+            "text": "r"
+          }
+        }]
+      }],
+      "properties": {
+        "alignmentSelf": "topStart",
+        "backgroundColor": "#FF0000",
+        "width": 50.0,
+        "height": 50.0,
+        "x": 10.0,
+        "y": 10.0
+      }
+    },
+    {
+      "_:component": "layout:positioned",
+      "children": [{
+        "_:component": "layout:row",
+        "children" : [{
+          "_:component": "material:text",
+          "properties": {
+            "text": "g"
+          }
+        }]
+      }],
+      "properties": {
+        "alignmentSelf": "topEnd",
+        "backgroundColor": "#00FF00",
+        "width": 50.0,
+        "height": 50.0,
+        "x": -10.0,
+        "y": 10.0
+      }
+    },
+    {
+      "_:component": "layout:positioned",
+      "children": [{
+        "_:component": "layout:row",
+        "children" : [{
+          "_:component": "material:text",
+          "properties": {
+            "text": "b"
+          }
+        }]
+      }],
+      "properties": {
+        "alignmentSelf": "bottomStart",
+        "backgroundColor": "#0000FF",
+        "width": 50.0,
+        "height": 50.0,
+        "x": 10.0,
+        "y": -10.0
+      }
+    },
+    {
+      "_:component": "layout:positioned",
+      "children": [{
+        "_:component": "layout:row",
+        "children" : [{
+          "_:component": "material:text",
+          "properties": {
+            "text": "m"
+          }
+        }]
+      }],
+      "properties": {
+        "alignmentSelf": "bottomEnd",
+        "backgroundColor": "#FFFF00",
+        "width": 50.0,
+        "height": 50.0,
+        "x": -10.0,
+        "y": -10.0
+      }
+    }
+  ],
+  "properties": {
+    "alignment": "topStart",
+    "backgroundColor": "#CCCCCCFF",
+    "width": 150.0,
+    "height": 150.0
+  }
+}

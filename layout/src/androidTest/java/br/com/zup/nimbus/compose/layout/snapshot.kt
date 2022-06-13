@@ -60,7 +60,7 @@ fun ScreenTest(json: String) {
     }
 }
 
-private const val WAIT_UNTIL_TIMEOUT = 40_000L
+private const val WAIT_UNTIL_TIMEOUT = 10_000L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
@@ -94,7 +94,17 @@ fun ScreenshotTest.executeScreenshotTest(
         ScreenTest(getJson(jsonFile) ?: "")
     }
 
-    composeTestRule.waitUntilExists(hasTestTag(screenName))
+    var count = 1
+    val maxTryCount = 3
+    while (count <= maxTryCount) {
+        try {
+            composeTestRule.waitUntilExists(hasTestTag(screenName))
+            count = Int.MAX_VALUE
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
+    }
+
     composeTestRule.mainClock.autoAdvance = false
     if (useActivityScreenshot) {
         getCurrentActivity()?.let {

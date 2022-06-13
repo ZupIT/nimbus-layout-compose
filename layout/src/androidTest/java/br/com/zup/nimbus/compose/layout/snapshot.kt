@@ -3,8 +3,6 @@ package br.com.zup.nimbus.compose.layout
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Bitmap
-import android.view.View
 import androidx.annotation.RawRes
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -16,8 +14,6 @@ import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
-import androidx.core.graphics.applyCanvas
-import androidx.core.view.ViewCompat
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
@@ -60,7 +56,7 @@ fun ScreenTest(json: String) {
     }
 }
 
-private const val WAIT_UNTIL_TIMEOUT = 10_000L
+private const val WAIT_UNTIL_TIMEOUT = 40_000L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
@@ -94,15 +90,10 @@ fun ScreenshotTest.executeScreenshotTest(
         ScreenTest(getJson(jsonFile) ?: "")
     }
 
-    var count = 1
-    val maxTryCount = 3
-    while (count <= maxTryCount) {
-        try {
-            composeTestRule.waitUntilExists(hasTestTag(screenName))
-            count = Int.MAX_VALUE
-        } catch (e: Throwable) {
-            e.printStackTrace()
-        }
+    try {
+        composeTestRule.waitUntilExists(hasTestTag(screenName))
+    } catch (e: Throwable) {
+        e.printStackTrace()
     }
 
     composeTestRule.mainClock.autoAdvance = false

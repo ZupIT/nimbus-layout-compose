@@ -94,7 +94,6 @@ fun ScreenshotTest.executeScreenshotTest(
         ScreenTest(getJson(jsonFile) ?: "")
     }
 
-    composeTestRule.waitUntilDoesNotExist(hasTestTag(loadingTag))
     composeTestRule.waitUntilExists(hasTestTag(screenName))
     composeTestRule.mainClock.autoAdvance = false
     if (useActivityScreenshot) {

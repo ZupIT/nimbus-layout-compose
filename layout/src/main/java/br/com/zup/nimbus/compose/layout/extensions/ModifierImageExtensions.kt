@@ -7,7 +7,5 @@ internal fun Modifier.image(
     image: BaseImage,
     modifier: Modifier = Modifier,
 ) = this.then(
-    modifier
-        .clipped(image.clipped)
-        .size(image)
+    modifier.size(image)
 )

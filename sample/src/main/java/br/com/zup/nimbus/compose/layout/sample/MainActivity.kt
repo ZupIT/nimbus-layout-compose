@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.layoutComponents
 import br.com.zup.nimbus.compose.layout.sample.components.CustomError
 import br.com.zup.nimbus.compose.layout.sample.components.customComponents
@@ -19,7 +20,6 @@ class MainActivity : ComponentActivity() {
         baseUrl = BASE_URL,
         components = customComponents + layoutComponents,
         logger = AppLogger(),
-        imageProvider = DefaultImageProvider(),
         errorView = { throwable: Throwable, retry: () -> Unit ->
             CustomError(throwable = throwable, retry = retry)
         }
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Nimbus(config = config) {
+                    Nimbus(config = config.imageProvider(DefaultImageProvider())) {
                         NimbusNavigator(ViewRequest("/remote_image"))
                     }
                 }

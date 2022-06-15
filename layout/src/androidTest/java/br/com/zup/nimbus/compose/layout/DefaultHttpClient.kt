@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout.sample
+package br.com.zup.nimbus.compose.layout
 
 import com.zup.nimbus.core.network.ServerDrivenHttpMethod
 import com.zup.nimbus.core.network.ServerDrivenRequest

@@ -2,11 +2,10 @@ package br.com.zup.nimbus.compose.layout.viewmodel
 
 import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
-import androidx.compose.ui.layout.ContentScale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import br.zup.com.nimbus.compose.ImageProvider
+import br.com.zup.nimbus.compose.layout.configuration.ImageProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

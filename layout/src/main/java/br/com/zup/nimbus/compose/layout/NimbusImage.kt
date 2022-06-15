@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.zup.nimbus.compose.layout.extensions.accessibility
 import br.com.zup.nimbus.compose.layout.extensions.image
+import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.model.BaseImage
 import br.com.zup.nimbus.compose.layout.model.LocalImage
 import br.com.zup.nimbus.compose.layout.model.LocalImageApi
@@ -34,7 +35,7 @@ internal fun NimbusLocalImage(
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel(
         factory = ImageViewModel.provideFactory(
-            imageProvider = NimbusTheme.nimbusAppState.config.imageProvider
+            imageProvider = NimbusTheme.nimbusAppState.config.imageProvider()
         )
     ),
     model: LocalImageApi,
@@ -48,7 +49,7 @@ internal fun NimbusRemoteImage(
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel(
         factory = ImageViewModel.provideFactory(
-            imageProvider = NimbusTheme.nimbusAppState.config.imageProvider
+            imageProvider = NimbusTheme.nimbusAppState.config.imageProvider()
         )
     ),
     model: RemoteImageApi,
@@ -64,7 +65,7 @@ private fun NimbusImageImpl(
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel(
         factory = ImageViewModel.provideFactory(
-            imageProvider = NimbusTheme.nimbusAppState.config.imageProvider
+            imageProvider = NimbusTheme.nimbusAppState.config.imageProvider()
         )
     ),
     model: Image,

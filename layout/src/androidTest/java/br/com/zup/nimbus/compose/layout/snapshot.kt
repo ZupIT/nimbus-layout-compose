@@ -19,6 +19,7 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import br.com.zup.nimbus.android.layout.test.BuildConfig
+import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.ComponentHandler
 import br.zup.com.nimbus.compose.Nimbus
@@ -40,7 +41,6 @@ val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
 
 private val config = NimbusConfig(
     baseUrl = BASE_URL,
-    imageProvider = DefaultImageProvider(),
     components = customComponents + layoutComponents,
     loadingView = {
         Text("Loading...", Modifier.semantics { testTag = loadingTag })
@@ -51,7 +51,7 @@ private val config = NimbusConfig(
 fun ScreenTest(json: String) {
     AppTheme {
         Surface(color = MaterialTheme.colors.background) {
-            Nimbus(config = config) {
+            Nimbus(config = config.imageProvider(DefaultImageProvider())) {
                 NimbusNavigator(json = json)
             }
         }

@@ -3,8 +3,7 @@ package br.com.zup.nimbus.compose.layout
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import br.com.zup.nimbus.android.layout.test.R
-import br.com.zup.nimbus.compose.layout.sample.DefaultHttpClient
-import br.zup.com.nimbus.compose.ImageProvider
+import br.com.zup.nimbus.compose.layout.configuration.ImageProvider
 import com.zup.nimbus.core.network.HttpClient
 import com.zup.nimbus.core.network.ServerDrivenHttpMethod
 import com.zup.nimbus.core.network.ServerDrivenRequest

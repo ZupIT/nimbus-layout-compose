@@ -1,8 +1,8 @@
-package br.com.zup.nimbus.compose.layout.sample
+package br.com.zup.nimbus.compose.layout.configuration
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import br.com.zup.nimbus.compose.layout.configuration.ImageProvider
+import com.zup.nimbus.core.network.DefaultHttpClient
 import com.zup.nimbus.core.network.HttpClient
 import com.zup.nimbus.core.network.ServerDrivenHttpMethod
 import com.zup.nimbus.core.network.ServerDrivenRequest
@@ -35,9 +35,5 @@ internal class DefaultImageProvider(
         }
     }
 
-    override fun fetchLocal(id: String): Int? = when (id) {
-        "nimbus-local" -> R.drawable.nimbus_local
-        "placeholder-img" -> R.drawable.placeholder_img
-        else -> null
-    }
+    override fun fetchLocal(id: String): Int? = null
 }

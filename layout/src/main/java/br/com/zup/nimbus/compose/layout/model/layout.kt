@@ -41,10 +41,10 @@ internal enum class ImageScale(val value: String) {
 
     fun toContentScale(): ContentScale =
         when (this) {
-            ImageScale.FILL_HEIGHT -> ContentScale.Crop
-            ImageScale.FILL_WIDTH -> ContentScale.Fit
-            ImageScale.FILL_BOUNDS -> ContentScale.FillBounds
-            ImageScale.CENTER -> ContentScale.Inside
+            FILL_HEIGHT -> ContentScale.Crop
+            FILL_WIDTH -> ContentScale.Fit
+            FILL_BOUNDS -> ContentScale.FillBounds
+            CENTER -> ContentScale.None
         }
 }
 

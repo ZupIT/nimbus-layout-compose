@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
         baseUrl = BASE_URL,
         components = customComponents + layoutComponents,
         logger = AppLogger(),
+        imageProvider = DefaultImageProvider(),
         errorView = { throwable: Throwable, retry: () -> Unit ->
             CustomError(throwable = throwable, retry = retry)
         }
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Nimbus(config = config) {
-                        NimbusNavigator(ViewRequest("/16"))
+                        NimbusNavigator(ViewRequest("/remote_image"))
                     }
                 }
             }

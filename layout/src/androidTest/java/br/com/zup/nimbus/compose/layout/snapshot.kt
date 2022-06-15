@@ -3,8 +3,7 @@ package br.com.zup.nimbus.compose.layout
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Bitmap
-import android.view.View
+import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -16,8 +15,6 @@ import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
-import androidx.core.graphics.applyCanvas
-import androidx.core.view.ViewCompat
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
@@ -42,7 +39,8 @@ val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
     })
 
 private val config = NimbusConfig(
-    baseUrl = "https://dummy.com",
+    baseUrl = BASE_URL,
+    imageProvider = DefaultImageProvider(),
     components = customComponents + layoutComponents,
     loadingView = {
         Text("Loading...", Modifier.semantics { testTag = loadingTag })
@@ -60,7 +58,7 @@ fun ScreenTest(json: String) {
     }
 }
 
-private const val WAIT_UNTIL_TIMEOUT = 10_000L
+private const val WAIT_UNTIL_TIMEOUT = 30_000L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
@@ -86,23 +84,23 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
 fun getContext(): Context = getInstrumentation().targetContext
 
 fun ScreenshotTest.executeScreenshotTest(
-    jsonFile: String, composeTestRule: ComposeContentTestRule,
+    jsonFile: String,
+    composeTestRule: ComposeContentTestRule,
     screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
     useActivityScreenshot: Boolean = true,
+    waitMatcher: SemanticsMatcher? = null,
+    replaceInJson: List<Pair<String, String>> = emptyList()
 ) {
+
+    val json = replaceJson(getJson(jsonFile), replaceInJson)
+
     composeTestRule.setContent {
-        ScreenTest(getJson(jsonFile) ?: "")
+        ScreenTest(json ?: "")
     }
 
-    var count = 1
-    val maxTryCount = 3
-    while (count <= maxTryCount) {
-        try {
-            composeTestRule.waitUntilExists(hasTestTag(screenName))
-            count = Int.MAX_VALUE
-        } catch (e: Throwable) {
-            e.printStackTrace()
-        }
+    composeTestRule.waitUntilExists(hasTestTag(screenName))
+    waitMatcher?.let {
+        composeTestRule.waitUntilExists(it)
     }
 
     composeTestRule.mainClock.autoAdvance = false
@@ -114,6 +112,17 @@ fun ScreenshotTest.executeScreenshotTest(
         compareScreenshot(composeTestRule)
     }
     composeTestRule.mainClock.autoAdvance = true
+}
+
+private fun replaceJson(json: String?, replaceInJson: List<Pair<String, String>>): String? {
+    return json?.let { jsonString ->
+        var tempJson = jsonString
+        replaceInJson.forEach {
+            tempJson = tempJson.replace(it.first, it.second)
+        }
+
+        return tempJson
+    }
 }
 
 fun getCurrentActivity(): Activity? {
@@ -130,6 +139,10 @@ fun getCurrentActivity(): Activity? {
 
 fun Context.readRawResource(@RawRes res: Int): String? {
     return readStream(resources.openRawResource(res))
+}
+
+fun Context.readImageAsBytes(@DrawableRes res: Int): ByteArray {
+    return resources.openRawResource(res).readBytes()
 }
 
 fun ScreenshotTest.getJson(jsonFile: String): String? {

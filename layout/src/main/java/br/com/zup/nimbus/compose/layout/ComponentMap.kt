@@ -3,29 +3,28 @@
 package br.com.zup.nimbus.compose.layout
 
 import androidx.compose.runtime.Composable
-import br.com.zup.nimbus.compose.layout.model.Accessibility
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_LOCAL_IMAGE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_POSITIONED
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_REMOTE_IMAGE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_TOUCHABLE
 import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
+import br.com.zup.nimbus.compose.layout.model.LocalImageApi
 import br.com.zup.nimbus.compose.layout.model.NimbusColumnApi
 import br.com.zup.nimbus.compose.layout.model.NimbusPositionedApi
 import br.com.zup.nimbus.compose.layout.model.NimbusRowApi
+import br.com.zup.nimbus.compose.layout.model.RemoteImageApi
+import br.com.zup.nimbus.compose.layout.model.TouchableApi
 import br.zup.com.nimbus.compose.ComponentHandler
 import com.fasterxml.jackson.core.type.TypeReference
 
 val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     NIMBUS_TOUCHABLE to @Composable { element, children, _ ->
-        val model = TouchableModel(
+        val model = element.parse(object : TypeReference<TouchableApi>() {})
+        NimbusTouchable(model = model,
             onPress = element.properties!!["onPress"] as (Any?) -> Unit,
-            children = children,
-            accessibility = if (element.properties!!.containsKey("accessibility")) {
-                (element.properties!!["accessibility"] as Map<String, Any?>)
-                    .parse(object : TypeReference<Accessibility>() {})
-            } else null
-        )
-        NimbusTouchable(model)
+        content = children)
     },
     NIMBUS_ROW to @Composable { element, children, parentElement ->
         val modelParent = parentElement?.let { parse(it, object : TypeReference<GenericComponentApi>() {}) }
@@ -40,5 +39,13 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     NIMBUS_POSITIONED to @Composable { element, children, _ ->
         val model = element.parse(object : TypeReference<NimbusPositionedApi>() {})
         NimbusPositioned(model = model, content = children)
+    },
+    NIMBUS_LOCAL_IMAGE to @Composable { element, _, _ ->
+        val model = element.parse(object : TypeReference<LocalImageApi>() {})
+        NimbusLocalImage(model = model)
+    },
+    NIMBUS_REMOTE_IMAGE to @Composable { element, _, _ ->
+        val model = element.parse(object : TypeReference<RemoteImageApi>() {})
+        NimbusRemoteImage(model = model)
     },
 )

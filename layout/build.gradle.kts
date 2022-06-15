@@ -11,7 +11,7 @@ val ktorVersion = "2.0.0"
 val applicationId by extra("br.com.zup.nimbus.android.layout.test")
 
 dependencies {
-    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha8")
+    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha9")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("com.google.android.material:material:1.6.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
@@ -29,6 +29,7 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation ("androidx.compose.ui:ui-test:${rootProject.extra["compose_version"]}")
 
+    androidTestImplementation("io.ktor:ktor-client-mock:$ktorVersion")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
     debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
     debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["compose_version"]}")

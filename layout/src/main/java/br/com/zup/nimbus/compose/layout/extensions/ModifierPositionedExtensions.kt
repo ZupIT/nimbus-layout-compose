@@ -18,7 +18,6 @@ internal fun Modifier.positioned(
         .offset(x = positioned.x?.dp ?: 0.dp)
         .offset(y = positioned.y?.dp ?: 0.dp)
         .margin(positioned)
-        .clipped(positioned.clipped)
         .size(positioned)
         .shadow(positioned)
         .border(positioned)

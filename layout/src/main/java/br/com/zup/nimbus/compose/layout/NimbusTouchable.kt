@@ -5,27 +5,31 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.accessibility
-import br.com.zup.nimbus.compose.layout.model.Accessibility
+import br.com.zup.nimbus.compose.layout.model.WithAccessibility
 import br.com.zup.nimbus.compose.layout.model.Action
 import br.com.zup.nimbus.compose.layout.model.Component
+import br.com.zup.nimbus.compose.layout.model.TouchableApi
 
 @Composable
 internal fun NimbusTouchable(
-    model: TouchableModel,
     modifier: Modifier = Modifier,
+    model: TouchableApi,
+    onPress: Action,
+    content: Component,
 ) {
     Box(
         modifier = modifier
             .clickable {
-                model.onPress(null)
+                onPress(null)
             }
-            .accessibility(model.accessibility)
+            .accessibility(model = model.properties)
     ) {
-        model.children()
+        content()
     }
 }
 
 internal data class TouchableModel(
     val onPress: Action,
     val children: Component,
-    val accessibility: Accessibility? = null)
+    val accessibility: WithAccessibility? = null,
+)

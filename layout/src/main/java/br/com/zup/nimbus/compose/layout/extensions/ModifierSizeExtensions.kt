@@ -52,6 +52,8 @@ internal fun Modifier.size(
     with(container) {
         var newModifier = modifier
 
+        newModifier = newModifier.clipped(container.clipped)
+
         container.width?.let {
             newModifier = newModifier.width(it.dp)
         }

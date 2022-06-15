@@ -1,0 +1,12 @@
+{
+  "_:component": "layout:localimage",
+  "properties": {
+    "id": "nimbus-local",
+    "width": 70.0,
+    "height": 70.0,
+    "scale": "@(scale)",
+    "accessibility" : {
+      "label": "This is the golden nimbus"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "_:component": "layout:remoteimage",
+  "properties": {
+    "url": "/nimbusimage",
+    "placeholder": "placeholder-img",
+    "width": 70.0,
+    "height": 70.0,
+    "scale": "@(scale)",
+    "accessibility" : {
+      "label": "This is the golden nimbus"
+    }
+  }
+}

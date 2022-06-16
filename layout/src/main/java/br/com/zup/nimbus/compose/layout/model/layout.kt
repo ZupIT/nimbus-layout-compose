@@ -100,6 +100,7 @@ internal object ComponentNames {
     const val NIMBUS_POSITIONED = "layout:positioned"
     const val NIMBUS_REMOTE_IMAGE = "layout:remoteimage"
     const val NIMBUS_LOCAL_IMAGE = "layout:localimage"
+    const val NIMBUS_SCROLL_VIEW = "layout:scroll"
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -126,6 +127,12 @@ internal class TouchableApi(
 internal class NimbusPositionedApi(
     val component: String? = null,
     val properties: Positioned? = Positioned(),
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+internal class ScrollViewApi(
+    val component: String? = null,
+    val properties: ScrollView? = ScrollView()
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)

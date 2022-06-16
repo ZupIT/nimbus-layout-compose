@@ -23,6 +23,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.4")
+
+    //Scrollview
+    implementation("androidx.compose.material3:material3:1.0.0-alpha13")
+    implementation("androidx.compose.ui:ui-util:${rootProject.extra["compose_version"]}")
+
     androidTestImplementation ("androidx.test.ext:junit:1.1.3")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
     androidTestImplementation ("androidx.test.espresso:espresso-contrib:3.4.0")
@@ -36,10 +41,10 @@ dependencies {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 32
     defaultConfig {
         minSdk = 21
-        targetSdk = 31
+        targetSdk = 32
         vectorDrawables {
             useSupportLibrary = true
         }

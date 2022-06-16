@@ -134,4 +134,14 @@ class LayoutFlexTest : ScreenshotTest {
     fun test_layout_19_1() {
         executeScreenshotTest("layout19_1", composeTestRule)
     }
+
+    @Test
+    fun test_layout_21() {
+        executeScreenshotTest("layout21", composeTestRule)
+    }
+
+    @Test
+    fun test_layout_22() {
+        executeScreenshotTest("layout22", composeTestRule)
+    }
 }

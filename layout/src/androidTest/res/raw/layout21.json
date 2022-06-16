@@ -1,0 +1,103 @@
+{
+  "_:component": "layout:row",
+  "children": [
+    {
+      "_:component": "layout:scroll",
+      "children": [
+        {
+          "_:component": "layout:column",
+          "children": [
+            {
+              "_:component": "layout:row",
+              "children": [
+                {
+                  "_:component": "material:text",
+                  "properties": {
+                    "text": "r"
+                  }
+                }
+              ],
+              "properties": {
+                "height": 80.0,
+                "width": 300.0,
+                "backgroundColor": "#FF0000"
+              }
+            },
+            {
+              "_:component": "layout:row",
+              "children": [
+                {
+                  "_:component": "material:text",
+                  "properties": {
+                    "text": "b"
+                  }
+                }
+              ],
+              "properties": {
+                "height": 80.0,
+                "width": 300.0,
+                "backgroundColor": "#0000FF"
+              }
+            },
+            {
+              "_:component": "layout:row",
+              "children": [
+                {
+                  "_:component": "material:text",
+                  "properties": {
+                    "text": "b"
+                  }
+                }
+              ],
+              "properties": {
+                "height": 80.0,
+                "width": 300.0,
+                "backgroundColor": "#0000FF"
+              }
+            },
+            {
+              "_:component": "layout:row",
+              "children": [
+                {
+                  "_:component": "material:text",
+                  "properties": {
+                    "text": "b"
+                  }
+                }
+              ],
+              "properties": {
+                "height": 80.0,
+                "width": 300.0,
+                "backgroundColor": "#0000FF"
+              }
+            },
+            {
+              "_:component": "layout:row",
+              "children": [
+                {
+                  "_:component": "material:text",
+                  "properties": {
+                    "text": "b"
+                  }
+                }
+              ],
+              "properties": {
+                "height": 80.0,
+                "width": 300.0,
+                "backgroundColor": "#0000FF"
+              }
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "direction": "vertical"
+      }
+    }
+  ],
+  "properties": {
+    "backgroundColor": "#CCCCCCFF",
+    "height": 200.0,
+    "width": 300.0
+  }
+}

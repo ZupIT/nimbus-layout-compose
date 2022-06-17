@@ -9,7 +9,7 @@ val ktorVersion = "2.0.0"
 
 dependencies {
     implementation(project(":layout"))
-    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alphascreen")
+    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha10")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.appcompat:appcompat:1.4.2")

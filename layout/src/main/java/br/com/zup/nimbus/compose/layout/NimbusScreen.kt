@@ -51,7 +51,10 @@ internal fun NimbusScreen(
                 TopAppBar(
                     title = { Text(screen.title ?: "") },
                     backgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.9f),
-                    navigationIcon = ifNavigationIcon(screen.showBackButton) { navHostHelper.pop() },
+                    navigationIcon = ifNavigationIcon(
+                        showBackButton = !navHostHelper.isFirstScreen() &&
+                                screen.showBackButton.isTrue()
+                    ) { navHostHelper.pop() },
                     contentPadding = rememberInsetsPaddingValues(
                         LocalWindowInsets.current.statusBars,
                         applyTop = safeArea.top.isTrue(),

@@ -16,7 +16,7 @@ typealias Action = (Any?) -> Unit
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal open class GenericComponentApi(
     override val component: String? = null,
-    override val properties: Container? = null,
+    override val properties: ParentContainer? = null,
 ) : ComponentStructure
 
 internal interface ComponentStructure {
@@ -101,14 +101,13 @@ internal object ComponentNames {
     const val NIMBUS_REMOTE_IMAGE = "layout:remoteimage"
     const val NIMBUS_LOCAL_IMAGE = "layout:localimage"
     const val NIMBUS_SCROLL_VIEW = "layout:scroll"
+    const val NIMBUS_SCREEN = "layout:screen"
 }
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-internal class NimbusRowModel : Container()
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal class TouchableModel(
-    override val accessibility: Accessibility? = null
+    override val accessibility: Accessibility? = null,
 ) : WithAccessibility
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -132,11 +131,14 @@ internal class NimbusPositionedApi(
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal class ScrollViewApi(
     val component: String? = null,
-    val properties: ScrollView? = ScrollView()
+    val properties: ScrollView? = ScrollView(),
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class NimbusColumnModel : Container()
+internal class ScreenApi(
+    val component: String? = null,
+    val properties: Screen? = Screen(),
+)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal class NimbusColumnApi(

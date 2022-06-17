@@ -11,7 +11,7 @@ val ktorVersion = "2.0.0"
 val applicationId by extra("br.com.zup.nimbus.android.layout.test")
 
 dependencies {
-    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alpha9")
+    implementation("br.com.zup.nimbus:nimbus-compose:1.0.0-alphascreen")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("com.google.android.material:material:1.6.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
@@ -23,6 +23,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.4")
+
+    implementation("com.google.accompanist:accompanist-flowlayout:${rootProject.extra["accompanist_version"]}")
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:${rootProject.extra["accompanist_version"]}")
+    implementation ("com.google.accompanist:accompanist-insets:${rootProject.extra["accompanist_version"]}")
+    // If using insets-ui
+    implementation ("com.google.accompanist:accompanist-insets-ui:${rootProject.extra["accompanist_version"]}")
 
     //Scrollview
     implementation("androidx.compose.material3:material3:1.0.0-alpha13")
@@ -62,6 +68,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = listOf("-Xjvm-default=all")
     }
     buildFeatures {
         compose = true

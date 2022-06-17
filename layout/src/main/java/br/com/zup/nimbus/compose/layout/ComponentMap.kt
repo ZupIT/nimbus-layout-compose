@@ -8,6 +8,7 @@ import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_LOCAL_IMAGE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_POSITIONED
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_REMOTE_IMAGE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_SCREEN
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_SCROLL_VIEW
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_TOUCHABLE
 import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
@@ -16,6 +17,7 @@ import br.com.zup.nimbus.compose.layout.model.NimbusColumnApi
 import br.com.zup.nimbus.compose.layout.model.NimbusPositionedApi
 import br.com.zup.nimbus.compose.layout.model.NimbusRowApi
 import br.com.zup.nimbus.compose.layout.model.RemoteImageApi
+import br.com.zup.nimbus.compose.layout.model.ScreenApi
 import br.com.zup.nimbus.compose.layout.model.ScrollViewApi
 import br.com.zup.nimbus.compose.layout.model.TouchableApi
 import br.zup.com.nimbus.compose.ComponentHandler
@@ -53,5 +55,9 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     NIMBUS_SCROLL_VIEW to @Composable { element, children, _ ->
         val model = element.parse(object : TypeReference<ScrollViewApi>() {})
         NimbusScrollView(model = model, content = children)
+    },
+    NIMBUS_SCREEN to @Composable { element, children, _ ->
+        val model = element.parse(object : TypeReference<ScreenApi>() {})
+        NimbusScreen(model = model, content = children)
     },
 )

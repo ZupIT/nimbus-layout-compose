@@ -3,7 +3,6 @@ package br.com.zup.nimbus.compose.layout
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import androidx.compose.material.MaterialTheme
@@ -59,7 +58,7 @@ fun ScreenTest(json: String) {
     }
 }
 
-private const val WAIT_UNTIL_TIMEOUT = 30_000L
+private const val WAIT_UNTIL_TIMEOUT = 40_000L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
@@ -100,8 +99,6 @@ fun ScreenshotTest.executeScreenshotTest(
     }
 
     waitFor(composeTestRule, screenName, waitMatcher)
-
-    composeTestRule.mainClock.autoAdvance = false
     if (useActivityScreenshot) {
         getCurrentActivity()?.let {
             compareScreenshot(it)
@@ -109,27 +106,16 @@ fun ScreenshotTest.executeScreenshotTest(
     } else {
         compareScreenshot(composeTestRule)
     }
-    composeTestRule.mainClock.autoAdvance = true
 }
 
 private fun waitFor(
     composeTestRule: ComposeContentTestRule,
     screenName: String,
-    waitMatcher: SemanticsMatcher?,
+    waitMatcher: SemanticsMatcher?
 ) {
-    val maxTryCount = 3
-    var currentAttempt = 0
-    try {
-        while (currentAttempt < maxTryCount) {
-            currentAttempt += 1
-            composeTestRule.waitUntilExists(hasTestTag(screenName))
-            waitMatcher?.let {
-                composeTestRule.waitUntilExists(it)
-            }
-            currentAttempt = maxTryCount
-        }
-    } catch (e: Throwable) {
-        Log.w("SNAPSHOTS", "Retrying wait currentTry=$currentAttempt", e)
+    composeTestRule.waitUntilExists(hasTestTag(screenName))
+    waitMatcher?.let {
+        composeTestRule.waitUntilExists(it)
     }
 }
 

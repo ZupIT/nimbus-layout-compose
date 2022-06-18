@@ -3,6 +3,7 @@ package br.com.zup.nimbus.compose.layout
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import androidx.compose.material.MaterialTheme
@@ -89,7 +90,7 @@ fun ScreenshotTest.executeScreenshotTest(
     screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
     useActivityScreenshot: Boolean = true,
     waitMatcher: SemanticsMatcher? = null,
-    replaceInJson: List<Pair<String, String>> = emptyList()
+    replaceInJson: List<Pair<String, String>> = emptyList(),
 ) {
 
     val json = replaceJson(getJson(jsonFile), replaceInJson)
@@ -98,10 +99,7 @@ fun ScreenshotTest.executeScreenshotTest(
         ScreenTest(json ?: "")
     }
 
-    composeTestRule.waitUntilExists(hasTestTag(screenName))
-    waitMatcher?.let {
-        composeTestRule.waitUntilExists(it)
-    }
+    waitFor(composeTestRule, screenName, waitMatcher)
 
     composeTestRule.mainClock.autoAdvance = false
     if (useActivityScreenshot) {
@@ -112,6 +110,27 @@ fun ScreenshotTest.executeScreenshotTest(
         compareScreenshot(composeTestRule)
     }
     composeTestRule.mainClock.autoAdvance = true
+}
+
+private fun waitFor(
+    composeTestRule: ComposeContentTestRule,
+    screenName: String,
+    waitMatcher: SemanticsMatcher?,
+) {
+    val maxTryCount = 3
+    var currentAttempt = 0
+    try {
+        while (currentAttempt < maxTryCount) {
+            currentAttempt += 1
+            composeTestRule.waitUntilExists(hasTestTag(screenName))
+            waitMatcher?.let {
+                composeTestRule.waitUntilExists(it)
+            }
+            currentAttempt = maxTryCount
+        }
+    } catch (e: Throwable) {
+        Log.w("SNAPSHOTS", "Retrying wait currentTry=$currentAttempt", e)
+    }
 }
 
 private fun replaceJson(json: String?, replaceInJson: List<Pair<String, String>>): String? {
@@ -151,7 +170,7 @@ fun ScreenshotTest.getJson(jsonFile: String): String? {
             "raw/$jsonFile"))
 }
 
-private fun getIdentifierResourceByName(resources: Resources,aString: String): Int =
+private fun getIdentifierResourceByName(resources: Resources, aString: String): Int =
     resources.getIdentifier(aString, "string", BuildConfig.APPLICATION_ID)
 
 private fun readStream(inputStream: InputStream): String? {

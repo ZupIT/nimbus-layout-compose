@@ -26,7 +26,6 @@ dependencies {
 
     implementation("com.google.accompanist:accompanist-flowlayout:${rootProject.extra["accompanist_version"]}")
     implementation ("com.google.accompanist:accompanist-systemuicontroller:${rootProject.extra["accompanist_version"]}")
-    implementation ("com.google.accompanist:accompanist-insets:${rootProject.extra["accompanist_version"]}")
     // If using insets-ui
     implementation ("com.google.accompanist:accompanist-insets-ui:${rootProject.extra["accompanist_version"]}")
 

@@ -54,12 +54,7 @@
   ],
   "properties": {
     "title": "Nimbus screen title",
-    "safeArea": {
-      "top": true,
-      "bottom": true,
-      "trailing": true,
-      "leading": true
-    },
+    "ignoreSafeArea": [],
     "showBackButton": false
   }
 }

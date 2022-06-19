@@ -32,7 +32,7 @@ class RemoteImageTest : ScreenshotTest {
         executeScreenshotTest(jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
         waitMatcher = waitSemanticMatcher,
-        replaceInJson = listOf(SCALE_REPLACE to scale))
+        replaceInJson = SCALE_REPLACE to scale)
     }
 
     @Test
@@ -41,7 +41,7 @@ class RemoteImageTest : ScreenshotTest {
         executeScreenshotTest(jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
             waitMatcher = waitSemanticMatcher,
-            replaceInJson = listOf(SCALE_REPLACE to scale))
+            replaceInJson = SCALE_REPLACE to scale)
     }
 
     @Test
@@ -50,7 +50,7 @@ class RemoteImageTest : ScreenshotTest {
         executeScreenshotTest(jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
             waitMatcher = waitSemanticMatcher,
-            replaceInJson = listOf(SCALE_REPLACE to scale))
+            replaceInJson = SCALE_REPLACE to scale)
     }
 
     @Test
@@ -59,6 +59,6 @@ class RemoteImageTest : ScreenshotTest {
         executeScreenshotTest(jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
             waitMatcher = waitSemanticMatcher,
-            replaceInJson = listOf(SCALE_REPLACE to scale))
+            replaceInJson = SCALE_REPLACE to scale)
     }
 }

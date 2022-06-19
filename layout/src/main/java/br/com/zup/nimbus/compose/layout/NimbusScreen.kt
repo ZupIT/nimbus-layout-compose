@@ -40,7 +40,7 @@ internal fun NimbusScreen(
     val screen = requireNotNull(model.properties)
     val ignoreSafeArea = requireNotNull(screen.ignoreSafeArea)
 
-    ConfigureSafeArea()
+    ConfigureSafeArea(ignoreSafeArea.isNotEmpty())
 
     Scaffold(
         topBar = {
@@ -92,11 +92,14 @@ internal fun NavigationIcon(onClick: () -> Unit = {}) {
 }
 
 @Composable
-internal fun ConfigureSafeArea() {
+internal fun ConfigureSafeArea(shouldIgnoreSafeArea: Boolean = false) {
     // Turn off the decor fitting system windows, which means we need to through handling
     // insets
-    val activity = LocalContext.current as Activity
-    WindowCompat.setDecorFitsSystemWindows(activity.window, false)
+
+    if (shouldIgnoreSafeArea) {
+        val activity = LocalContext.current as Activity
+        WindowCompat.setDecorFitsSystemWindows(activity.window, false)
+    }
 
     // Update the system bars to be translucent
     val systemUiController = rememberSystemUiController()

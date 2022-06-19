@@ -88,8 +88,26 @@ fun ScreenshotTest.executeScreenshotTest(
     composeTestRule: ComposeContentTestRule,
     screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
     useActivityScreenshot: Boolean = true,
+    replaceInJson: Pair<String, String>? = null,
     waitMatcher: SemanticsMatcher? = null,
+) {
+    executeScreenshotTest(
+        jsonFile = jsonFile,
+        composeTestRule = composeTestRule,
+        screenName = screenName,
+        useActivityScreenshot = useActivityScreenshot,
+        replaceInJson = replaceInJson?.let { listOf(it) } ?: emptyList(),
+        waitMatcher = waitMatcher?.let { arrayOf(it) } ?: emptyArray()
+    )
+}
+
+fun ScreenshotTest.executeScreenshotTest(
+    jsonFile: String,
+    composeTestRule: ComposeContentTestRule,
+    screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
+    useActivityScreenshot: Boolean = true,
     replaceInJson: List<Pair<String, String>> = emptyList(),
+    vararg waitMatcher: SemanticsMatcher = emptyArray(),
 ) {
 
     val json = replaceJson(getJson(jsonFile), replaceInJson)
@@ -98,7 +116,7 @@ fun ScreenshotTest.executeScreenshotTest(
         ScreenTest(json ?: "")
     }
 
-    waitFor(composeTestRule, screenName, waitMatcher)
+    waitFor(composeTestRule = composeTestRule, screenName = screenName, waitMatcher = waitMatcher)
     if (useActivityScreenshot) {
         getCurrentActivity()?.let {
             compareScreenshot(it)
@@ -111,10 +129,10 @@ fun ScreenshotTest.executeScreenshotTest(
 private fun waitFor(
     composeTestRule: ComposeContentTestRule,
     screenName: String,
-    waitMatcher: SemanticsMatcher?
+    vararg waitMatcher: SemanticsMatcher = emptyArray()
 ) {
     composeTestRule.waitUntilExists(hasTestTag(screenName))
-    waitMatcher?.let {
+    waitMatcher.forEach {
         composeTestRule.waitUntilExists(it)
     }
 }

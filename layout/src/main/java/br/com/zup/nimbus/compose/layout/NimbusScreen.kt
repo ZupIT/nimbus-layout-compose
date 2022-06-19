@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material.Icon
@@ -20,10 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
+import br.com.zup.nimbus.compose.layout.extensions.ignoreSafeArea
 import br.com.zup.nimbus.compose.layout.extensions.isTrue
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.ScreenApi
-import br.com.zup.nimbus.compose.layout.model.toWindowInsetsSidesOnly
 import br.zup.com.nimbus.compose.NimbusTheme
 import br.zup.com.nimbus.compose.core.ui.internal.NimbusNavHostHelper
 import com.google.accompanist.insets.ui.Scaffold
@@ -40,25 +39,39 @@ internal fun NimbusScreen(
     val screen = requireNotNull(model.properties)
     val ignoreSafeArea = requireNotNull(screen.ignoreSafeArea)
 
-    ConfigureSafeArea(ignoreSafeArea.isNotEmpty())
+    ConfigureSafeArea()
 
     Scaffold(
         topBar = {
             // We use TopAppBar from accompanist-insets-ui which allows us to provide
             // content padding matching the system bars insets.
-            val topAppBarPadding =
-                    WindowInsets.statusBars
-                        .only(ignoreSafeArea.toWindowInsetsSidesOnly())
-                        .asPaddingValues()
+//            val topAppBarPadding =
+//                    WindowInsets.statusBars
+//                        .let {
+//                            var insets = it
+//                            //Null here means no sides to apply and should exclude statusBars
+//                            //paddings and write on the safearea.
+//                            val windowInsetsSides = ignoreSafeArea.toWindowInsetsSidesOnly()
+//
+//                            insets = if(windowInsetsSides != null) {
+//                                insets.only(windowInsetsSides)
+//                            } else {
+//                                insets.exclude(WindowInsets.statusBars)
+//                            }
+//                            return@let insets
+//                        }
+//                        .asPaddingValues()
 
             TopAppBar(
                 title = { Text(screen.title ?: "") },
                 backgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.9f),
-                navigationIcon = ifNavigationIcon(
+                navigationIcon = shouldShowNavigationIcon(
                     showBackButton = !navHostHelper.isFirstScreen() &&
                             screen.showBackButton.isTrue()
                 ) { navHostHelper.pop() },
-                contentPadding = topAppBarPadding,
+                contentPadding = WindowInsets.statusBars
+                    .ignoreSafeArea(edgesToIgnore = ignoreSafeArea)
+                    .asPaddingValues(),
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -70,7 +83,7 @@ internal fun NimbusScreen(
 }
 
 @Composable
-private fun ifNavigationIcon(
+private fun shouldShowNavigationIcon(
     showBackButton: Boolean? = true,
     onClick: () -> Unit = {},
 ): @Composable (() -> Unit)? {
@@ -92,14 +105,12 @@ internal fun NavigationIcon(onClick: () -> Unit = {}) {
 }
 
 @Composable
-internal fun ConfigureSafeArea(shouldIgnoreSafeArea: Boolean = false) {
+internal fun ConfigureSafeArea() {
     // Turn off the decor fitting system windows, which means we need to through handling
     // insets
 
-    if (shouldIgnoreSafeArea) {
-        val activity = LocalContext.current as Activity
-        WindowCompat.setDecorFitsSystemWindows(activity.window, false)
-    }
+    val activity = LocalContext.current as Activity
+    WindowCompat.setDecorFitsSystemWindows(activity.window, false)
 
     // Update the system bars to be translucent
     val systemUiController = rememberSystemUiController()

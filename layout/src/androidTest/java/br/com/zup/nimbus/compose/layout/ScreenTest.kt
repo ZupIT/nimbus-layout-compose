@@ -25,4 +25,9 @@ class ScreenTest : ScreenshotTest {
         executeScreenshotTest("screen1", composeTestRule)
     }
 
+    @Test
+    fun test_Screen2() {
+        executeScreenshotTest("screen2", composeTestRule)
+    }
+
 }

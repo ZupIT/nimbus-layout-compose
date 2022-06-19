@@ -35,34 +35,3 @@ internal enum class SafeAreaEdges {
             LEADING -> WindowInsetsSides.Left
         }
 }
-
-private val AllWindowInsetsSides =
-    WindowInsetsSides.Left +
-            (WindowInsetsSides.Top) +
-            (WindowInsetsSides.Right) +
-            (WindowInsetsSides.Bottom)
-/**
- * Transform the list of of SafeAreaEdges that must be ignored into WindowInsetsSides
- * that will have all WindowInsetsSides except the ones that must be ignored.
- */
-internal fun List<SafeAreaEdges>.toWindowInsetsSidesOnly(): WindowInsetsSides {
-    var sides: WindowInsetsSides? = null
-    if (this.isEmpty()) {
-        return AllWindowInsetsSides
-    } else {
-        val allEdges = mutableListOf(
-            SafeAreaEdges.TOP,
-            SafeAreaEdges.LEADING,
-            SafeAreaEdges.TRAILING,
-            SafeAreaEdges.BOTTOM)
-
-        this.forEach {
-            allEdges.remove(it)
-        }
-
-        allEdges.forEach { currentEdge ->
-            sides = sides?.let { it + currentEdge.toWindowInsetsSide() } ?: currentEdge.toWindowInsetsSide()
-        }
-    }
-    return sides ?: WindowInsetsSides.Bottom
-}

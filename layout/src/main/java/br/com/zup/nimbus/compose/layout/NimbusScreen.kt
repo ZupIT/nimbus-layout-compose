@@ -42,26 +42,10 @@ internal fun NimbusScreen(
     ConfigureSafeArea()
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             // We use TopAppBar from accompanist-insets-ui which allows us to provide
             // content padding matching the system bars insets.
-//            val topAppBarPadding =
-//                    WindowInsets.statusBars
-//                        .let {
-//                            var insets = it
-//                            //Null here means no sides to apply and should exclude statusBars
-//                            //paddings and write on the safearea.
-//                            val windowInsetsSides = ignoreSafeArea.toWindowInsetsSidesOnly()
-//
-//                            insets = if(windowInsetsSides != null) {
-//                                insets.only(windowInsetsSides)
-//                            } else {
-//                                insets.exclude(WindowInsets.statusBars)
-//                            }
-//                            return@let insets
-//                        }
-//                        .asPaddingValues()
-
             TopAppBar(
                 title = { Text(screen.title ?: "") },
                 backgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.9f),
@@ -76,7 +60,7 @@ internal fun NimbusScreen(
             )
         }
     ) { contentPadding ->
-        Box(modifier.padding(contentPadding)) {
+        Box(Modifier.padding(contentPadding)) {
             content()
         }
     }

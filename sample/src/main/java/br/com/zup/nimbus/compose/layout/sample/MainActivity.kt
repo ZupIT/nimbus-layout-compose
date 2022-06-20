@@ -32,51 +32,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Nimbus(config = config.imageProvider(DefaultImageProvider())) {
-                        NimbusNavigator(json = """{
-  "_:component": "layout:stack",
-  "children": [
-    {
-      "_:component": "layout:positioned",
-      "children": [{
-        "_:component": "layout:row",
-        "children" : [{
-          "_:component": "material:text",
-          "properties": {
-            "text": "r"
-          }
-        }]
-      }],
-      "properties": {
-        "backgroundColor": "#FF0000",
-        "width": 50.0,
-        "height": 50.0
-      }
-    },
-    {
-      "_:component": "layout:positioned",
-      "children": [{
-        "_:component": "layout:row",
-        "children" : [{
-          "_:component": "material:text",
-          "properties": {
-            "text": "b"
-          }
-        }]
-      }],
-      "properties": {
-        "backgroundColor": "#0000FF",
-        "width": 50.0,
-        "height": 50.0,
-        "x": 25.0,
-        "y": 25.0
-      }
-    }],
-  "properties": {
-    "backgroundColor": "#CCCCCCFF",
-    "width": 75.0,
-    "height": 75.0
-  }
-}""")
+                        NimbusNavigator(ViewRequest("/screen"))
                     }
                 }
             }

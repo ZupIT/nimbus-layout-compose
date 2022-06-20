@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
+import androidx.compose.ui.test.ComposeTimeoutException
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
@@ -59,14 +60,40 @@ fun ScreenTest(json: String) {
 }
 
 private const val WAIT_UNTIL_TIMEOUT = 60_000L
+private const val WAIT_TIME_IN_MILLIS = 10L
+private const val ADVANCE_TIME_IN_MILLIS = 40L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
     count: Int,
     timeoutMillis: Long = WAIT_UNTIL_TIMEOUT,
+    advanceTime: Long = ADVANCE_TIME_IN_MILLIS,
+    waitTime: Long = WAIT_TIME_IN_MILLIS,
 ) {
-    waitUntil(timeoutMillis) {
+    waitUntil(timeoutMillis, advanceTime, waitTime) {
         onAllNodes(matcher).fetchSemanticsNodes().size == count
+    }
+}
+
+@SuppressWarnings("DocumentExceptions") // The interface doc already documents this
+fun ComposeContentTestRule.waitUntil(
+    timeoutMillis: Long,
+    advanceTime: Long,
+    waitTime: Long,
+    condition: () -> Boolean,
+) {
+    val startTime = System.nanoTime()
+    while (!condition()) {
+        if (this.mainClock.autoAdvance) {
+            mainClock.advanceTimeBy(advanceTime)
+        }
+        // Let Android run measure, draw and in general any other async operations.
+        Thread.sleep(waitTime)
+        if (System.nanoTime() - startTime > timeoutMillis * 1_000_000) {
+            throw ComposeTimeoutException(
+                "Condition still not satisfied after $timeoutMillis ms"
+            )
+        }
     }
 }
 
@@ -129,7 +156,7 @@ fun ScreenshotTest.executeScreenshotTest(
 private fun waitFor(
     composeTestRule: ComposeContentTestRule,
     screenName: String,
-    vararg waitMatcher: SemanticsMatcher = emptyArray()
+    vararg waitMatcher: SemanticsMatcher = emptyArray(),
 ) {
     composeTestRule.waitUntilExists(hasTestTag(screenName))
     waitMatcher.forEach {

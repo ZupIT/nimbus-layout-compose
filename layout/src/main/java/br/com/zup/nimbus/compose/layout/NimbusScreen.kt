@@ -1,7 +1,6 @@
 package br.com.zup.nimbus.compose.layout
 
 import android.app.Activity
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues

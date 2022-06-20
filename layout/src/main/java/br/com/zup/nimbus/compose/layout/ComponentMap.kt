@@ -10,12 +10,14 @@ import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_REMOTE_IMAGE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_SCREEN
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_SCROLL_VIEW
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_STACK
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_TOUCHABLE
 import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
 import br.com.zup.nimbus.compose.layout.model.LocalImageApi
 import br.com.zup.nimbus.compose.layout.model.NimbusColumnApi
 import br.com.zup.nimbus.compose.layout.model.NimbusPositionedApi
 import br.com.zup.nimbus.compose.layout.model.NimbusRowApi
+import br.com.zup.nimbus.compose.layout.model.NimbusStackApi
 import br.com.zup.nimbus.compose.layout.model.RemoteImageApi
 import br.com.zup.nimbus.compose.layout.model.ScreenApi
 import br.com.zup.nimbus.compose.layout.model.ScrollViewApi
@@ -43,6 +45,10 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     NIMBUS_POSITIONED to @Composable { element, children, _ ->
         val model = element.parse(object : TypeReference<NimbusPositionedApi>() {})
         NimbusPositioned(model = model, content = children)
+    },
+    NIMBUS_STACK to @Composable { element, children, _ ->
+        val model = element.parse(object : TypeReference<NimbusStackApi>() {})
+        NimbusStack(model = model, content = children)
     },
     NIMBUS_LOCAL_IMAGE to @Composable { element, _, _ ->
         val model = element.parse(object : TypeReference<LocalImageApi>() {})

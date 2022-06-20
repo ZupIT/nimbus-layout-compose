@@ -1,7 +1,7 @@
 package br.com.zup.nimbus.compose.layout
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.accessibility
@@ -17,7 +17,7 @@ internal fun NimbusTouchable(
     onPress: Action,
     content: Component,
 ) {
-    Box(
+    Column(
         modifier = modifier
             .clickable {
                 onPress(null)

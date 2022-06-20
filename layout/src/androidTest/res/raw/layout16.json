@@ -1,5 +1,5 @@
 {
-  "_:component": "layout:positioned",
+  "_:component": "layout:stack",
   "children": [
     {
       "_:component": "layout:positioned",
@@ -13,7 +13,7 @@
         }]
       }],
       "properties": {
-        "alignmentSelf": "topStart",
+        "alignment": "topStart",
         "backgroundColor": "#FF0000",
         "width": 50.0,
         "height": 50.0,
@@ -33,7 +33,7 @@
         }]
       }],
       "properties": {
-        "alignmentSelf": "topEnd",
+        "alignment": "topEnd",
         "backgroundColor": "#00FF00",
         "width": 50.0,
         "height": 50.0,
@@ -53,7 +53,7 @@
         }]
       }],
       "properties": {
-        "alignmentSelf": "bottomStart",
+        "alignment": "bottomStart",
         "backgroundColor": "#0000FF",
         "width": 50.0,
         "height": 50.0,
@@ -73,7 +73,7 @@
         }]
       }],
       "properties": {
-        "alignmentSelf": "bottomEnd",
+        "alignment": "bottomEnd",
         "backgroundColor": "#FFFF00",
         "width": 50.0,
         "height": 50.0,
@@ -83,7 +83,6 @@
     }
   ],
   "properties": {
-    "alignment": "topStart",
     "backgroundColor": "#CCCCCCFF",
     "width": 150.0,
     "height": 150.0

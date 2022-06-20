@@ -17,12 +17,7 @@ internal fun Modifier.positioned(
         .applyScopeModifier(scope = scope, positioned = positioned)
         .offset(x = positioned.x?.dp ?: 0.dp)
         .offset(y = positioned.y?.dp ?: 0.dp)
-        .margin(positioned)
-        .size(positioned)
-        .shadow(positioned)
-        .border(positioned)
-        .background(positioned.backgroundColor)
-        .padding(positioned)
+        .box(positioned)
 )
 
 internal fun Modifier.applyScopeModifier(
@@ -35,7 +30,7 @@ internal fun Modifier.applyScopeModifier(
         is BoxScope -> {
             with(scope)
             {
-                val nimbusAlignment = requireNotNull(positioned.alignmentSelf)
+                val nimbusAlignment = requireNotNull(positioned.alignment)
                 val alignment = nimbusAlignment.toAlignment()
                 newModifier = newModifier.align(alignment)
             }

@@ -1,5 +1,5 @@
 {
-  "_:component": "layout:positioned",
+  "_:component": "layout:stack",
   "children": [
     {
       "_:component": "layout:positioned",

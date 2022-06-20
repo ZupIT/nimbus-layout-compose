@@ -2,6 +2,7 @@ package br.com.zup.nimbus.compose.layout
 
 import android.app.Activity
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -60,7 +61,7 @@ internal fun NimbusScreen(
             )
         }
     ) { contentPadding ->
-        Box(Modifier.padding(contentPadding)) {
+        Column(Modifier.padding(contentPadding)) {
             content()
         }
     }

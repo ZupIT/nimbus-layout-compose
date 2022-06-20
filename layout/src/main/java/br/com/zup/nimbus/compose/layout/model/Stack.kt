@@ -1,15 +1,9 @@
 package br.com.zup.nimbus.compose.layout.model
 
-import androidx.compose.ui.Alignment
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class Positioned (
-    //Alignment for child components
-    val alignment: PositionedAlignment? = PositionedAlignment.TOP_START,
-    val x: Double? = null,
-    val y: Double? = null,
+internal class Stack (
     override val width: Double? = null,
     override val height: Double? = null,
     override val minWidth: Double? = null,
@@ -40,37 +34,3 @@ internal class Positioned (
     override val shadow: List<Shadow>? = null,
     override val children: Component? = null
 ) : Box
-
-internal enum class PositionedAlignment {
-    @JsonProperty("topStart")
-    TOP_START,
-    @JsonProperty("topEnd")
-    TOP_END,
-    @JsonProperty("bottomStart")
-    BOTTOM_START,
-    @JsonProperty("bottomEnd")
-    BOTTOM_END,
-    @JsonProperty("topCenter")
-    TOP_CENTER,
-    @JsonProperty("bottomCenter")
-    BOTTOM_CENTER,
-    @JsonProperty("centerStart")
-    CENTER_START,
-    @JsonProperty("centerEnd")
-    CENTER_END,
-    @JsonProperty("center")
-    CENTER;
-
-    fun toAlignment(): Alignment =
-        when (this) {
-            TOP_START -> Alignment.TopStart
-            TOP_END -> Alignment.TopEnd
-            BOTTOM_START -> Alignment.BottomStart
-            BOTTOM_END -> Alignment.BottomEnd
-            TOP_CENTER -> Alignment.TopCenter
-            BOTTOM_CENTER -> Alignment.BottomCenter
-            CENTER_START -> Alignment.CenterStart
-            CENTER_END -> Alignment.CenterEnd
-            CENTER -> Alignment.Center
-        }
-}

@@ -98,6 +98,7 @@ internal object ComponentNames {
     const val NIMBUS_COLUMN = "layout:column"
     const val NIMBUS_TOUCHABLE = "layout:touchable"
     const val NIMBUS_POSITIONED = "layout:positioned"
+    const val NIMBUS_STACK = "layout:stack"
     const val NIMBUS_REMOTE_IMAGE = "layout:remoteimage"
     const val NIMBUS_LOCAL_IMAGE = "layout:localimage"
     const val NIMBUS_SCROLL_VIEW = "layout:scroll"
@@ -126,6 +127,12 @@ internal class TouchableApi(
 internal class NimbusPositionedApi(
     val component: String? = null,
     val properties: Positioned? = Positioned(),
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+internal class NimbusStackApi(
+    val component: String? = null,
+    val properties: Stack? = Stack(),
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -1,7 +1,7 @@
 package br.com.zup.nimbus.compose.layout
 
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,7 +18,7 @@ internal fun NimbusScrollView(
     content: Component,
 ) {
     val scrollView = requireNotNull(model.properties)
-    Box(
+    Column(
         modifier = modifier
             .scroll(scrollView = scrollView,
                 verticalScrollState = verticalScrollState,

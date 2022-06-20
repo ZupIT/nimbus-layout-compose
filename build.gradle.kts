@@ -4,6 +4,8 @@ plugins{
 
 buildscript {
     val compose_version by extra("1.1.0")
+    val accompanist_version by extra("0.24.11-rc")
+    val nimbus_compose_version by extra("1.0.0-alpha26")
     repositories {
         gradlePluginPortal()
         google()
@@ -11,7 +13,7 @@ buildscript {
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
-        classpath("com.android.tools.build:gradle:7.0.0")
+        classpath("com.android.tools.build:gradle:7.1.3")
         classpath("com.vanniktech:gradle-maven-publish-plugin:0.15.1")
         classpath ("com.karumi:shot:5.14.1")
     }

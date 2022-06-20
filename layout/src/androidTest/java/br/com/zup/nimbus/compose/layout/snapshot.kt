@@ -58,7 +58,7 @@ fun ScreenTest(json: String) {
     }
 }
 
-private const val WAIT_UNTIL_TIMEOUT = 30_000L
+private const val WAIT_UNTIL_TIMEOUT = 60_000L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
@@ -88,8 +88,26 @@ fun ScreenshotTest.executeScreenshotTest(
     composeTestRule: ComposeContentTestRule,
     screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
     useActivityScreenshot: Boolean = true,
+    replaceInJson: Pair<String, String>? = null,
     waitMatcher: SemanticsMatcher? = null,
-    replaceInJson: List<Pair<String, String>> = emptyList()
+) {
+    executeScreenshotTest(
+        jsonFile = jsonFile,
+        composeTestRule = composeTestRule,
+        screenName = screenName,
+        useActivityScreenshot = useActivityScreenshot,
+        replaceInJson = replaceInJson?.let { listOf(it) } ?: emptyList(),
+        waitMatcher = waitMatcher?.let { arrayOf(it) } ?: emptyArray()
+    )
+}
+
+fun ScreenshotTest.executeScreenshotTest(
+    jsonFile: String,
+    composeTestRule: ComposeContentTestRule,
+    screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
+    useActivityScreenshot: Boolean = true,
+    replaceInJson: List<Pair<String, String>> = emptyList(),
+    vararg waitMatcher: SemanticsMatcher = emptyArray(),
 ) {
 
     val json = replaceJson(getJson(jsonFile), replaceInJson)
@@ -98,12 +116,7 @@ fun ScreenshotTest.executeScreenshotTest(
         ScreenTest(json ?: "")
     }
 
-    composeTestRule.waitUntilExists(hasTestTag(screenName))
-    waitMatcher?.let {
-        composeTestRule.waitUntilExists(it)
-    }
-
-    composeTestRule.mainClock.autoAdvance = false
+    waitFor(composeTestRule = composeTestRule, screenName = screenName, waitMatcher = waitMatcher)
     if (useActivityScreenshot) {
         getCurrentActivity()?.let {
             compareScreenshot(it)
@@ -111,7 +124,17 @@ fun ScreenshotTest.executeScreenshotTest(
     } else {
         compareScreenshot(composeTestRule)
     }
-    composeTestRule.mainClock.autoAdvance = true
+}
+
+private fun waitFor(
+    composeTestRule: ComposeContentTestRule,
+    screenName: String,
+    vararg waitMatcher: SemanticsMatcher = emptyArray()
+) {
+    composeTestRule.waitUntilExists(hasTestTag(screenName))
+    waitMatcher.forEach {
+        composeTestRule.waitUntilExists(it)
+    }
 }
 
 private fun replaceJson(json: String?, replaceInJson: List<Pair<String, String>>): String? {
@@ -151,7 +174,7 @@ fun ScreenshotTest.getJson(jsonFile: String): String? {
             "raw/$jsonFile"))
 }
 
-private fun getIdentifierResourceByName(resources: Resources,aString: String): Int =
+private fun getIdentifierResourceByName(resources: Resources, aString: String): Int =
     resources.getIdentifier(aString, "string", BuildConfig.APPLICATION_ID)
 
 private fun readStream(inputStream: InputStream): String? {

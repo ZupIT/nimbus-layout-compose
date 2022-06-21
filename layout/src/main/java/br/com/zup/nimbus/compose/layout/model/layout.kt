@@ -103,6 +103,7 @@ internal object ComponentNames {
     const val NIMBUS_LOCAL_IMAGE = "layout:localimage"
     const val NIMBUS_SCROLL_VIEW = "layout:scroll"
     const val NIMBUS_SCREEN = "layout:screen"
+    const val NIMBUS_LIFECYCLE = "layout:lifecycle"
 }
 
 

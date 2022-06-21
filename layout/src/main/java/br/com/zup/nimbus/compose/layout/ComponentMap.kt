@@ -67,7 +67,6 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
         // can't use jackson to deserialize this, it has a function.
         NimbusLifecycle(
             onInit = element.properties!!["onInit"] as? (Any?) -> Unit,
-            onAppear = element.properties!!["onAppear"] as? (Any?) -> Unit,
             content = children
         )
     },

@@ -3,7 +3,7 @@ package br.com.zup.nimbus.compose.layout.model
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class Stack (
+internal class BoxModel (
     override val width: Double? = null,
     override val height: Double? = null,
     override val minWidth: Double? = null,

@@ -4,6 +4,8 @@ package br.com.zup.nimbus.compose.layout
 
 import androidx.compose.runtime.Composable
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_FLOW_COLUMN
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_FLOW_ROW
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_LOCAL_IMAGE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_POSITIONED
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_REMOTE_IMAGE
@@ -14,10 +16,10 @@ import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_STACK
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_TOUCHABLE
 import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
 import br.com.zup.nimbus.compose.layout.model.LocalImageApi
+import br.com.zup.nimbus.compose.layout.model.NimbusBoxApi
 import br.com.zup.nimbus.compose.layout.model.NimbusColumnApi
 import br.com.zup.nimbus.compose.layout.model.NimbusPositionedApi
 import br.com.zup.nimbus.compose.layout.model.NimbusRowApi
-import br.com.zup.nimbus.compose.layout.model.NimbusStackApi
 import br.com.zup.nimbus.compose.layout.model.RemoteImageApi
 import br.com.zup.nimbus.compose.layout.model.ScreenApi
 import br.com.zup.nimbus.compose.layout.model.ScrollViewApi
@@ -37,17 +39,25 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
         val model = element.parse(object : TypeReference<NimbusRowApi>() {})
         NimbusRow(model = model, parentComponent = modelParent, content = children)
     },
+    NIMBUS_FLOW_ROW to @Composable { element, children, _ ->
+        val model = element.parse(object : TypeReference<NimbusBoxApi>() {})
+        NimbusFlowRow(model = model, content = children)
+    },
     NIMBUS_COLUMN to @Composable { element, children, parentElement ->
         val modelParent = parentElement?.parse(object : TypeReference<GenericComponentApi>() {})
         val model = element.parse(object : TypeReference<NimbusColumnApi>() {})
         NimbusColumn(model = model, parentComponent = modelParent, content = children)
+    },
+    NIMBUS_FLOW_COLUMN to @Composable { element, children, _ ->
+        val model = element.parse(object : TypeReference<NimbusBoxApi>() {})
+        NimbusFlowColumn(model = model, content = children)
     },
     NIMBUS_POSITIONED to @Composable { element, children, _ ->
         val model = element.parse(object : TypeReference<NimbusPositionedApi>() {})
         NimbusPositioned(model = model, content = children)
     },
     NIMBUS_STACK to @Composable { element, children, _ ->
-        val model = element.parse(object : TypeReference<NimbusStackApi>() {})
+        val model = element.parse(object : TypeReference<NimbusBoxApi>() {})
         NimbusStack(model = model, content = children)
     },
     NIMBUS_LOCAL_IMAGE to @Composable { element, _, _ ->

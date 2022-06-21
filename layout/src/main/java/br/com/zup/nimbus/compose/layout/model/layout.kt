@@ -95,7 +95,9 @@ internal class LocalImageApi(
 
 internal object ComponentNames {
     const val NIMBUS_ROW = "layout:row"
+    const val NIMBUS_FLOW_ROW = "layout:flowrow"
     const val NIMBUS_COLUMN = "layout:column"
+    const val NIMBUS_FLOW_COLUMN = "layout:flowcolumn"
     const val NIMBUS_TOUCHABLE = "layout:touchable"
     const val NIMBUS_POSITIONED = "layout:positioned"
     const val NIMBUS_STACK = "layout:stack"
@@ -130,12 +132,6 @@ internal class NimbusPositionedApi(
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class NimbusStackApi(
-    val component: String? = null,
-    val properties: Stack? = Stack(),
-)
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 internal class ScrollViewApi(
     val component: String? = null,
     val properties: ScrollView? = ScrollView(),
@@ -152,6 +148,12 @@ internal class NimbusColumnApi(
     override val component: String? = null,
     override val properties: NimbusColumnModel? = NimbusColumnModel(),
 ) : ComponentStructure
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+internal class NimbusBoxApi(
+    val component: String? = null,
+    val properties: BoxModel? = BoxModel(),
+)
 
 internal enum class CrossAxisAlignment {
     @JsonProperty("stretch")

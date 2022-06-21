@@ -15,7 +15,7 @@ internal fun Modifier.container(
     container: Container,
     parentComponent: ComponentStructure? = null,
     @LayoutScopeMarker
-    scope: Any,
+    scope: Any? = null,
     modifier: Modifier = Modifier,
 ) = this.then(
     modifier
@@ -32,10 +32,11 @@ internal fun Modifier.container(
 
 
 internal fun Modifier.applyScopeModifier(
-    scope: Any,
+    scope: Any? = null,
     container: Container,
     modifier: Modifier = Modifier
 ) = this.then(with(container) {
+    if(scope == null) return@with modifier
     var newModifier = modifier
     when (scope) {
         is RowScope -> {

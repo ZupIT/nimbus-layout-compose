@@ -1,27 +1,28 @@
 package br.com.zup.nimbus.compose.layout
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.box
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.NimbusBoxApi
 import br.com.zup.nimbus.compose.layout.model.shouldDisableHardwareAcceleration
+import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
-internal fun NimbusStack(
+internal fun NimbusFlowRow(
     model: NimbusBoxApi,
     modifier: Modifier = Modifier,
     content: Component,
 ) {
-    val stack = requireNotNull(model.properties)
+    val row = requireNotNull(model.properties)
 
-    NimbusSoftwareLayer(condition = stack.shouldDisableHardwareAcceleration()) {
-        Box(
-            modifier = modifier.box(stack)
+    NimbusSoftwareLayer(condition = row.shouldDisableHardwareAcceleration()) {
+        FlowRow(
+            modifier = modifier.box(row)
         ) {
             content()
         }
     }
-
 }
+
+

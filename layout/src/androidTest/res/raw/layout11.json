@@ -1,0 +1,64 @@
+{
+  "_:component": "layout:flowrow",
+  "children": [
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "a"
+        }
+      }],
+      "properties": {
+        "width": 50.0,
+        "height": 30.0,
+        "backgroundColor": "#FF0000"
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "b"
+        }
+      }],
+      "properties": {
+        "width": 100.0,
+        "height": 30.0,
+        "backgroundColor": "#3FB0D0"
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "c"
+        }
+      }],
+      "properties": {
+        "width": 80.0,
+        "height": 30.0,
+        "backgroundColor": "#00F00F"
+      }
+    },
+    {
+      "_:component": "layout:row",
+      "children": [{
+        "_:component": "material:text",
+        "properties": {
+          "text": "d"
+        }
+      }],
+      "properties": {
+        "width": 80.0,
+        "height": 30.0,
+        "backgroundColor": "#F5D78F"
+      }
+    }],
+  "properties": {
+    "backgroundColor": "#CCCCCCFF",
+    "width": 200.0
+  }
+}

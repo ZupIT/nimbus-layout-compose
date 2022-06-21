@@ -1,5 +1,5 @@
 {
-  "_:component": "layout:flowcolumn",
+  "_:component": "layout:flowColumn",
   "children": [
     {
       "_:component": "layout:row",

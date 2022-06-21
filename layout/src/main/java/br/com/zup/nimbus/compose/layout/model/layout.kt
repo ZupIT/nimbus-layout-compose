@@ -95,14 +95,14 @@ internal class LocalImageApi(
 
 internal object ComponentNames {
     const val NIMBUS_ROW = "layout:row"
-    const val NIMBUS_FLOW_ROW = "layout:flowrow"
+    const val NIMBUS_FLOW_ROW = "layout:flowRow"
     const val NIMBUS_COLUMN = "layout:column"
-    const val NIMBUS_FLOW_COLUMN = "layout:flowcolumn"
+    const val NIMBUS_FLOW_COLUMN = "layout:flowColumn"
     const val NIMBUS_TOUCHABLE = "layout:touchable"
     const val NIMBUS_POSITIONED = "layout:positioned"
     const val NIMBUS_STACK = "layout:stack"
-    const val NIMBUS_REMOTE_IMAGE = "layout:remoteimage"
-    const val NIMBUS_LOCAL_IMAGE = "layout:localimage"
+    const val NIMBUS_REMOTE_IMAGE = "layout:remoteImage"
+    const val NIMBUS_LOCAL_IMAGE = "layout:localImage"
     const val NIMBUS_SCROLL_VIEW = "layout:scroll"
     const val NIMBUS_SCREEN = "layout:screen"
 }

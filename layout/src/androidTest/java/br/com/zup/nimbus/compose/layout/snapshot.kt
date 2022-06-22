@@ -59,7 +59,7 @@ fun ScreenTest(json: String) {
     }
 }
 
-private const val WAIT_UNTIL_TIMEOUT = 30_000L
+private const val WAIT_UNTIL_TIMEOUT = 60_000L
 private const val WAIT_TIME_IN_MILLIS = 10L
 private const val ADVANCE_TIME_IN_MILLIS = 30L
 

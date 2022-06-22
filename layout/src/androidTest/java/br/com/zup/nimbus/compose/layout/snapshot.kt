@@ -9,7 +9,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.test.ComposeTimeoutException
@@ -26,12 +29,9 @@ import br.zup.com.nimbus.compose.ComponentHandler
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusConfig
 import br.zup.com.nimbus.compose.NimbusNavigator
-import br.zup.com.nimbus.compose.VIEW_INITIAL_URL
 import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner
-
-const val NIMBUS_PAGE = "NimbusPage"
 
 const val loadingTag = "loadingTag"
 val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
@@ -61,7 +61,7 @@ fun ScreenTest(json: String) {
 
 private const val WAIT_UNTIL_TIMEOUT = 60_000L
 private const val WAIT_TIME_IN_MILLIS = 10L
-private const val ADVANCE_TIME_IN_MILLIS = 40L
+private const val ADVANCE_TIME_IN_MILLIS = 16L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
@@ -69,24 +69,28 @@ fun ComposeContentTestRule.waitUntilNodeCount(
     timeoutMillis: Long = WAIT_UNTIL_TIMEOUT,
     advanceTime: Long = ADVANCE_TIME_IN_MILLIS,
     waitTime: Long = WAIT_TIME_IN_MILLIS,
-) {
-    waitUntil(timeoutMillis, advanceTime, waitTime) {
-        onAllNodes(matcher).fetchSemanticsNodes().size == count
+) : SemanticsNode {
+    var semanticsNode: SemanticsNode? = null
+    waitUntilCompat(timeoutMillis, advanceTime, waitTime) {
+        val semanticsNodes = onAllNodes(matcher).fetchSemanticsNodes()
+        val nodeFound = semanticsNodes.size == count
+        if (nodeFound) {
+            semanticsNode = semanticsNodes.firstOrNull()
+        }
+        nodeFound
     }
+    return semanticsNode!!
 }
 
-@SuppressWarnings("DocumentExceptions") // The interface doc already documents this
-fun ComposeContentTestRule.waitUntil(
-    timeoutMillis: Long,
-    advanceTime: Long,
-    waitTime: Long,
+fun ComposeContentTestRule.waitUntilCompat(
+    timeoutMillis: Long = WAIT_UNTIL_TIMEOUT,
+    advanceTime: Long = ADVANCE_TIME_IN_MILLIS,
+    waitTime: Long = WAIT_TIME_IN_MILLIS,
     condition: () -> Boolean,
 ) {
     val startTime = System.nanoTime()
     while (!condition()) {
-        if (this.mainClock.autoAdvance) {
-            mainClock.advanceTimeBy(advanceTime)
-        }
+        mainClock.advanceTimeBy(advanceTime)
         // Let Android run measure, draw and in general any other async operations.
         Thread.sleep(waitTime)
         if (System.nanoTime() - startTime > timeoutMillis * 1_000_000) {
@@ -97,6 +101,9 @@ fun ComposeContentTestRule.waitUntil(
     }
 }
 
+/**
+ * Returns the node when found
+ */
 fun ComposeContentTestRule.waitUntilExists(
     matcher: SemanticsMatcher,
     timeoutMillis: Long = WAIT_UNTIL_TIMEOUT,
@@ -107,13 +114,11 @@ fun ComposeContentTestRule.waitUntilDoesNotExist(
     timeoutMillis: Long = WAIT_UNTIL_TIMEOUT,
 ) = waitUntilNodeCount(matcher, 0, timeoutMillis)
 
-
 fun getContext(): Context = getInstrumentation().targetContext
 
 fun ScreenshotTest.executeScreenshotTest(
     jsonFile: String,
     composeTestRule: ComposeContentTestRule,
-    screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
     useActivityScreenshot: Boolean = true,
     replaceInJson: Pair<String, String>? = null,
     waitMatcher: SemanticsMatcher? = null,
@@ -121,7 +126,6 @@ fun ScreenshotTest.executeScreenshotTest(
     executeScreenshotTest(
         jsonFile = jsonFile,
         composeTestRule = composeTestRule,
-        screenName = screenName,
         useActivityScreenshot = useActivityScreenshot,
         replaceInJson = replaceInJson?.let { listOf(it) } ?: emptyList(),
         waitMatcher = waitMatcher?.let { arrayOf(it) } ?: emptyArray()
@@ -131,7 +135,6 @@ fun ScreenshotTest.executeScreenshotTest(
 fun ScreenshotTest.executeScreenshotTest(
     jsonFile: String,
     composeTestRule: ComposeContentTestRule,
-    screenName: String = "${NIMBUS_PAGE}:${VIEW_INITIAL_URL}",
     useActivityScreenshot: Boolean = true,
     replaceInJson: List<Pair<String, String>> = emptyList(),
     vararg waitMatcher: SemanticsMatcher = emptyArray(),
@@ -139,11 +142,14 @@ fun ScreenshotTest.executeScreenshotTest(
 
     val json = replaceJson(getJson(jsonFile), replaceInJson)
 
+    composeTestRule.mainClock.autoAdvance = false
     composeTestRule.setContent {
         ScreenTest(json ?: "")
     }
 
-    waitFor(composeTestRule = composeTestRule, screenName = screenName, waitMatcher = waitMatcher)
+    waitFor(composeTestRule = composeTestRule, waitMatcher = waitMatcher)
+    composeTestRule.mainClock.autoAdvance = true
+
     if (useActivityScreenshot) {
         getCurrentActivity()?.let {
             compareScreenshot(it)
@@ -153,12 +159,18 @@ fun ScreenshotTest.executeScreenshotTest(
     }
 }
 
+fun SemanticsNode.isNotInWindow(): Boolean = this.positionInWindow == Offset.Zero
+fun SemanticsNode.isInWindow(): Boolean = this.isNotInWindow().not()
+
+@OptIn(ExperimentalComposeUiApi::class)
 private fun waitFor(
     composeTestRule: ComposeContentTestRule,
-    screenName: String,
     vararg waitMatcher: SemanticsMatcher = emptyArray(),
 ) {
-    composeTestRule.waitUntilExists(hasTestTag(screenName))
+    val loadingNode = composeTestRule.waitUntilExists(hasTestTag(loadingTag))
+    composeTestRule.waitUntilCompat {
+        loadingNode.isNotInWindow()
+    }
     waitMatcher.forEach {
         composeTestRule.waitUntilExists(it)
     }

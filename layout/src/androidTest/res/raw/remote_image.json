@@ -1,5 +1,5 @@
 {
-  "_:component": "layout:remoteimage",
+  "_:component": "layout:remoteImage",
   "properties": {
     "url": "/nimbusimage",
     "placeholder": "placeholder-img",

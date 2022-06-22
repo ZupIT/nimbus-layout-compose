@@ -21,10 +21,11 @@ internal fun Modifier.positioned(
 )
 
 internal fun Modifier.applyScopeModifier(
-    scope: Any,
+    scope: Any? = null,
     positioned: Positioned,
     modifier: Modifier = Modifier,
 ) = this.then(with(positioned) {
+    if (scope == null) return@with modifier
     var newModifier = modifier
     when (scope) {
         is BoxScope -> {

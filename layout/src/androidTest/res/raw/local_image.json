@@ -1,5 +1,5 @@
 {
-  "_:component": "layout:localimage",
+  "_:component": "layout:localImage",
   "properties": {
     "id": "nimbus-local",
     "width": 70.0,

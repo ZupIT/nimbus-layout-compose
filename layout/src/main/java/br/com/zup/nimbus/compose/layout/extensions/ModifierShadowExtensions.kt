@@ -9,8 +9,8 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import br.com.zup.nimbus.compose.layout.COLOR_WHITE
 import br.com.zup.nimbus.compose.layout.model.Box
-import br.com.zup.nimbus.compose.layout.model.COLOR_WHITE
 
 internal fun Modifier.applyBackgroundForShadow(
     container: Box,

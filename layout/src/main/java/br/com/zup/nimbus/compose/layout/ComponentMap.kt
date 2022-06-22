@@ -14,8 +14,9 @@ import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_ROW
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_SCREEN
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_SCROLL_VIEW
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_STACK
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_TEXT
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_TOUCHABLE
-import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
+import br.com.zup.nimbus.compose.layout.model.ParentContainerApi
 import br.com.zup.nimbus.compose.layout.model.LocalImageApi
 import br.com.zup.nimbus.compose.layout.model.NimbusBoxApi
 import br.com.zup.nimbus.compose.layout.model.NimbusColumnApi
@@ -24,6 +25,7 @@ import br.com.zup.nimbus.compose.layout.model.NimbusRowApi
 import br.com.zup.nimbus.compose.layout.model.RemoteImageApi
 import br.com.zup.nimbus.compose.layout.model.ScreenApi
 import br.com.zup.nimbus.compose.layout.model.ScrollViewApi
+import br.com.zup.nimbus.compose.layout.model.TextApi
 import br.com.zup.nimbus.compose.layout.model.TouchableApi
 import br.zup.com.nimbus.compose.ComponentHandler
 import com.fasterxml.jackson.core.type.TypeReference
@@ -36,7 +38,7 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
         content = children)
     },
     NIMBUS_ROW to @Composable { element, children, parentElement ->
-        val modelParent = parentElement?.let { parse(it, object : TypeReference<GenericComponentApi>() {}) }
+        val modelParent = parentElement?.let { parse(it, object : TypeReference<ParentContainerApi>() {}) }
         val model = element.parse(object : TypeReference<NimbusRowApi>() {})
         NimbusRow(model = model, parentComponent = modelParent, content = children)
     },
@@ -45,7 +47,7 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
         NimbusFlowRow(model = model, content = children)
     },
     NIMBUS_COLUMN to @Composable { element, children, parentElement ->
-        val modelParent = parentElement?.parse(object : TypeReference<GenericComponentApi>() {})
+        val modelParent = parentElement?.parse(object : TypeReference<ParentContainerApi>() {})
         val model = element.parse(object : TypeReference<NimbusColumnApi>() {})
         NimbusColumn(model = model, parentComponent = modelParent, content = children)
     },
@@ -83,5 +85,9 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     NIMBUS_SCREEN to @Composable { element, children, _ ->
         val model = element.parse(object : TypeReference<ScreenApi>() {})
         NimbusScreen(model = model, content = children)
+    },
+    NIMBUS_TEXT to @Composable { element, _, _ ->
+        val model = element.parse(object : TypeReference<TextApi>() {})
+        NimbusText(model = model)
     },
 )

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+internal class ScrollViewApi: AbstractComponentApi<ScrollView>(ScrollView())
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 internal class ScrollView (
     val direction: ScrollViewDirection? = ScrollViewDirection.BOTH,
     val scrollIndicator: Boolean? = true, //default: true

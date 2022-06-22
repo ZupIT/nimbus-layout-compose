@@ -7,15 +7,16 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import br.com.zup.nimbus.compose.layout.model.AbstractComponentApi
 import br.com.zup.nimbus.compose.layout.model.ComponentNames
-import br.com.zup.nimbus.compose.layout.model.ComponentStructure
 import br.com.zup.nimbus.compose.layout.model.Container
 import br.com.zup.nimbus.compose.layout.model.CrossAxisAlignment
+import br.com.zup.nimbus.compose.layout.model.ParentContainer
 import br.com.zup.nimbus.compose.layout.model.Size
 
 internal fun Modifier.fillMaxSize(
     container: Container,
-    parentComponent: ComponentStructure?,
+    parentComponent: AbstractComponentApi<ParentContainer>?,
     modifier: Modifier = Modifier
 ) = this.then(
     with(container) {

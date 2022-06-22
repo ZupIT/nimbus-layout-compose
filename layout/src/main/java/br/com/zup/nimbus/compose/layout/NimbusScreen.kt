@@ -31,8 +31,8 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 internal fun NimbusScreen(
-    modifier: Modifier = Modifier,
     model: ScreenApi,
+    modifier: Modifier = Modifier,
     navHostHelper: NimbusNavHostHelper = NimbusTheme.nimbusNavigatorState.navHostHelper,
     content: Component,
 ) {

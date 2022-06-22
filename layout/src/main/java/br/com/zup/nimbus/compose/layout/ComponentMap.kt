@@ -4,6 +4,7 @@ package br.com.zup.nimbus.compose.layout
 
 import androidx.compose.runtime.Composable
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
+import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_LIFECYCLE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_LOCAL_IMAGE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_POSITIONED
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_REMOTE_IMAGE
@@ -61,6 +62,13 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     NIMBUS_SCROLL_VIEW to @Composable { element, children, _ ->
         val model = element.parse(object : TypeReference<ScrollViewApi>() {})
         NimbusScrollView(model = model, content = children)
+    },
+    NIMBUS_LIFECYCLE to @Composable { element, children, _ ->
+        // can't use jackson to deserialize this, it has a function.
+        NimbusLifecycle(
+            onInit = element.properties!!["onInit"] as? (Any?) -> Unit,
+            content = children
+        )
     },
     NIMBUS_SCREEN to @Composable { element, children, _ ->
         val model = element.parse(object : TypeReference<ScreenApi>() {})

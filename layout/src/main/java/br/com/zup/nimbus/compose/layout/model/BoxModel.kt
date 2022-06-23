@@ -3,6 +3,9 @@ package br.com.zup.nimbus.compose.layout.model
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+internal class NimbusBoxApi: AbstractComponentApi<BoxModel>(BoxModel())
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 internal class BoxModel (
     override val width: Double? = null,
     override val height: Double? = null,

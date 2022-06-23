@@ -5,7 +5,7 @@
       "_:component": "layout:row",
       "children": [
         {
-          "_:component": "material:text",
+          "_:component": "layout:text",
           "properties": {
             "text": "Shadow example"
           }

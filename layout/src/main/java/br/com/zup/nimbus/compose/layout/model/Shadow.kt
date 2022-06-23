@@ -1,5 +1,7 @@
 package br.com.zup.nimbus.compose.layout.model
 
+import br.com.zup.nimbus.compose.layout.COLOR_BLACK
+
 internal data class Shadow(
     val x: Double? = 0.0, // default: 0
     val y: Double? = 0.0, // default: 0

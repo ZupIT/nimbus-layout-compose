@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.container
 import br.com.zup.nimbus.compose.layout.model.Component
-import br.com.zup.nimbus.compose.layout.model.ComponentStructure
-import br.com.zup.nimbus.compose.layout.model.GenericComponentApi
+import br.com.zup.nimbus.compose.layout.model.NimbusRowApi
+import br.com.zup.nimbus.compose.layout.model.ParentContainerApi
 import br.com.zup.nimbus.compose.layout.model.shouldDisableHardwareAcceleration
 
 private object NimbusRowScope {
@@ -18,9 +18,9 @@ private object NimbusRowScope {
 
 @Composable
 internal fun NimbusRow(
-    model: ComponentStructure,
+    model: NimbusRowApi,
     modifier: Modifier = Modifier,
-    parentComponent: GenericComponentApi? = null,
+    parentComponent: ParentContainerApi? = null,
     content: Component,
 ) {
     val container = requireNotNull(model.properties)

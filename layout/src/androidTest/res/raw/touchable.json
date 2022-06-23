@@ -4,7 +4,7 @@
     {
       "_:component": "layout:touchable",
       "children": [{
-        "_:component": "material:text",
+        "_:component": "layout:text",
         "properties": {
           "text": "Go to screen two"
         }
@@ -25,7 +25,7 @@
     {
       "_:component": "layout:touchable",
       "children": [{
-        "_:component": "material:text",
+        "_:component": "layout:text",
         "properties": {
           "text": "Go to screen two. Only Label."
         }
@@ -45,7 +45,7 @@
     {
       "_:component": "layout:touchable",
       "children": [{
-        "_:component": "material:text",
+        "_:component": "layout:text",
         "properties": {
           "text": "Go to screen two. Default accessibility."
         }

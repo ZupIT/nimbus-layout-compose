@@ -2,6 +2,9 @@ package br.com.zup.nimbus.compose.layout
 
 import android.graphics.Color
 
+internal const val COLOR_BLACK = "#000000"
+internal const val COLOR_WHITE = "#FFFFFF"
+
 internal const val RGB_LENGTH = 4
 internal const val RGBA_LENGTH = 9
 internal object ColorUtils {

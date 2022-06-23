@@ -3,6 +3,9 @@ package br.com.zup.nimbus.compose.layout.model
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+internal class NimbusRowApi: AbstractComponentApi<NimbusRowModel>(NimbusRowModel())
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 internal class NimbusRowModel(
     override val flex: Int? = null,
     override val crossAxisAlignment: CrossAxisAlignment? = CrossAxisAlignment.START,

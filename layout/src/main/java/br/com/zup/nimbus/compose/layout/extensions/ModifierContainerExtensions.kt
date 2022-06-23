@@ -7,13 +7,14 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
-import br.com.zup.nimbus.compose.layout.model.ComponentStructure
+import br.com.zup.nimbus.compose.layout.model.AbstractComponentApi
 import br.com.zup.nimbus.compose.layout.model.Container
 import br.com.zup.nimbus.compose.layout.model.CrossAxisAlignment
+import br.com.zup.nimbus.compose.layout.model.ParentContainer
 
 internal fun Modifier.container(
     container: Container,
-    parentComponent: ComponentStructure? = null,
+    parentComponent: AbstractComponentApi<ParentContainer>? = null,
     @LayoutScopeMarker
     scope: Any? = null,
     modifier: Modifier = Modifier,

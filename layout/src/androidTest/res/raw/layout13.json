@@ -3,7 +3,7 @@
   "children": [{
     "_:component": "layout:row",
     "children": [{
-      "_:component": "material:text",
+      "_:component": "layout:text",
       "properties": {
         "text": "Hello"
       }
@@ -22,7 +22,7 @@
     {
       "_:component": "layout:row",
       "children": [{
-        "_:component": "material:text",
+        "_:component": "layout:text",
         "properties": {
           "text": "Hello"
         }
@@ -42,7 +42,7 @@
     {
       "_:component": "layout:row",
       "children": [{
-        "_:component": "material:text",
+        "_:component": "layout:text",
         "properties": {
           "text": "Hello"
         }

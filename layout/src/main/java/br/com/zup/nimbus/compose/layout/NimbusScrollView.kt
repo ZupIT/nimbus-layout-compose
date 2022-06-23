@@ -11,8 +11,8 @@ import br.com.zup.nimbus.compose.layout.model.ScrollViewApi
 
 @Composable
 internal fun NimbusScrollView(
-    modifier: Modifier = Modifier,
     model: ScrollViewApi,
+    modifier: Modifier = Modifier,
     verticalScrollState: ScrollState = rememberScrollState(),
     horizontalScrollState: ScrollState = rememberScrollState(),
     content: Component,

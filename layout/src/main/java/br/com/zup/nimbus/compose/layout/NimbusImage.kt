@@ -32,13 +32,13 @@ private sealed class Image {
 
 @Composable
 internal fun NimbusLocalImage(
+    model: LocalImageApi,
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel(
         factory = ImageViewModel.provideFactory(
             imageProvider = NimbusTheme.nimbusAppState.config.imageProvider()
         )
-    ),
-    model: LocalImageApi,
+    )
 ) {
     val image = requireNotNull(model.properties)
     NimbusImageImpl(modifier = modifier, viewModel = viewModel, model = Image.Local(image))
@@ -46,13 +46,13 @@ internal fun NimbusLocalImage(
 
 @Composable
 internal fun NimbusRemoteImage(
+    model: RemoteImageApi,
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel(
         factory = ImageViewModel.provideFactory(
             imageProvider = NimbusTheme.nimbusAppState.config.imageProvider()
         )
-    ),
-    model: RemoteImageApi,
+    )
 ) {
     val image = requireNotNull(model.properties)
     NimbusImageImpl(modifier = modifier, viewModel = viewModel, model = Image.Remote(image))

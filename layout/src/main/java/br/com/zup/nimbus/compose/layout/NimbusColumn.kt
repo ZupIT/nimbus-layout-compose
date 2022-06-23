@@ -6,7 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.container
 import br.com.zup.nimbus.compose.layout.model.Component
-import br.com.zup.nimbus.compose.layout.model.ComponentStructure
+import br.com.zup.nimbus.compose.layout.model.NimbusColumnApi
+import br.com.zup.nimbus.compose.layout.model.ParentContainerApi
 import br.com.zup.nimbus.compose.layout.model.shouldDisableHardwareAcceleration
 
 private object NimbusColumnScope {
@@ -17,9 +18,9 @@ private object NimbusColumnScope {
 
 @Composable
 internal fun NimbusColumn(
-    model: ComponentStructure,
+    model: NimbusColumnApi,
     modifier: Modifier = Modifier,
-    parentComponent: ComponentStructure? = null,
+    parentComponent: ParentContainerApi? = null,
     content: Component,
 ) {
     val container = requireNotNull(model.properties)

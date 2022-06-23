@@ -4,7 +4,7 @@
     {
       "_:component": "layout:row",
       "children": [{
-        "_:component": "material:text",
+        "_:component": "layout:text",
         "properties": {
           "text": "a"
         }
@@ -18,7 +18,7 @@
     {
       "_:component": "layout:row",
       "children": [{
-        "_:component": "material:text",
+        "_:component": "layout:text",
         "properties": {
           "text": "b"
         }
@@ -32,7 +32,7 @@
     {
       "_:component": "layout:row",
       "children": [{
-        "_:component": "material:text",
+        "_:component": "layout:text",
         "properties": {
           "text": "c"
         }
@@ -46,7 +46,7 @@
     {
       "_:component": "layout:row",
       "children": [{
-        "_:component": "material:text",
+        "_:component": "layout:text",
         "properties": {
           "text": "d"
         }

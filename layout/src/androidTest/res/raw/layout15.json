@@ -6,7 +6,7 @@
       "children": [{
         "_:component": "layout:row",
         "children" : [{
-          "_:component": "material:text",
+          "_:component": "layout:text",
           "properties": {
             "text": "r"
           }
@@ -23,7 +23,7 @@
       "children": [{
         "_:component": "layout:row",
         "children" : [{
-          "_:component": "material:text",
+          "_:component": "layout:text",
           "properties": {
             "text": "b"
           }

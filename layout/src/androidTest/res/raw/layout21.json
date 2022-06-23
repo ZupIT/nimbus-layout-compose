@@ -11,7 +11,7 @@
               "_:component": "layout:row",
               "children": [
                 {
-                  "_:component": "material:text",
+                  "_:component": "layout:text",
                   "properties": {
                     "text": "r"
                   }
@@ -27,7 +27,7 @@
               "_:component": "layout:row",
               "children": [
                 {
-                  "_:component": "material:text",
+                  "_:component": "layout:text",
                   "properties": {
                     "text": "b"
                   }
@@ -43,7 +43,7 @@
               "_:component": "layout:row",
               "children": [
                 {
-                  "_:component": "material:text",
+                  "_:component": "layout:text",
                   "properties": {
                     "text": "b"
                   }
@@ -59,7 +59,7 @@
               "_:component": "layout:row",
               "children": [
                 {
-                  "_:component": "material:text",
+                  "_:component": "layout:text",
                   "properties": {
                     "text": "b"
                   }
@@ -75,7 +75,7 @@
               "_:component": "layout:row",
               "children": [
                 {
-                  "_:component": "material:text",
+                  "_:component": "layout:text",
                   "properties": {
                     "text": "b"
                   }

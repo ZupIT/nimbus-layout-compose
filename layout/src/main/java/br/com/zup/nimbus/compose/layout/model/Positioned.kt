@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+internal class NimbusPositionedApi: AbstractComponentApi<Positioned>(Positioned())
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 internal class Positioned (
     //Alignment for child components
     val alignment: PositionedAlignment? = PositionedAlignment.TOP_START,

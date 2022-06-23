@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import br.com.zup.nimbus.compose.layout.extensions.imageProvider
+import br.com.zup.nimbus.compose.layout.layoutActions
 import br.com.zup.nimbus.compose.layout.layoutComponents
 import br.com.zup.nimbus.compose.layout.sample.components.CustomError
 import br.com.zup.nimbus.compose.layout.sample.components.customComponents
@@ -17,6 +18,7 @@ import com.zup.nimbus.core.network.ViewRequest
 
 class MainActivity : ComponentActivity() {
     private val config = NimbusConfig(
+        actions = layoutActions,
         baseUrl = BASE_URL,
         components = customComponents + layoutComponents,
         logger = AppLogger(),

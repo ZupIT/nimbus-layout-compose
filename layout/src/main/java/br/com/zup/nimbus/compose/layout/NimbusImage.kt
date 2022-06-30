@@ -36,7 +36,7 @@ internal fun NimbusLocalImage(
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel(
         factory = ImageViewModel.provideFactory(
-            imageProvider = NimbusTheme.nimbusAppState.config.imageProvider()
+            imageProvider = NimbusTheme.nimbus.imageProvider()
         )
     )
 ) {
@@ -50,7 +50,7 @@ internal fun NimbusRemoteImage(
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel(
         factory = ImageViewModel.provideFactory(
-            imageProvider = NimbusTheme.nimbusAppState.config.imageProvider()
+            imageProvider = NimbusTheme.nimbus.imageProvider()
         )
     )
 ) {
@@ -65,7 +65,7 @@ private fun NimbusImageImpl(
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel(
         factory = ImageViewModel.provideFactory(
-            imageProvider = NimbusTheme.nimbusAppState.config.imageProvider()
+            imageProvider = NimbusTheme.nimbus.imageProvider()
         )
     ),
     model: Image,

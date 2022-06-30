@@ -12,12 +12,12 @@ import br.com.zup.nimbus.compose.layout.sample.components.CustomError
 import br.com.zup.nimbus.compose.layout.sample.components.customComponents
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.Nimbus
-import br.zup.com.nimbus.compose.NimbusConfig
 import br.zup.com.nimbus.compose.NimbusNavigator
+import br.zup.com.nimbus.compose.ProvideNimbus
 import com.zup.nimbus.core.network.ViewRequest
 
 class MainActivity : ComponentActivity() {
-    private val config = NimbusConfig(
+    private val nimbus = Nimbus(
         actions = layoutActions,
         baseUrl = BASE_URL,
         components = customComponents + layoutComponents,
@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Nimbus(config = config.imageProvider(DefaultImageProvider())) {
+                    ProvideNimbus(nimbus.imageProvider(DefaultImageProvider())) {
                         NimbusNavigator(ViewRequest("/11"))
                     }
                 }

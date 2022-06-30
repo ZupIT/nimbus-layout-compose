@@ -27,8 +27,8 @@ import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.ComponentHandler
 import br.zup.com.nimbus.compose.Nimbus
-import br.zup.com.nimbus.compose.NimbusConfig
 import br.zup.com.nimbus.compose.NimbusNavigator
+import br.zup.com.nimbus.compose.ProvideNimbus
 import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner
@@ -40,7 +40,7 @@ val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
             maxLines = element.properties?.get("maxLines")?.toString()?.toInt() ?: Int.MAX_VALUE)
     })
 
-private val config = NimbusConfig(
+private val nimbus = Nimbus(
     baseUrl = BASE_URL,
     components = customComponents + layoutComponents,
     loadingView = {
@@ -52,7 +52,7 @@ private val config = NimbusConfig(
 fun ScreenTest(json: String) {
     AppTheme {
         Surface(color = MaterialTheme.colors.background) {
-            Nimbus(config = config.imageProvider(DefaultImageProvider())) {
+            ProvideNimbus(nimbus.imageProvider(DefaultImageProvider())) {
                 NimbusNavigator(json = json)
             }
         }

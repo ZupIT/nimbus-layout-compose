@@ -14,7 +14,7 @@ internal interface BaseImage : Size, WithAccessibility {
 }
 
 internal interface ChildWithStretch {
-    var childWithStretch: Boolean?
+    var hasAnyChildStretch: Boolean?
 }
 
 internal object ComponentNames {

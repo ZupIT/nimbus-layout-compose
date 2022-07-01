@@ -36,7 +36,7 @@ internal fun Modifier.rowParentStretch(
     modifier: Modifier = Modifier,
 ) = this.then(with(row) {
     var newModifier = modifier
-    if (row.childWithStretch.isTrue()) {
+    if (row.hasAnyChildStretch.isTrue()) {
         newModifier = newModifier.height(IntrinsicSize.Min)
     }
     return@with newModifier
@@ -47,7 +47,7 @@ internal fun Modifier.columnParentStretch(
     modifier: Modifier = Modifier,
 ) = this.then(with(column) {
     var newModifier = modifier
-    if (column.childWithStretch.isTrue()) {
+    if (column.hasAnyChildStretch.isTrue()) {
         newModifier = newModifier.width(IntrinsicSize.Min)
     }
     return@with newModifier

@@ -40,5 +40,5 @@ internal class NimbusColumnModel(
     override val paddingHorizontal: Double? = null,
     override val paddingVertical: Double? = null,
     override val stretch: Boolean? = false,
-    override var childWithStretch: Boolean? = null
+    override var hasAnyChildStretch: Boolean? = null
 ) : Container, ChildWithStretch

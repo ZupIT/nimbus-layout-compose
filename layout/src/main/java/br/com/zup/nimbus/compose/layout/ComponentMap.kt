@@ -100,6 +100,6 @@ private fun parseStretch(
     model: ChildWithStretch?,
     element: ServerDrivenNode,
 ) {
-    model?.childWithStretch =
+    model?.hasAnyChildStretch =
         element.children?.any { it.properties?.get("stretch") == true } ?: false
 }

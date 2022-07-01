@@ -13,8 +13,8 @@ internal interface BaseImage : Size, WithAccessibility {
     val scale: ImageScale?
 }
 
-internal interface ChildWithStretch {
-    var hasAnyChildStretch: Boolean?
+internal interface WithChildStretch {
+    var hasChildStretch: Boolean?
 }
 
 internal object ComponentNames {

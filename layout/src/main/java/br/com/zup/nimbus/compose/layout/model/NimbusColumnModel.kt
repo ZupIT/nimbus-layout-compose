@@ -39,4 +39,5 @@ internal class NimbusColumnModel(
     override val paddingBottom: Double? = null,
     override val paddingHorizontal: Double? = null,
     override val paddingVertical: Double? = null,
+    override val stretch: Boolean? = false
 ) : Container

@@ -24,20 +24,12 @@ internal fun Modifier.fillMaxSize(
 
         if (parentComponent != null) {
             if (parentComponent.component == ComponentNames.NIMBUS_ROW) {
-                if (container.height == null) {
-                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
-                        if (crossAxis == CrossAxisAlignment.STRETCH) {
-                            newModifier = newModifier.fillMaxHeight()
-                        }
-                    }
+                if (container.stretch == true) {
+                    newModifier = newModifier.fillMaxHeight()
                 }
             } else if (parentComponent.component == ComponentNames.NIMBUS_COLUMN) {
-                if (container.width == null) {
-                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
-                        if (crossAxis == CrossAxisAlignment.STRETCH) {
-                            newModifier = newModifier.fillMaxWidth()
-                        }
-                    }
+                if (container.stretch == true) {
+                    newModifier = newModifier.fillMaxWidth()
                 }
             }
         }

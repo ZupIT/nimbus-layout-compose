@@ -10,11 +10,10 @@ import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.model.AbstractComponentApi
 import br.com.zup.nimbus.compose.layout.model.ComponentNames
 import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.CrossAxisAlignment
 import br.com.zup.nimbus.compose.layout.model.ParentContainer
 import br.com.zup.nimbus.compose.layout.model.Size
 
-internal fun Modifier.fillMaxSize(
+internal fun Modifier.applyChildStretch(
     container: Container,
     parentComponent: AbstractComponentApi<ParentContainer>?,
     modifier: Modifier = Modifier
@@ -24,20 +23,12 @@ internal fun Modifier.fillMaxSize(
 
         if (parentComponent != null) {
             if (parentComponent.component == ComponentNames.NIMBUS_ROW) {
-                if (container.height == null) {
-                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
-                        if (crossAxis == CrossAxisAlignment.STRETCH) {
-                            newModifier = newModifier.fillMaxHeight()
-                        }
-                    }
+                if (container.stretch.isTrue()) {
+                    newModifier = newModifier.fillMaxHeight()
                 }
             } else if (parentComponent.component == ComponentNames.NIMBUS_COLUMN) {
-                if (container.width == null) {
-                    parentComponent.properties?.crossAxisAlignment?.let { crossAxis ->
-                        if (crossAxis == CrossAxisAlignment.STRETCH) {
-                            newModifier = newModifier.fillMaxWidth()
-                        }
-                    }
+                if (container.stretch.isTrue()) {
+                    newModifier = newModifier.fillMaxWidth()
                 }
             }
         }

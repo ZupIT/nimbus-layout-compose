@@ -4,8 +4,6 @@ import androidx.compose.ui.Alignment
 import com.fasterxml.jackson.annotation.JsonProperty
 
 internal enum class CrossAxisAlignment {
-    @JsonProperty("stretch")
-    STRETCH,
 
     @JsonProperty("start")
     START,
@@ -18,7 +16,6 @@ internal enum class CrossAxisAlignment {
 
     fun toVerticalAlignment(): Alignment.Vertical =
         when (this) {
-            STRETCH -> Alignment.Top
             START -> Alignment.Top
             END -> Alignment.Bottom
             CENTER -> Alignment.CenterVertically
@@ -26,7 +23,6 @@ internal enum class CrossAxisAlignment {
 
     fun toHorizontalAlignment(): Alignment.Horizontal =
         when (this) {
-            STRETCH -> Alignment.Start
             START -> Alignment.Start
             END -> Alignment.End
             CENTER -> Alignment.CenterHorizontally

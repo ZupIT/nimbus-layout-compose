@@ -71,7 +71,7 @@ private fun shouldShowNavigationIcon(
     showBackButton: Boolean? = true,
     onClick: () -> Unit = {},
 ): @Composable (() -> Unit)? {
-    return if (showBackButton == true) {
+    return if (showBackButton.isTrue()) {
         { NavigationIcon(onClick = onClick) }
     } else {
         null

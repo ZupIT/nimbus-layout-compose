@@ -11,7 +11,8 @@
       }],
       "properties": {
         "backgroundColor": "#0000FF",
-        "width": 100.0
+        "width": 100.0,
+        "stretch": true
       }
     },
     {
@@ -24,12 +25,12 @@
       }],
       "properties": {
         "backgroundColor": "#FF0000",
-        "width": 100.0
+        "width": 100.0,
+        "stretch": true
       }
     }],
   "properties": {
     "backgroundColor": "#CCCCCCFF",
-    "crossAxisAlignment": "stretch",
     "width": 250.0,
     "height": 450.0
   }

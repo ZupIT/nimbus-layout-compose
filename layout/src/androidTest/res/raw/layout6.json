@@ -26,11 +26,11 @@
       "properties": {
         "flex":1,
         "backgroundColor": "#00FF00",
-        "marginStart": 20.0
+        "marginStart": 20.0,
+        "stretch": true
       }
     }],
   "properties": {
-    "backgroundColor": "#CCCCCCFF",
-    "crossAxisAlignment": "stretch"
+    "backgroundColor": "#CCCCCCFF"
   }
 }

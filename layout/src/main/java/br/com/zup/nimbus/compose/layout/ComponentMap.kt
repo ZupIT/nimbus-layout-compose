@@ -3,7 +3,7 @@
 package br.com.zup.nimbus.compose.layout
 
 import androidx.compose.runtime.Composable
-import br.com.zup.nimbus.compose.layout.model.ChildHasStretch
+import br.com.zup.nimbus.compose.layout.model.ChildWithStretch
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_LIFECYCLE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_FLOW_COLUMN
@@ -97,9 +97,9 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
 )
 
 private fun parseStretch(
-    model: ChildHasStretch?,
+    model: ChildWithStretch?,
     element: ServerDrivenNode,
 ) {
-    model?.childHasStretch =
+    model?.childWithStretch =
         element.children?.any { it.properties?.get("stretch") == true } ?: false
 }

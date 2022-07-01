@@ -12,6 +12,11 @@ internal open class ParentContainerApi: AbstractComponentApi<ParentContainer>(nu
 internal interface BaseImage : Size, WithAccessibility {
     val scale: ImageScale?
 }
+
+internal interface ChildHasStretch {
+    var childHasStretch: Boolean?
+}
+
 internal object ComponentNames {
     const val NIMBUS_ROW = "layout:row"
     const val NIMBUS_FLOW_ROW = "layout:flowRow"

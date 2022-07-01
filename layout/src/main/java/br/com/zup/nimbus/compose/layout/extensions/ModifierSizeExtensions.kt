@@ -10,11 +10,10 @@ import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.model.AbstractComponentApi
 import br.com.zup.nimbus.compose.layout.model.ComponentNames
 import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.CrossAxisAlignment
 import br.com.zup.nimbus.compose.layout.model.ParentContainer
 import br.com.zup.nimbus.compose.layout.model.Size
 
-internal fun Modifier.fillMaxSize(
+internal fun Modifier.applyChildStretch(
     container: Container,
     parentComponent: AbstractComponentApi<ParentContainer>?,
     modifier: Modifier = Modifier

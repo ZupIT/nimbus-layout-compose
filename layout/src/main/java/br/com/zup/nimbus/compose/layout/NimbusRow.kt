@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.container
+import br.com.zup.nimbus.compose.layout.extensions.rowParentStretch
 import br.com.zup.nimbus.compose.layout.model.Component
 import br.com.zup.nimbus.compose.layout.model.NimbusRowApi
 import br.com.zup.nimbus.compose.layout.model.ParentContainerApi
@@ -32,7 +33,9 @@ internal fun NimbusRow(
         Row(
             horizontalArrangement = horizontalArrangement,
             verticalAlignment = verticalAlignment,
-            modifier = modifier.container(container, parentComponent, NimbusRowScope.instance)
+            modifier = modifier
+                .rowParentStretch(container)
+                .container(container, parentComponent, NimbusRowScope.instance)
         ) {
             content()
         }

@@ -31,7 +31,6 @@
     }],
   "properties": {
     "backgroundColor": "#CCCCCCFF",
-    "crossAxisAlignment": "stretch",
     "width": 250.0,
     "height": 450.0
   }

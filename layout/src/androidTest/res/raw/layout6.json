@@ -31,7 +31,6 @@
       }
     }],
   "properties": {
-    "backgroundColor": "#CCCCCCFF",
-    "crossAxisAlignment": "stretch"
+    "backgroundColor": "#CCCCCCFF"
   }
 }

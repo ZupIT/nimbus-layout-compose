@@ -3,6 +3,7 @@
 package br.com.zup.nimbus.compose.layout
 
 import androidx.compose.runtime.Composable
+import br.com.zup.nimbus.compose.layout.model.ChildHasStretch
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_COLUMN
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_LIFECYCLE
 import br.com.zup.nimbus.compose.layout.model.ComponentNames.NIMBUS_FLOW_COLUMN
@@ -29,6 +30,7 @@ import br.com.zup.nimbus.compose.layout.model.TextApi
 import br.com.zup.nimbus.compose.layout.model.TouchableApi
 import br.zup.com.nimbus.compose.ComponentHandler
 import com.fasterxml.jackson.core.type.TypeReference
+import com.zup.nimbus.core.tree.ServerDrivenNode
 
 val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     NIMBUS_TOUCHABLE to @Composable { element, children, _ ->
@@ -40,6 +42,7 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     NIMBUS_ROW to @Composable { element, children, parentElement ->
         val modelParent = parentElement?.let { parse(it, object : TypeReference<ParentContainerApi>() {}) }
         val model = element.parse(object : TypeReference<NimbusRowApi>() {})
+        parseStretch(model.properties, element)
         NimbusRow(model = model, parentComponent = modelParent, content = children)
     },
     NIMBUS_FLOW_ROW to @Composable { element, children, _ ->
@@ -49,6 +52,7 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     NIMBUS_COLUMN to @Composable { element, children, parentElement ->
         val modelParent = parentElement?.parse(object : TypeReference<ParentContainerApi>() {})
         val model = element.parse(object : TypeReference<NimbusColumnApi>() {})
+        parseStretch(model.properties, element)
         NimbusColumn(model = model, parentComponent = modelParent, content = children)
     },
     NIMBUS_FLOW_COLUMN to @Composable { element, children, _ ->
@@ -91,3 +95,11 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
         NimbusText(model = model)
     },
 )
+
+private fun parseStretch(
+    model: ChildHasStretch?,
+    element: ServerDrivenNode,
+) {
+    model?.childHasStretch =
+        element.children?.any { it.properties?.get("stretch") == true } ?: false
+}

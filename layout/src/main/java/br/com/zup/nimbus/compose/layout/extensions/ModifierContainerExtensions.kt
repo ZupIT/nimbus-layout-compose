@@ -9,7 +9,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.model.AbstractComponentApi
 import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.CrossAxisAlignment
+import br.com.zup.nimbus.compose.layout.model.NimbusColumnModel
+import br.com.zup.nimbus.compose.layout.model.NimbusRowModel
 import br.com.zup.nimbus.compose.layout.model.ParentContainer
 
 internal fun Modifier.container(
@@ -23,13 +24,34 @@ internal fun Modifier.container(
         .applyScopeModifier(scope, container)
         .margin(container)
         .size(container)
-        .fillMaxSize(container, parentComponent)
+        .applyChildStretch(container, parentComponent)
         .shadow(container)
         .border(container)
         .background(container.backgroundColor)
         .padding(container)
 )
 
+internal fun Modifier.rowParentStretch(
+    row: NimbusRowModel,
+    modifier: Modifier = Modifier,
+) = this.then(with(row) {
+    var newModifier = modifier
+    if (row.childHasStretch.isTrue()) {
+        newModifier = newModifier.height(IntrinsicSize.Min)
+    }
+    return@with newModifier
+})
+
+internal fun Modifier.columnParentStretch(
+    column: NimbusColumnModel,
+    modifier: Modifier = Modifier,
+) = this.then(with(column) {
+    var newModifier = modifier
+    if (column.childHasStretch.isTrue()) {
+        newModifier = newModifier.width(IntrinsicSize.Min)
+    }
+    return@with newModifier
+})
 
 
 internal fun Modifier.applyScopeModifier(
@@ -46,24 +68,12 @@ internal fun Modifier.applyScopeModifier(
                 container.flex?.let {
                     newModifier = newModifier.weight(it.toFloat())
                 }
-
-                container.crossAxisAlignment?.let { crossAxis ->
-                    if (crossAxis == CrossAxisAlignment.STRETCH) {
-                        newModifier = newModifier.height(IntrinsicSize.Min)
-                    }
-                }
             }
         }
         is ColumnScope -> {
             with(scope) {
                 container.flex?.let {
                     newModifier = newModifier.weight(it.toFloat())
-                }
-
-                container.crossAxisAlignment?.let { crossAxis ->
-                    if (crossAxis == CrossAxisAlignment.STRETCH) {
-                        newModifier = newModifier.width(IntrinsicSize.Min)
-                    }
                 }
             }
         }

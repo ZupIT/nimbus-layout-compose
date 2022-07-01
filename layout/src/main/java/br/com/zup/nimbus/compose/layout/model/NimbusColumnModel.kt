@@ -3,7 +3,7 @@ package br.com.zup.nimbus.compose.layout.model
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class NimbusColumnApi: AbstractComponentApi<NimbusColumnModel>(NimbusColumnModel())
+internal class NimbusColumnApi : AbstractComponentApi<NimbusColumnModel>(NimbusColumnModel())
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal class NimbusColumnModel(
@@ -39,5 +39,7 @@ internal class NimbusColumnModel(
     override val paddingBottom: Double? = null,
     override val paddingHorizontal: Double? = null,
     override val paddingVertical: Double? = null,
-    override val stretch: Boolean? = false
-) : Container
+    override val stretch: Boolean? = false,
+) : Container, ChildHasStretch {
+    override var childHasStretch: Boolean? = false
+}

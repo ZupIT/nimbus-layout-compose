@@ -24,11 +24,11 @@ internal fun Modifier.fillMaxSize(
 
         if (parentComponent != null) {
             if (parentComponent.component == ComponentNames.NIMBUS_ROW) {
-                if (container.stretch == true) {
+                if (container.stretch.isTrue()) {
                     newModifier = newModifier.fillMaxHeight()
                 }
             } else if (parentComponent.component == ComponentNames.NIMBUS_COLUMN) {
-                if (container.stretch == true) {
+                if (container.stretch.isTrue()) {
                     newModifier = newModifier.fillMaxWidth()
                 }
             }

@@ -15,7 +15,7 @@ internal fun Modifier.accessibility(model: WithAccessibility?,
     model?.accessibility?.label?.let { description ->
         modifier.semantics(mergeDescendants = true) {
             contentDescription = description
-            if (model.accessibility?.isHeader == true) {
+            if (model.accessibility?.isHeader.isTrue()) {
                 heading()
             }
         }

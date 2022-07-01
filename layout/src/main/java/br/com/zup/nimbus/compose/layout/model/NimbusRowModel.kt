@@ -40,6 +40,5 @@ internal class NimbusRowModel(
     override val paddingHorizontal: Double? = null,
     override val paddingVertical: Double? = null,
     override val stretch: Boolean? = false,
-) : Container, ChildHasStretch {
     override var childHasStretch: Boolean? = false
-}
+) : Container, ChildHasStretch

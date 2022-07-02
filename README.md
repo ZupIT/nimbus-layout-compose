@@ -38,8 +38,10 @@ Above, we added both the core Nimbus library and a component library for layout 
 ```kotlin
 const val BASE_URL = "https://gist.githubusercontent.com/hernandazevedozup/eba4f2eb6afd6d6769a549fe037c1613/raw/cd3a897f4384783a1e799bb118a0dbfa8838fcf0"
 class MainActivity : ComponentActivity() {
-    private val config = NimbusConfig(
+    // Here you define the configurations that nimbus will use to render the views.
+    private val nimbus = Nimbus(
         baseUrl = BASE_URL,
+        //The components is a map that defines for each component name how to render it
         components = layoutComponents,
     )
 
@@ -49,7 +51,9 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Nimbus(config = config) {
+                    // Providing the nimbus configuration to the render tree
+                    ProvideNimbus(nimbus) {
+                        // Here your start a navigation flow that requests the json of the first screen from $BASE_URL/1
                         NimbusNavigator(ViewRequest("/1"))
                     }
                 }
@@ -70,7 +74,6 @@ You can find Nimbus's documentation at this link [**Nimbus Documentation**](http
 
 # Read next
 :point_right: [Component](/components)
-
 
 ## **Running the sample project**
 

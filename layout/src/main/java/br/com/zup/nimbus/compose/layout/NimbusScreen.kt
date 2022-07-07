@@ -39,7 +39,9 @@ internal fun NimbusScreen(
     val screen = requireNotNull(model.properties)
     val ignoreSafeArea = requireNotNull(screen.ignoreSafeArea)
 
-    ConfigureSafeArea()
+    // The following line has been commented because it doesn't work unless the server driven view
+    // is the only thing in the screen.
+    // ConfigureSafeArea()
 
     Scaffold(
         modifier = modifier,
@@ -103,4 +105,3 @@ internal fun ConfigureSafeArea() {
         systemUiController.setSystemBarsColor(Color.Transparent, darkIcons = useDarkIcons)
     }
 }
-

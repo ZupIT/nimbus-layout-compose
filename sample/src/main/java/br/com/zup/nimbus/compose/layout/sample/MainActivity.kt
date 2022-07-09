@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import br.com.zup.nimbus.compose.layout.extensions.imageProvider
-import br.com.zup.nimbus.compose.layout.layoutActions
 import br.com.zup.nimbus.compose.layout.layoutComponents
 import br.com.zup.nimbus.compose.layout.sample.components.CustomError
 import br.com.zup.nimbus.compose.layout.sample.components.customComponents
@@ -16,9 +15,71 @@ import br.zup.com.nimbus.compose.NimbusNavigator
 import br.zup.com.nimbus.compose.ProvideNimbus
 import com.zup.nimbus.core.network.ViewRequest
 
+const val JSON = """{
+  "_:component": "layout:column",
+  "children": [
+    {
+      "_:component": "layout:touchable",
+      "children": [{
+        "_:component": "layout:text",
+        "properties": {
+          "text": "Go to screen two"
+        }
+      }],
+      "properties": {
+        "onPress": [{
+          "_:action": "push",
+          "properties": {
+            "url": "/screen2.json"
+          }
+        }],
+        "accessibility" : {
+          "label": "This is a clickable element",
+          "isHeader": true
+        }
+      }
+    },
+    {
+      "_:component": "layout:touchable",
+      "children": [{
+        "_:component": "layout:text",
+        "properties": {
+          "text": "Go to screen two. Only Label."
+        }
+      }],
+      "properties": {
+        "onPress": [{
+          "_:action": "push",
+          "properties": {
+            "url": "/screen2.json"
+          }
+        }],
+        "accessibility" : {
+          "label": "This is a clickable element. Not Title."
+        }
+      }
+    },
+    {
+      "_:component": "layout:touchable",
+      "children": [{
+        "_:component": "layout:text",
+        "properties": {
+          "text": "Go to screen two. Default accessibility."
+        }
+      }],
+      "properties": {
+        "onPress": [{
+          "_:action": "push",
+          "properties": {
+            "url": "/screen2.json"
+          }
+        }]
+      }
+    }]
+}"""
+
 class MainActivity : ComponentActivity() {
     private val nimbus = Nimbus(
-        actions = layoutActions,
         baseUrl = BASE_URL,
         components = customComponents + layoutComponents,
         logger = AppLogger(),
@@ -34,7 +95,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     ProvideNimbus(nimbus.imageProvider(DefaultImageProvider())) {
-                        NimbusNavigator(ViewRequest("/11"))
+                        NimbusNavigator(json = JSON)
                     }
                 }
             }

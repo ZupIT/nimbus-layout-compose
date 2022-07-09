@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout
+package br.com.zup.nimbus.compose.layout.component
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -8,15 +8,14 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import br.com.zup.nimbus.compose.layout.extensions.color
-import br.com.zup.nimbus.compose.layout.model.TextApi
+import br.com.zup.nimbus.compose.layout.model.TextModel
 
 @OptIn(ExperimentalUnitApi::class)
 @Composable
-internal fun NimbusText(
-    model: TextApi,
+internal fun Text(
+    model: TextModel,
     modifier: Modifier = Modifier
 ) {
-    val model = requireNotNull(model.properties)
     Text(modifier = modifier,
         text = model.text ?: "",
         color = model.color?.color ?: Color.Black,

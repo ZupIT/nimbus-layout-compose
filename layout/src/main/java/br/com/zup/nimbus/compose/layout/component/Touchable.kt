@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout
+package br.com.zup.nimbus.compose.layout.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -7,31 +7,23 @@ import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.accessibility
 import br.com.zup.nimbus.compose.layout.model.Action
 import br.com.zup.nimbus.compose.layout.model.Component
-import br.com.zup.nimbus.compose.layout.model.TouchableApi
-import br.com.zup.nimbus.compose.layout.model.WithAccessibility
+import br.com.zup.nimbus.compose.layout.model.TouchableModel
 
 @Composable
-internal fun NimbusTouchable(
-    model: TouchableApi,
+internal fun Touchable(
+    model: TouchableModel,
     modifier: Modifier = Modifier,
-    onPress: Action,
     content: Component,
 ) {
-    val touchable = requireNotNull(model.properties)
-
     Column(
         modifier = modifier
             .clickable {
-                onPress(null)
+                model.onPress(null)
             }
-            .accessibility(model = touchable)
+            .accessibility(model.accessibility)
     ) {
         content()
     }
 }
 
-internal data class TouchableModel(
-    val onPress: Action,
-    val children: Component,
-    val accessibility: WithAccessibility? = null,
-)
+

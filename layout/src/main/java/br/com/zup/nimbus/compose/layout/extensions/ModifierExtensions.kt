@@ -8,14 +8,17 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import br.com.zup.nimbus.compose.layout.ColorUtils
+import br.com.zup.nimbus.compose.layout.model.Accessibility
 import br.com.zup.nimbus.compose.layout.model.WithAccessibility
 
-internal fun Modifier.accessibility(model: WithAccessibility?,
-                                    modifier: Modifier = Modifier) = this.then(
-    model?.accessibility?.label?.let { description ->
+internal fun Modifier.accessibility(
+    accessibility: Accessibility?,
+    modifier: Modifier = Modifier,
+) = this.then(
+    accessibility?.label?.let { description ->
         modifier.semantics(mergeDescendants = true) {
             contentDescription = description
-            if (model.accessibility?.isHeader.isTrue()) {
+            if (accessibility.isHeader.isTrue()) {
                 heading()
             }
         }

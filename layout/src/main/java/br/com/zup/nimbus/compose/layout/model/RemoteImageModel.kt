@@ -3,12 +3,10 @@ package br.com.zup.nimbus.compose.layout.model
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class LocalImageApi: AbstractComponentApi<LocalImage>(LocalImage())
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-internal class LocalImage(
+internal class RemoteImageModel(
     override val scale: ImageScale? = ImageScale.CENTER,
-    val id: String? = null,
+    val url: String? = null,
+    val placeholder: String? = null,
     override val width: Double? = null,
     override val height: Double? = null,
     override val minWidth: Double? = null,

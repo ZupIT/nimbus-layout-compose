@@ -1,0 +1,11 @@
+{
+  "_:component": "layout:column",
+  "children": [
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet eros sit amet nisi venenatis imperdiet. Curabitur in leo pulvinar, consectetur nibh sit amet, fringilla tortor. Donec et sapien sit amet arcu tristique placerat. Cras mauris dui, varius a dictum ut, porta quis diam. Nam quis quam at turpis placerat ultrices vitae in urna. Maecenas egestas tincidunt blandit. Vestibulum vel tristique nunc. Morbi eleifend velit vel nisl porttitor eleifend. Aliquam ac hendrerit risus, eget aliquam purus. Nunc a faucibus ex.\n\nNulla viverra eleifend iaculis. Maecenas felis elit, porttitor vehicula pellentesque vel, faucibus eget sapien. Aliquam interdum aliquet nisl, in lacinia tellus hendrerit eu. Suspendisse sed mattis est, eu consequat enim. Duis placerat sem nec congue dignissim. Nullam mauris sem, consequat id tortor sed, fringilla hendrerit dolor. Mauris ultrices velit eu quam laoreet malesuada. Nunc at libero convallis, porta risus ullamcorper, fermentum velit. Nullam bibendum elit ac gravida semper. Etiam ultricies, nibh in ornare fermentum, nisi diam ornare dui, id pellentesque mi ex commodo tellus. Nullam cursus nec justo quis ultrices. Aliquam nisi urna, ultricies viverra ante vitae, suscipit fringilla libero."
+      }
+    }
+  ]
+}

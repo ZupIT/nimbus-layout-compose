@@ -110,8 +110,8 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
         Screen(model = model, content = children)
     },
     NIMBUS_TEXT to @Composable { element, _, _ ->
-        val model = element.parse(object : TypeReference<TextModel>() {})
-        if (model != null) Text(model = model)
+        val model = element.parse(object : TypeReference<TextModel>() {}) ?: TextModel()
+        Text(model = model)
     },
 )
 

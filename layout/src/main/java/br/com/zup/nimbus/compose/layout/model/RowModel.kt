@@ -3,10 +3,13 @@ package br.com.zup.nimbus.compose.layout.model
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class NimbusBoxApi: AbstractComponentApi<BoxModel>(BoxModel())
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-internal class BoxModel (
+internal class RowModel(
+    override val flex: Int? = null,
+    override val crossAxisAlignment: CrossAxisAlignment? = CrossAxisAlignment.START,
+    override val mainAxisAlignment: MainAxisAlignment? = MainAxisAlignment.START,
+    override val backgroundColor: String? = null,
+    override val shadow: List<Shadow>? = null,
+    override var children: Component? = null,
     override val width: Double? = null,
     override val height: Double? = null,
     override val minWidth: Double? = null,
@@ -33,7 +36,6 @@ internal class BoxModel (
     override val paddingBottom: Double? = null,
     override val paddingHorizontal: Double? = null,
     override val paddingVertical: Double? = null,
-    override val backgroundColor: String? = null,
-    override val shadow: List<Shadow>? = null,
-    override val children: Component? = null
-) : Box
+    override val stretch: Boolean? = false,
+    override var hasChildStretch: Boolean? = null
+) : Container, WithChildStretch

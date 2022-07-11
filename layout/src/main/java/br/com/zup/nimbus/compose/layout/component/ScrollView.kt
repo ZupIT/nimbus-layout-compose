@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout
+package br.com.zup.nimbus.compose.layout.component
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
@@ -7,22 +7,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.scroll
 import br.com.zup.nimbus.compose.layout.model.Component
-import br.com.zup.nimbus.compose.layout.model.ScrollViewApi
+import br.com.zup.nimbus.compose.layout.model.ScrollViewModel
 
 @Composable
-internal fun NimbusScrollView(
-    model: ScrollViewApi,
+internal fun ScrollView(
+    model: ScrollViewModel,
     modifier: Modifier = Modifier,
     verticalScrollState: ScrollState = rememberScrollState(),
     horizontalScrollState: ScrollState = rememberScrollState(),
     content: Component,
 ) {
-    val scrollView = requireNotNull(model.properties)
     Column(
         modifier = modifier
-            .scroll(scrollView = scrollView,
+            .scroll(
+                scrollView = model,
                 verticalScrollState = verticalScrollState,
-                horizontalScrollState = horizontalScrollState)
+                horizontalScrollState = horizontalScrollState
+            )
     ) {
         content()
     }

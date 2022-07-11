@@ -7,29 +7,23 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import br.com.zup.nimbus.compose.layout.model.AbstractComponentApi
 import br.com.zup.nimbus.compose.layout.model.ComponentNames
 import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.ParentContainer
 import br.com.zup.nimbus.compose.layout.model.Size
 
 internal fun Modifier.applyChildStretch(
     container: Container,
-    parentComponent: AbstractComponentApi<ParentContainer>?,
+    parentComponentName: String?,
     modifier: Modifier = Modifier
 ) = this.then(
     with(container) {
         var newModifier = modifier
 
-        if (parentComponent != null) {
-            if (parentComponent.component == ComponentNames.NIMBUS_ROW) {
-                if (container.stretch.isTrue()) {
-                    newModifier = newModifier.fillMaxHeight()
-                }
-            } else if (parentComponent.component == ComponentNames.NIMBUS_COLUMN) {
-                if (container.stretch.isTrue()) {
-                    newModifier = newModifier.fillMaxWidth()
-                }
+        if (container.stretch.isTrue()) {
+            if (parentComponentName == ComponentNames.NIMBUS_ROW) {
+                newModifier = newModifier.fillMaxHeight()
+            } else if (parentComponentName == ComponentNames.NIMBUS_COLUMN) {
+                newModifier = newModifier.fillMaxWidth()
             }
         }
 

@@ -3,10 +3,7 @@ package br.com.zup.nimbus.compose.layout.model
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class NimbusColumnApi : AbstractComponentApi<NimbusColumnModel>(NimbusColumnModel())
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-internal class NimbusColumnModel(
+internal class ColumnModel(
     override val flex: Int? = null,
     override val crossAxisAlignment: CrossAxisAlignment? = CrossAxisAlignment.START,
     override val mainAxisAlignment: MainAxisAlignment? = MainAxisAlignment.START,

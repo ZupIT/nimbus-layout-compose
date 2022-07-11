@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 typealias Component = @Composable() () -> Unit
 typealias Action = (Any?) -> Unit
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-internal open class ParentContainerApi: AbstractComponentApi<ParentContainer>(null)
-
 internal interface BaseImage : Size, WithAccessibility {
     val scale: ImageScale?
 }
@@ -32,14 +29,3 @@ internal object ComponentNames {
     const val NIMBUS_TEXT = "layout:text"
     const val NIMBUS_LIFECYCLE = "layout:lifecycle"
 }
-
-internal interface ComponentApi<T> {
-    val component: String?
-    val properties: T?
-}
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-abstract class AbstractComponentApi<T>(
-    override val properties: T?,
-    override val component: String? = null,
-) : ComponentApi<T>

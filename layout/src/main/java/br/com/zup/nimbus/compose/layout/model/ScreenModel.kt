@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class ScreenApi: AbstractComponentApi<Screen>(Screen())
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-internal class Screen(
+internal class ScreenModel(
     val ignoreSafeArea: List<SafeAreaEdges> = emptyList(),
     val title: String? = null,
     val showBackButton: Boolean? = true,

@@ -7,15 +7,14 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
-import br.com.zup.nimbus.compose.layout.model.AbstractComponentApi
 import br.com.zup.nimbus.compose.layout.model.Container
-import br.com.zup.nimbus.compose.layout.model.NimbusColumnModel
-import br.com.zup.nimbus.compose.layout.model.NimbusRowModel
+import br.com.zup.nimbus.compose.layout.model.ColumnModel
+import br.com.zup.nimbus.compose.layout.model.RowModel
 import br.com.zup.nimbus.compose.layout.model.ParentContainer
 
 internal fun Modifier.container(
     container: Container,
-    parentComponent: AbstractComponentApi<ParentContainer>? = null,
+    parentComponentName: String? = null,
     @LayoutScopeMarker
     scope: Any? = null,
     modifier: Modifier = Modifier,
@@ -24,7 +23,7 @@ internal fun Modifier.container(
         .applyScopeModifier(scope, container)
         .margin(container)
         .size(container)
-        .applyChildStretch(container, parentComponent)
+        .applyChildStretch(container, parentComponentName)
         .shadow(container)
         .border(container)
         .background(container.backgroundColor)
@@ -32,7 +31,7 @@ internal fun Modifier.container(
 )
 
 internal fun Modifier.rowParentStretch(
-    row: NimbusRowModel,
+    row: RowModel,
     modifier: Modifier = Modifier,
 ) = this.then(with(row) {
     var newModifier = modifier
@@ -43,7 +42,7 @@ internal fun Modifier.rowParentStretch(
 })
 
 internal fun Modifier.columnParentStretch(
-    column: NimbusColumnModel,
+    column: ColumnModel,
     modifier: Modifier = Modifier,
 ) = this.then(with(column) {
     var newModifier = modifier

@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout
+package br.com.zup.nimbus.compose.layout.component
 
 import android.app.Activity
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,7 @@ import androidx.core.view.WindowCompat
 import br.com.zup.nimbus.compose.layout.extensions.ignoreSafeArea
 import br.com.zup.nimbus.compose.layout.extensions.isTrue
 import br.com.zup.nimbus.compose.layout.model.Component
-import br.com.zup.nimbus.compose.layout.model.ScreenApi
+import br.com.zup.nimbus.compose.layout.model.ScreenModel
 import br.zup.com.nimbus.compose.NimbusTheme
 import br.zup.com.nimbus.compose.core.ui.internal.NimbusNavHostHelper
 import com.google.accompanist.insets.ui.Scaffold
@@ -30,14 +30,13 @@ import com.google.accompanist.insets.ui.TopAppBar
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-internal fun NimbusScreen(
-    model: ScreenApi,
+internal fun Screen(
+    model: ScreenModel,
     modifier: Modifier = Modifier,
     navHostHelper: NimbusNavHostHelper = NimbusTheme.nimbusNavigatorState.navHostHelper,
     content: Component,
 ) {
-    val screen = requireNotNull(model.properties)
-    val ignoreSafeArea = requireNotNull(screen.ignoreSafeArea)
+    val ignoreSafeArea = requireNotNull(model.ignoreSafeArea)
 
     // The following line has been commented because it doesn't work unless the server driven view
     // is the only thing in the screen.
@@ -49,11 +48,11 @@ internal fun NimbusScreen(
             // We use TopAppBar from accompanist-insets-ui which allows us to provide
             // content padding matching the system bars insets.
             TopAppBar(
-                title = { Text(screen.title ?: "") },
+                title = { Text(model.title ?: "") },
                 backgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.9f),
                 navigationIcon = shouldShowNavigationIcon(
                     showBackButton = !navHostHelper.isFirstScreen() &&
-                            screen.showBackButton.isTrue()
+                            model.showBackButton.isTrue()
                 ) { navHostHelper.pop() },
                 contentPadding = WindowInsets.statusBars
                     .ignoreSafeArea(edgesToIgnore = ignoreSafeArea)

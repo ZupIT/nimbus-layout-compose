@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 internal class TextModel(
-    val text: String? = "",
+    val text: Any? = "",
     val size: Double? = 12.0,
     val weight: TextWeightEnum? = TextWeightEnum.NORMAL,
     val color: String? = COLOR_BLACK

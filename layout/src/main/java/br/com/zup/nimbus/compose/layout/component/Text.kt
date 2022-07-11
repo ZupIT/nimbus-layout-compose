@@ -17,7 +17,7 @@ internal fun Text(
     modifier: Modifier = Modifier
 ) {
     Text(modifier = modifier,
-        text = model.text ?: "",
+        text = "${model.text ?: ""}",
         color = model.color?.color ?: Color.Black,
         fontSize = TextUnit((model.size?.toLong() ?: 0L).toFloat(), TextUnitType.Sp),
         fontWeight = model.weight?.toFontWeight())

@@ -1,0 +1,53 @@
+{
+  "_:component": "layout:column",
+  "children": [
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "text": "test"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "text": true
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "text": false
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "text": 25
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "text": 95.785429
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "text": null
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "text": [1, "3456", true, null, { "a": 1 }, [0, 1]]
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "text": { "a":  1, "b":  "234", "c": true, "d": null, "e": { "a": 1 }, "f": [0, 1] }
+      }
+    }
+  ]
+}

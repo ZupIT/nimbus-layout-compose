@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-internal class TextApi: AbstractComponentApi<TextModel>(TextModel())
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 internal class TextModel(
     val text: String? = "",
     val size: Double? = 12.0,

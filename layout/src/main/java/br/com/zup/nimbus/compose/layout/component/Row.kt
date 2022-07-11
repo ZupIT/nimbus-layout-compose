@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout
+package br.com.zup.nimbus.compose.layout.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.container
 import br.com.zup.nimbus.compose.layout.extensions.rowParentStretch
 import br.com.zup.nimbus.compose.layout.model.Component
-import br.com.zup.nimbus.compose.layout.model.NimbusRowApi
-import br.com.zup.nimbus.compose.layout.model.ParentContainerApi
+import br.com.zup.nimbus.compose.layout.model.ParentContainer
+import br.com.zup.nimbus.compose.layout.model.RowModel
 import br.com.zup.nimbus.compose.layout.model.shouldDisableHardwareAcceleration
 
 private object NimbusRowScope {
@@ -18,24 +18,23 @@ private object NimbusRowScope {
 }
 
 @Composable
-internal fun NimbusRow(
-    model: NimbusRowApi,
+internal fun Row(
+    model: RowModel,
     modifier: Modifier = Modifier,
-    parentComponent: ParentContainerApi? = null,
+    parentComponentName: String? = null,
     content: Component,
 ) {
-    val container = requireNotNull(model.properties)
-    val mainAxisAlignment = requireNotNull(container.mainAxisAlignment)
-    val crossAxisAlignment = requireNotNull(container.crossAxisAlignment)
+    val mainAxisAlignment = requireNotNull(model.mainAxisAlignment)
+    val crossAxisAlignment = requireNotNull(model.crossAxisAlignment)
     val horizontalArrangement = mainAxisAlignment.toHorizontalArrangement()
     val verticalAlignment = crossAxisAlignment.toVerticalAlignment()
-    NimbusSoftwareLayer(condition = container.shouldDisableHardwareAcceleration()) {
+    NimbusSoftwareLayer(condition = model.shouldDisableHardwareAcceleration()) {
         Row(
             horizontalArrangement = horizontalArrangement,
             verticalAlignment = verticalAlignment,
             modifier = modifier
-                .rowParentStretch(container)
-                .container(container, parentComponent, NimbusRowScope.instance)
+                .rowParentStretch(model)
+                .container(model, parentComponentName, NimbusRowScope.instance)
         ) {
             content()
         }

@@ -4,13 +4,13 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Modifier
-import br.com.zup.nimbus.compose.layout.drawHorizontalScrollbar
-import br.com.zup.nimbus.compose.layout.drawVerticalScrollbar
-import br.com.zup.nimbus.compose.layout.model.ScrollView
+import br.com.zup.nimbus.compose.layout.component.drawHorizontalScrollbar
+import br.com.zup.nimbus.compose.layout.component.drawVerticalScrollbar
+import br.com.zup.nimbus.compose.layout.model.ScrollViewModel
 import br.com.zup.nimbus.compose.layout.model.ScrollViewDirection
 
 internal fun Modifier.scroll(
-    scrollView: ScrollView,
+    scrollView: ScrollViewModel,
     verticalScrollState: ScrollState,
     horizontalScrollState: ScrollState,
     modifier: Modifier = Modifier,
@@ -41,7 +41,5 @@ internal fun Modifier.scroll(
         }
     }
 
-
     return@with newModifier
-}
-)
+})

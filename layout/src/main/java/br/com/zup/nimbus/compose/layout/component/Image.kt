@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout
+package br.com.zup.nimbus.compose.layout.component
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -17,22 +17,20 @@ import br.com.zup.nimbus.compose.layout.extensions.accessibility
 import br.com.zup.nimbus.compose.layout.extensions.image
 import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.model.BaseImage
-import br.com.zup.nimbus.compose.layout.model.LocalImage
-import br.com.zup.nimbus.compose.layout.model.LocalImageApi
-import br.com.zup.nimbus.compose.layout.model.RemoteImage
-import br.com.zup.nimbus.compose.layout.model.RemoteImageApi
+import br.com.zup.nimbus.compose.layout.model.LocalImageModel
+import br.com.zup.nimbus.compose.layout.model.RemoteImageModel
 import br.com.zup.nimbus.compose.layout.viewmodel.ImageViewModel
 import br.com.zup.nimbus.compose.layout.viewmodel.ImageViewModelState
 import br.zup.com.nimbus.compose.NimbusTheme
 
 private sealed class Image {
-    class Local(val localImage: LocalImage) : Image()
-    class Remote(val remoteImage: RemoteImage) : Image()
+    class Local(val localImage: LocalImageModel) : Image()
+    class Remote(val remoteImage: RemoteImageModel) : Image()
 }
 
 @Composable
-internal fun NimbusLocalImage(
-    model: LocalImageApi,
+internal fun LocalImage(
+    model: LocalImageModel,
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel(
         factory = ImageViewModel.provideFactory(
@@ -40,13 +38,12 @@ internal fun NimbusLocalImage(
         )
     )
 ) {
-    val image = requireNotNull(model.properties)
-    NimbusImageImpl(modifier = modifier, viewModel = viewModel, model = Image.Local(image))
+    NimbusImageImpl(modifier = modifier, viewModel = viewModel, model = Image.Local(model))
 }
 
 @Composable
-internal fun NimbusRemoteImage(
-    model: RemoteImageApi,
+internal fun RemoteImage(
+    model: RemoteImageModel,
     modifier: Modifier = Modifier,
     viewModel: ImageViewModel = viewModel(
         factory = ImageViewModel.provideFactory(
@@ -54,8 +51,7 @@ internal fun NimbusRemoteImage(
         )
     )
 ) {
-    val image = requireNotNull(model.properties)
-    NimbusImageImpl(modifier = modifier, viewModel = viewModel, model = Image.Remote(image))
+    NimbusImageImpl(modifier = modifier, viewModel = viewModel, model = Image.Remote(model))
 }
 
 private const val LOG_TAG = "NimbusImage"
@@ -126,7 +122,7 @@ private fun RenderImage(
             var description: String? = null
             if (!viewModelState.isPlaceholder) {
                 description = image.accessibility?.label
-                newModifier = newModifier.accessibility(image)
+                newModifier = newModifier.accessibility(image.accessibility)
             }
             Image(
                 painter = painterResource(viewModelState.id),
@@ -141,7 +137,7 @@ private fun RenderImage(
             EmptyBox(newModifier)
         }
         is ImageViewModelState.BitmapImage -> {
-            newModifier = newModifier.accessibility(image)
+            newModifier = newModifier.accessibility(image.accessibility)
             Image(
                 bitmap = viewModelState.bitmap.asImageBitmap(),
                 contentDescription = image.accessibility?.label,

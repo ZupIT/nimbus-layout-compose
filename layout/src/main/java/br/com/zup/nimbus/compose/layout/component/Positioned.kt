@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout
+package br.com.zup.nimbus.compose.layout.component
 
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.positioned
 import br.com.zup.nimbus.compose.layout.model.Component
-import br.com.zup.nimbus.compose.layout.model.NimbusPositionedApi
+import br.com.zup.nimbus.compose.layout.model.PositionedModel
 import br.com.zup.nimbus.compose.layout.model.shouldDisableHardwareAcceleration
 
 private object NimbusBoxScope {
@@ -16,16 +16,14 @@ private object NimbusBoxScope {
 }
 
 @Composable
-internal fun NimbusPositioned(
-    model: NimbusPositionedApi,
+internal fun Positioned(
+    model: PositionedModel,
     modifier: Modifier = Modifier,
     content: Component,
 ) {
-    val positioned = requireNotNull(model.properties)
-
-    NimbusSoftwareLayer(condition = positioned.shouldDisableHardwareAcceleration()) {
+    NimbusSoftwareLayer(condition = model.shouldDisableHardwareAcceleration()) {
         Column(
-            modifier = modifier.positioned(positioned = positioned, scope = NimbusBoxScope.instance)
+            modifier = modifier.positioned(positioned = model, scope = NimbusBoxScope.instance)
         ) {
             content()
         }

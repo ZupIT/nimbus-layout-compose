@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package br.com.zup.nimbus.compose.layout
+package br.com.zup.nimbus.compose.layout.component
 import android.view.ViewConfiguration
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween

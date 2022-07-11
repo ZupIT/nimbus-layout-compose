@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.foundation.layout.offset
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import br.com.zup.nimbus.compose.layout.model.Positioned
+import br.com.zup.nimbus.compose.layout.model.PositionedModel
 
 internal fun Modifier.positioned(
-    positioned: Positioned,
+    positioned: PositionedModel,
     @LayoutScopeMarker
     scope: Any,
     modifier: Modifier = Modifier,
@@ -22,7 +22,7 @@ internal fun Modifier.positioned(
 
 internal fun Modifier.applyScopeModifier(
     scope: Any? = null,
-    positioned: Positioned,
+    positioned: PositionedModel,
     modifier: Modifier = Modifier,
 ) = this.then(with(positioned) {
     if (scope == null) return@with modifier

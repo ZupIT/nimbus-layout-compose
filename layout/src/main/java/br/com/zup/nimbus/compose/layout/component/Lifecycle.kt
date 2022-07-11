@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout
+package br.com.zup.nimbus.compose.layout.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
@@ -11,7 +11,7 @@ import androidx.lifecycle.LifecycleOwner
 import br.com.zup.nimbus.compose.layout.model.Component
 
 @Composable
-internal fun NimbusLifecycle(
+internal fun Lifecycle(
     modifier: Modifier = Modifier,
     onInit: ((Any?) -> Unit)? = null,
     content: Component,

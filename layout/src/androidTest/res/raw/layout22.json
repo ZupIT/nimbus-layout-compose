@@ -2,7 +2,7 @@
   "_:component": "layout:row",
   "children": [
     {
-      "_:component": "layout:scroll",
+      "_:component": "layout:scrollView",
       "children": [
         {
           "_:component": "layout:row",

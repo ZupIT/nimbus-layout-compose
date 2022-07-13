@@ -24,7 +24,7 @@ internal object ComponentNames {
     const val NIMBUS_STACK = "layout:stack"
     const val NIMBUS_REMOTE_IMAGE = "layout:remoteImage"
     const val NIMBUS_LOCAL_IMAGE = "layout:localImage"
-    const val NIMBUS_SCROLL_VIEW = "layout:scroll"
+    const val NIMBUS_SCROLL_VIEW = "layout:scrollView"
     const val NIMBUS_SCREEN = "layout:screen"
     const val NIMBUS_TEXT = "layout:text"
     const val NIMBUS_LIFECYCLE = "layout:lifecycle"

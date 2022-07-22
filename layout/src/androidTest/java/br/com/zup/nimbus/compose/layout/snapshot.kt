@@ -7,7 +7,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -23,9 +22,10 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import br.com.zup.nimbus.android.layout.test.BuildConfig
+import br.com.zup.nimbus.compose.layout.component.text.Text
 import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
-import br.zup.com.nimbus.compose.ComponentHandler
+import br.zup.com.nimbus.compose.ComponentLibrary
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusNavigator
 import br.zup.com.nimbus.compose.ProvideNimbus
@@ -33,18 +33,16 @@ import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner
 
-const val loadingTag = "loadingTag"
-val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
-    "material:text" to @Composable { element, _, _ ->
-        Text(text = element.properties?.get("text").toString(),
-            maxLines = element.properties?.get("maxLines")?.toString()?.toInt() ?: Int.MAX_VALUE)
-    })
+const val LOADING_TAG = "loadingTag"
+
+val materialComponents = ComponentLibrary("material")
+    .add("text") @Composable { Text(it) }
 
 private val nimbus = Nimbus(
     baseUrl = BASE_URL,
-    components = customComponents + layoutComponents,
+    components = listOf(layoutComponents, materialComponents),
     loadingView = {
-        Text("Loading...", Modifier.semantics { testTag = loadingTag })
+        androidx.compose.material.Text("Loading...", Modifier.semantics { testTag = LOADING_TAG })
     }
 )
 
@@ -166,7 +164,7 @@ private fun waitFor(
     composeTestRule: ComposeContentTestRule,
     vararg waitMatcher: SemanticsMatcher = emptyArray(),
 ) {
-    val loadingNode = composeTestRule.waitUntilExists(hasTestTag(loadingTag))
+    val loadingNode = composeTestRule.waitUntilExists(hasTestTag(LOADING_TAG))
     composeTestRule.waitUntilCompat {
         loadingNode.isNotInWindow()
     }

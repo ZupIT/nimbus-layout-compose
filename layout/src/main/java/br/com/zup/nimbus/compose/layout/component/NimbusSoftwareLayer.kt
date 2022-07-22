@@ -7,7 +7,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.viewinterop.AndroidView
 
 /**
- * Disable hard acceleration for the content if the condition matches
+ * Disables hardware acceleration for the content if the condition matches
  */
 @Composable
 fun NimbusSoftwareLayer(

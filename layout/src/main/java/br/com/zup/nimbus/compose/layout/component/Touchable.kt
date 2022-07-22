@@ -4,26 +4,23 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import br.com.zup.nimbus.compose.layout.extensions.accessibility
-import br.com.zup.nimbus.compose.layout.model.Action
-import br.com.zup.nimbus.compose.layout.model.Component
-import br.com.zup.nimbus.compose.layout.model.TouchableModel
+import br.com.zup.nimbus.compose.layout.accessibility.Accessibility
+import br.com.zup.nimbus.compose.layout.accessibility.accessibility
+import com.zup.nimbus.processor.Ignore
+import com.zup.nimbus.processor.ServerDrivenComponent
 
 @Composable
+@ServerDrivenComponent
 internal fun Touchable(
-    model: TouchableModel,
-    modifier: Modifier = Modifier,
-    content: Component,
+    onPress: () -> Unit,
+    @Ignore accessibility: Accessibility? = null,
+    content: @Composable () -> Unit,
 ) {
     Column(
-        modifier = modifier
-            .clickable {
-                model.onPress(null)
-            }
-            .accessibility(model.accessibility)
+        modifier = Modifier
+            .clickable { onPress() }
+            .accessibility(accessibility)
     ) {
         content()
     }
 }
-
-

@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("kotlin-android")
+    id("com.google.devtools.ksp") version "1.6.10-1.0.4"
 }
 
 val serializationVersion = "1.3.2"
@@ -10,6 +11,8 @@ val ktorVersion = "2.0.0"
 dependencies {
     implementation(project(":layout"))
     implementation("br.com.zup.nimbus:nimbus-compose:${rootProject.extra["nimbus_compose_version"]}")
+    implementation("br.com.zup.nimbus:nimbus-compose-processor:1.0.0-alpha1")
+    ksp("br.com.zup.nimbus:nimbus-compose-processor:1.0.0-alpha1")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.appcompat:appcompat:1.4.2")
@@ -60,5 +63,11 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+}
+
+kotlin {
+    sourceSets.main {
+        kotlin.srcDir("build/generated/ksp/debug/kotlin")
     }
 }

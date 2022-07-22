@@ -4,6 +4,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-parcelize")
     id("shot")
+    id("com.google.devtools.ksp") version "1.6.10-1.0.4"
 }
 
 val serializationVersion = "1.3.2"
@@ -12,6 +13,8 @@ val applicationId by extra("br.com.zup.nimbus.android.layout.test")
 
 dependencies {
     implementation("br.com.zup.nimbus:nimbus-compose:${rootProject.extra["nimbus_compose_version"]}")
+    implementation("br.com.zup.nimbus:nimbus-compose-processor:1.0.0-alpha1")
+    ksp("br.com.zup.nimbus:nimbus-compose-processor:1.0.0-alpha1")
     implementation("io.ktor:ktor-client-android:$ktorVersion")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.appcompat:appcompat:1.4.2")
@@ -84,6 +87,13 @@ android {
 
 shot {
     tolerance =  0.5 // 0,5% tolerance
+}
+
+kotlin {
+    sourceSets.main {
+        kotlin.srcDir("build/generated/ksp/debug/kotlin")
+    }
+    sourceSets.test {}
 }
 
 apply("$rootDir/maven-publish.gradle")

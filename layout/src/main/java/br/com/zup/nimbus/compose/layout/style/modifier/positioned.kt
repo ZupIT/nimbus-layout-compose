@@ -2,20 +2,21 @@ package br.com.zup.nimbus.compose.layout.style.modifier
 
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.LayoutScopeMarker
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.compose.layout.style.model.Positioned
+import br.com.zup.nimbus.compose.layout.style.model.PositionedAlignment
 
 internal fun Modifier.positionedStyle(
-    positioned: Positioned,
+    style: Positioned,
     @LayoutScopeMarker
     scope: Any,
 ) = this.then(
-    applyScopeModifier(scope = scope, positioned = positioned)
-    .offset(x = positioned.x?.dp ?: 0.dp)
-    .offset(y = positioned.y?.dp ?: 0.dp)
-    .boxStyle(positioned)
+    Modifier.applyScopeModifier(scope = scope, positioned = style)
+    .absoluteOffset(x = style.x?.dp ?: 0.dp)
+    .absoluteOffset(y = style.y?.dp ?: 0.dp)
+    .boxStyle(style)
 )
 
 internal fun Modifier.applyScopeModifier(
@@ -29,7 +30,7 @@ internal fun Modifier.applyScopeModifier(
         is BoxScope -> {
             with(scope)
             {
-                val nimbusAlignment = requireNotNull(positioned.alignment)
+                val nimbusAlignment = positioned.alignment ?: PositionedAlignment.TopStart
                 val alignment = nimbusAlignment.toAlignment()
                 newModifier = newModifier.align(alignment)
             }

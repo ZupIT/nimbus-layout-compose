@@ -23,10 +23,9 @@ internal fun Positioned(
 ) {
     NimbusSoftwareLayer(condition = style.shouldDisableHardwareAcceleration()) {
         Column(
-            modifier = Modifier.positionedStyle(style, scope = NimbusBoxScope.instance)
+            modifier = Modifier.positionedStyle(style = style, scope = NimbusBoxScope.instance)
         ) {
             content()
         }
     }
-
 }

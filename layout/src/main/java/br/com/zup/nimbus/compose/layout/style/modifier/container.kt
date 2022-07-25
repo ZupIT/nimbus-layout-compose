@@ -17,7 +17,7 @@ internal fun Modifier.containerStyle(
     @LayoutScopeMarker
     scope: Any? = null,
 ) = this.then(
-    applyScopeModifier(scope, style)
+    Modifier.applyScopeModifier(scope, style)
     .marginStyle(style)
     .sizeStyle(style)
     .applyChildStretch(style, parentComponentName)

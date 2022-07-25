@@ -36,11 +36,15 @@ import java.util.Scanner
 const val LOADING_TAG = "loadingTag"
 
 val materialComponents = ComponentLibrary("material")
-    .add("text") @Composable { Text(it) }
+    .add("text") @Composable {
+        androidx.compose.material.Text(text = it.node.properties?.get("text").toString(),
+            maxLines = it.node.properties?.get("maxLines")?.toString()?.toInt() ?: Int.MAX_VALUE)
+    }
 
 private val nimbus = Nimbus(
     baseUrl = BASE_URL,
     components = listOf(layoutComponents, materialComponents),
+    logger = ExceptionLogger(),
     loadingView = {
         androidx.compose.material.Text("Loading...", Modifier.semantics { testTag = LOADING_TAG })
     }
@@ -142,7 +146,7 @@ fun ScreenshotTest.executeScreenshotTest(
 
     composeTestRule.mainClock.autoAdvance = false
     composeTestRule.setContent {
-        ScreenTest(json ?: "")
+        ScreenTest(json ?: throw IllegalArgumentException("Json file can't be null."))
     }
 
     waitFor(composeTestRule = composeTestRule, waitMatcher = waitMatcher)
@@ -154,6 +158,8 @@ fun ScreenshotTest.executeScreenshotTest(
     } else {
         compareScreenshot(composeTestRule)
     }
+
+    //Thread.sleep(60000)
 }
 
 fun SemanticsNode.isNotInWindow(): Boolean = this.positionInWindow == Offset.Zero

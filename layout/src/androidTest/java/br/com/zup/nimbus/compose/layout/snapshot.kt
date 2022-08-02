@@ -158,8 +158,6 @@ fun ScreenshotTest.executeScreenshotTest(
     } else {
         compareScreenshot(composeTestRule)
     }
-
-    //Thread.sleep(60000)
 }
 
 fun SemanticsNode.isNotInWindow(): Boolean = this.positionInWindow == Offset.Zero

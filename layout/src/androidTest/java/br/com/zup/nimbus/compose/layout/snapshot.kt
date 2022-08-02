@@ -64,6 +64,7 @@ fun ScreenTest(json: String) {
 private const val WAIT_UNTIL_TIMEOUT = 60_000L
 private const val WAIT_TIME_IN_MILLIS = 10L
 private const val ADVANCE_TIME_IN_MILLIS = 35L
+private const val LOADING_TIMEOUT_MILLIS = 500L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
@@ -168,10 +169,18 @@ private fun waitFor(
     composeTestRule: ComposeContentTestRule,
     vararg waitMatcher: SemanticsMatcher = emptyArray(),
 ) {
-    val loadingNode = composeTestRule.waitUntilExists(hasTestTag(LOADING_TAG))
-    composeTestRule.waitUntilCompat {
-        loadingNode.isNotInWindow()
-    }
+    /* Sometimes the state is updated too fast and the loading can't be seen, so we need a timeout
+    here. If the timeout is reached, then we keep going with our test. A better solution would be to
+    wait for a server driven content to appear, but we'd need to correctly tag it in the Nimbus
+    Compose lib. An even better solution would be to have the ServerDrivenNode's id as something
+    searchable within the test. */
+    try {
+        val loadingNode = composeTestRule
+            .waitUntilExists(hasTestTag(LOADING_TAG), LOADING_TIMEOUT_MILLIS)
+        composeTestRule.waitUntilCompat {
+            loadingNode.isNotInWindow()
+        }
+    } catch (e: ComposeTimeoutException) {}
     waitMatcher.forEach {
         composeTestRule.waitUntilExists(it)
     }

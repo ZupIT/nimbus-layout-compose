@@ -55,16 +55,9 @@ internal fun Modifier.applyScopeModifier(
     if(scope == null) return@with modifier
     var newModifier = modifier
     when (scope) {
-        is RowScope -> {
+        is RowScope, is ColumnScope -> {
             with(scope)
             {
-                container.flex?.let {
-                    newModifier = newModifier.weight(it.toFloat())
-                }
-            }
-        }
-        is ColumnScope -> {
-            with(scope) {
                 container.flex?.let {
                     newModifier = newModifier.weight(it.toFloat())
                 }

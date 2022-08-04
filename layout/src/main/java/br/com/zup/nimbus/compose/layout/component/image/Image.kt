@@ -32,12 +32,8 @@ internal fun Image(
     }
     val contentScale = scale?.toContentScale()
 
-    if (isLocal) {
-        if (viewModelState == ImageViewModelState.Nothing) {
-            viewModel.fetchLocalImage(id ?: "") {
-                viewModelState = it
-            }
-        }
+    if (isLocal && viewModelState == ImageViewModelState.Nothing) {
+       viewModel.fetchLocalImage(id ?: "") { viewModelState = it }
     } else if (viewModelState == ImageViewModelState.Nothing) {
         placeholder?.let { placeholderId ->
             viewModel.fetchLocalImage(placeholderId, isPlaceholder = true) {

@@ -115,10 +115,6 @@ val layoutComponents: Map<String, @Composable ComponentHandler> = mapOf(
     },
 )
 
-private fun parseStretch(
-    model: WithChildStretch?,
-    element: ServerDrivenNode,
-) {
-    model?.hasChildStretch =
-        element.children?.any { it.properties?.get("stretch") == true } ?: false
+private fun parseStretch(model: WithChildStretch?, element: ServerDrivenNode) {
+    model?.hasChildStretch = element.children?.any { it.properties?.get("stretch") == true } ?: false
 }

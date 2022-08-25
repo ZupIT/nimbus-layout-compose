@@ -7,7 +7,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -23,9 +22,10 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import br.com.zup.nimbus.android.layout.test.BuildConfig
+import br.com.zup.nimbus.compose.layout.component.text.Text
 import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
-import br.zup.com.nimbus.compose.ComponentHandler
+import br.zup.com.nimbus.compose.ComponentLibrary
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusNavigator
 import br.zup.com.nimbus.compose.ProvideNimbus
@@ -33,18 +33,20 @@ import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner
 
-const val loadingTag = "loadingTag"
-val customComponents: Map<String, @Composable ComponentHandler> = mapOf(
-    "material:text" to @Composable { element, _, _ ->
-        Text(text = element.properties?.get("text").toString(),
-            maxLines = element.properties?.get("maxLines")?.toString()?.toInt() ?: Int.MAX_VALUE)
-    })
+const val LOADING_TAG = "loadingTag"
+
+val materialComponents = ComponentLibrary("material")
+    .add("text") @Composable {
+        androidx.compose.material.Text(text = it.node.properties?.get("text").toString(),
+            maxLines = it.node.properties?.get("maxLines")?.toString()?.toInt() ?: Int.MAX_VALUE)
+    }
 
 private val nimbus = Nimbus(
     baseUrl = BASE_URL,
-    components = customComponents + layoutComponents,
+    components = listOf(layoutComponents, materialComponents),
+    logger = ExceptionLogger(),
     loadingView = {
-        Text("Loading...", Modifier.semantics { testTag = loadingTag })
+        androidx.compose.material.Text("Loading...", Modifier.semantics { testTag = LOADING_TAG })
     }
 )
 
@@ -62,6 +64,7 @@ fun ScreenTest(json: String) {
 private const val WAIT_UNTIL_TIMEOUT = 60_000L
 private const val WAIT_TIME_IN_MILLIS = 10L
 private const val ADVANCE_TIME_IN_MILLIS = 35L
+private const val LOADING_TIMEOUT_MILLIS = 500L
 
 fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
@@ -144,7 +147,7 @@ fun ScreenshotTest.executeScreenshotTest(
 
     composeTestRule.mainClock.autoAdvance = false
     composeTestRule.setContent {
-        ScreenTest(json ?: "")
+        ScreenTest(json ?: throw IllegalArgumentException("Json file can't be null."))
     }
 
     waitFor(composeTestRule = composeTestRule, waitMatcher = waitMatcher)
@@ -166,10 +169,18 @@ private fun waitFor(
     composeTestRule: ComposeContentTestRule,
     vararg waitMatcher: SemanticsMatcher = emptyArray(),
 ) {
-    val loadingNode = composeTestRule.waitUntilExists(hasTestTag(loadingTag))
-    composeTestRule.waitUntilCompat {
-        loadingNode.isNotInWindow()
-    }
+    /* Sometimes the state is updated too fast and the loading can't be seen, so we need a timeout
+    here. If the timeout is reached, then we keep going with our test. A better solution would be to
+    wait for a server driven content to appear, but we'd need to correctly tag it in the Nimbus
+    Compose lib. An even better solution would be to have the ServerDrivenNode's id as something
+    searchable within the test. */
+    try {
+        val loadingNode = composeTestRule
+            .waitUntilExists(hasTestTag(LOADING_TAG), LOADING_TIMEOUT_MILLIS)
+        composeTestRule.waitUntilCompat {
+            loadingNode.isNotInWindow()
+        }
+    } catch (e: ComposeTimeoutException) {}
     waitMatcher.forEach {
         composeTestRule.waitUntilExists(it)
     }

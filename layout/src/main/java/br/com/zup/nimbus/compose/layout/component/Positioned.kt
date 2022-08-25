@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import br.com.zup.nimbus.compose.layout.extensions.positioned
-import br.com.zup.nimbus.compose.layout.model.Component
-import br.com.zup.nimbus.compose.layout.model.PositionedModel
-import br.com.zup.nimbus.compose.layout.model.shouldDisableHardwareAcceleration
+import br.com.zup.nimbus.compose.layout.style.model.Positioned
+import br.com.zup.nimbus.compose.layout.style.modifier.positionedStyle
+import com.zup.nimbus.processor.Root
+import com.zup.nimbus.processor.ServerDrivenComponent
 
 private object NimbusBoxScope {
     private val kClass =
@@ -16,17 +16,16 @@ private object NimbusBoxScope {
 }
 
 @Composable
+@ServerDrivenComponent
 internal fun Positioned(
-    model: PositionedModel,
-    modifier: Modifier = Modifier,
-    content: Component,
+    @Root style: Positioned,
+    content: @Composable () -> Unit,
 ) {
-    NimbusSoftwareLayer(condition = model.shouldDisableHardwareAcceleration()) {
+    NimbusSoftwareLayer(condition = style.shouldDisableHardwareAcceleration()) {
         Column(
-            modifier = modifier.positioned(positioned = model, scope = NimbusBoxScope.instance)
+            modifier = Modifier.positionedStyle(style = style, scope = NimbusBoxScope.instance)
         ) {
             content()
         }
     }
-
 }

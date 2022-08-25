@@ -5,7 +5,7 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.filters.SdkSuppress
-import br.com.zup.nimbus.compose.layout.model.ImageScale
+import br.com.zup.nimbus.compose.layout.component.image.ImageScale
 import com.karumi.shot.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
@@ -21,43 +21,43 @@ class LocalImageTest : ScreenshotTest {
 
     private val jsonFileName = "local_image"
 
-    private val SCALE_REPLACE = "@(scale)"
+    private val scaleReplace = "@(scale)"
 
     private val waitSemanticMatcher = hasContentDescription(contentDescriptionImage)
 
     @Test
     fun test_image_center() {
-        val scale = ImageScale.CENTER.value
+        val scale = ImageScale.Center.toString()
         executeScreenshotTest(jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
         waitMatcher = waitSemanticMatcher,
-        replaceInJson = SCALE_REPLACE to scale)
+        replaceInJson = scaleReplace to scale)
     }
 
     @Test
     fun test_image_fill_bounds() {
-        val scale = ImageScale.FILL_BOUNDS.value
+        val scale = ImageScale.FillBounds.toString()
         executeScreenshotTest(jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
             waitMatcher = waitSemanticMatcher,
-            replaceInJson = SCALE_REPLACE to scale)
+            replaceInJson = scaleReplace to scale)
     }
 
     @Test
     fun test_image_fill_height() {
-        val scale = ImageScale.FILL_HEIGHT.value
+        val scale = ImageScale.FillHeight.toString()
         executeScreenshotTest(jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
             waitMatcher = waitSemanticMatcher,
-            replaceInJson = SCALE_REPLACE to scale)
+            replaceInJson = scaleReplace to scale)
     }
 
     @Test
     fun test_image_fill_width() {
-        val scale = ImageScale.FILL_WIDTH.value
+        val scale = ImageScale.FillWidth.toString()
         executeScreenshotTest(jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
             waitMatcher = waitSemanticMatcher,
-            replaceInJson = SCALE_REPLACE to scale)
+            replaceInJson = scaleReplace to scale)
     }
 }

@@ -135,15 +135,17 @@ class LayoutFlexTest : ScreenshotTest {
         executeScreenshotTest("layout16", composeTestRule)
     }
 
-    @Test
+    // TODO: uncomment this test as soon as we reimplement shadow deserialization
+    /*@Test
     fun test_layout_19() {
         executeScreenshotTest("layout19", composeTestRule)
-    }
+    }*/
 
-    @Test
+    // TODO: uncomment this test as soon as we reimplement shadow deserialization
+    /*@Test
     fun test_layout_19_1() {
         executeScreenshotTest("layout19_1", composeTestRule)
-    }
+    }*/
 
     @Test
     fun test_layout_21() {

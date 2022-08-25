@@ -8,7 +8,7 @@ import androidx.compose.material.Surface
 import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.layoutComponents
 import br.com.zup.nimbus.compose.layout.sample.components.CustomError
-import br.com.zup.nimbus.compose.layout.sample.components.customComponents
+import br.com.zup.nimbus.compose.layout.sample.components.materialComponents
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusNavigator
@@ -18,7 +18,7 @@ import com.zup.nimbus.core.network.ViewRequest
 class MainActivity : ComponentActivity() {
     private val nimbus = Nimbus(
         baseUrl = BASE_URL,
-        components = customComponents + layoutComponents,
+        components = listOf(layoutComponents, materialComponents),
         logger = AppLogger(),
         errorView = { throwable: Throwable, retry: () -> Unit ->
             CustomError(throwable = throwable, retry = retry)

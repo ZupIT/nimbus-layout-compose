@@ -11,7 +11,7 @@ import com.zup.nimbus.processor.ServerDrivenComponent
 @Composable
 @ServerDrivenComponent
 internal fun ScrollView(
-    @Ignore direction: ScrollViewDirection?,
+    direction: ScrollViewDirection?,
     scrollIndicator: Boolean?,
     @Ignore verticalScrollState: ScrollState = rememberScrollState(),
     @Ignore horizontalScrollState: ScrollState = rememberScrollState(),

@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 
 private val AllWindowInsetsSides =
     WindowInsetsSides.Left +
-            (WindowInsetsSides.Top) +
-            (WindowInsetsSides.Right) +
-            (WindowInsetsSides.Bottom)
+    (WindowInsetsSides.Top) +
+    (WindowInsetsSides.Right) +
+    (WindowInsetsSides.Bottom)
 
 private val AllSafeAreaEdges = SafeAreaEdges.values().toMutableList()
 

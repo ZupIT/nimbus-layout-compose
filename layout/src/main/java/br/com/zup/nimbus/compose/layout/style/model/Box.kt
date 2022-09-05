@@ -1,5 +1,6 @@
 package br.com.zup.nimbus.compose.layout.style.model
 
+import br.com.zup.nimbus.compose.layout.utils.Either
 import com.zup.nimbus.processor.Ignore
 
 internal open class Box(
@@ -22,8 +23,8 @@ internal open class Box(
     override val paddingBottom: Double?,
     override val paddingHorizontal: Double?,
     override val paddingVertical: Double?,
-    width: Double?,
-    height: Double?,
+    @Ignore width: Either<AdaptiveSize, Double>? = null,
+    @Ignore height: Either<AdaptiveSize, Double>? = null,
     minWidth: Double?,
     minHeight: Double?,
     maxWidth: Double?,

@@ -32,7 +32,7 @@ android {
     compileSdk = 32
     defaultConfig {
         applicationId = "br.com.zup.nimbus.android.layout"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 32
         versionCode = 1
         versionName = "1.0"
@@ -67,7 +67,11 @@ android {
 }
 
 kotlin {
-    sourceSets.main {
+    sourceSets.debug {
         kotlin.srcDir("build/generated/ksp/debug/kotlin")
     }
+    sourceSets.release {
+        kotlin.srcDir("build/generated/ksp/release/kotlin")
+    }
+    sourceSets.test {}
 }

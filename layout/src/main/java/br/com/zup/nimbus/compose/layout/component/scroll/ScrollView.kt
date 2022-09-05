@@ -11,7 +11,7 @@ import com.zup.nimbus.processor.ServerDrivenComponent
 @Composable
 @ServerDrivenComponent
 internal fun ScrollView(
-    direction: ScrollViewDirection?,
+    @Ignore direction: ScrollViewDirection = ScrollViewDirection.Vertical,
     scrollIndicator: Boolean?,
     @Ignore verticalScrollState: ScrollState = rememberScrollState(),
     @Ignore horizontalScrollState: ScrollState = rememberScrollState(),
@@ -19,7 +19,7 @@ internal fun ScrollView(
 ) {
     Column(
         modifier = Modifier.scroll(
-            direction = direction ?: ScrollViewDirection.Vertical,
+            direction = direction,
             scrollIndicator = scrollIndicator ?: true,
             verticalScrollState = verticalScrollState,
             horizontalScrollState = horizontalScrollState

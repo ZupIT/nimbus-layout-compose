@@ -1,5 +1,6 @@
 package br.com.zup.nimbus.compose.layout.style.model
 
+import br.com.zup.nimbus.compose.layout.utils.Either
 import com.zup.nimbus.processor.Ignore
 
 internal class Container(
@@ -22,8 +23,8 @@ internal class Container(
     paddingBottom: Double?,
     paddingHorizontal: Double?,
     paddingVertical: Double?,
-    width: Double?,
-    height: Double?,
+    @Ignore width: Either<AdaptiveSize, Double>? = null,
+    @Ignore height: Either<AdaptiveSize, Double>? = null,
     minWidth: Double?,
     minHeight: Double?,
     maxWidth: Double?,
@@ -31,8 +32,6 @@ internal class Container(
     clipped: Boolean?,
     backgroundColor: String?,
     @Ignore shadow: List<Shadow>? = null,
-    val stretch: Boolean?,
-    val flex: Int?,
     val crossAxisAlignment: CrossAxisAlignment?,
     val mainAxisAlignment: MainAxisAlignment?,
 ): Box(
@@ -65,4 +64,3 @@ internal class Container(
     backgroundColor = backgroundColor,
     shadow = shadow,
 )
-

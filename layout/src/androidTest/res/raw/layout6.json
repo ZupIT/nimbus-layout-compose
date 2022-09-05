@@ -26,8 +26,7 @@
       "properties": {
         "flex":1,
         "backgroundColor": "#00FF00",
-        "marginStart": 20.0,
-        "stretch": true
+        "marginStart": 20.0
       }
     }],
   "properties": {

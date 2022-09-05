@@ -1,6 +1,7 @@
 package br.com.zup.nimbus.compose.layout.style.model
 
 import androidx.compose.ui.Alignment
+import br.com.zup.nimbus.compose.layout.utils.Either
 import com.zup.nimbus.processor.Ignore
 
 internal class Positioned(
@@ -23,8 +24,8 @@ internal class Positioned(
     paddingBottom: Double? = null,
     paddingHorizontal: Double? = null,
     paddingVertical: Double? = null,
-    width: Double? = null,
-    height: Double? = null,
+    @Ignore width: Either<AdaptiveSize, Double> = Either.Left(AdaptiveSize.FIT_CONTENT),
+    @Ignore height: Either<AdaptiveSize, Double> = Either.Left(AdaptiveSize.FIT_CONTENT),
     minWidth: Double? = null,
     minHeight: Double? = null,
     maxWidth: Double? = null,

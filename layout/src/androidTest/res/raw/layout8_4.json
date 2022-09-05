@@ -6,13 +6,12 @@
       "children": [{
         "_:component": "layout:text",
         "properties": {
-          "text": "no height, stretch"
+          "text": "no height"
         }
       }],
       "properties": {
         "backgroundColor": "#0000FF",
-        "width": 100.0,
-        "stretch": true
+        "width": 100.0
       }
     },
     {
@@ -25,8 +24,7 @@
       }],
       "properties": {
         "backgroundColor": "#FF0000",
-        "width": 100.0,
-        "stretch": true
+        "width": 100.0
       }
     }],
   "properties": {

@@ -31,12 +31,11 @@ internal fun List<SafeAreaEdges>.toWindowInsetsSidesOnly(): WindowInsetsSides? {
             return AllWindowInsetsSides
         }
         else -> {
-
             val allEdges = mutableListOf<SafeAreaEdges>()
             allEdges.addAll(AllSafeAreaEdges)
 
-            this.forEach {
-                allEdges.remove(it)
+            for (edge in this) {
+                allEdges.remove(edge)
             }
 
             allEdges.forEach { currentEdge ->

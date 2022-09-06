@@ -51,7 +51,7 @@ dependencies {
 android {
     compileSdk = 32
     defaultConfig {
-        minSdk = 24
+        minSdk = 21
         targetSdk = 32
         vectorDrawables {
             useSupportLibrary = true

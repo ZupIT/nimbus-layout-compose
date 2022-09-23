@@ -10,13 +10,6 @@ internal enum class MainAxisAlignment {
     SpaceAround,
     SpaceEvenly;
 
-    companion object {
-        fun deserialize(alignment: Any?): MainAxisAlignment? {
-            if (alignment == null || alignment !is String) return null
-            return values().firstOrNull { it.name.lowercase() == alignment }
-        }
-    }
-
     fun toHorizontalArrangement(): Arrangement.Horizontal =
         when (this) {
             Start -> Arrangement.Start

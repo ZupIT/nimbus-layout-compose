@@ -7,13 +7,6 @@ internal enum class CrossAxisAlignment {
     End,
     Center;
 
-    companion object {
-        fun deserialize(alignment: Any?): CrossAxisAlignment? {
-            if (alignment == null || alignment !is String) return null
-            return values().firstOrNull { it.name.lowercase() == alignment }
-        }
-    }
-
     fun toVerticalAlignment(): Alignment.Vertical =
         when (this) {
             Start -> Alignment.Top

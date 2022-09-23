@@ -7,16 +7,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.accessibility.Accessibility
-import br.com.zup.nimbus.compose.layout.deserialization.SizeDeserializer
 import br.com.zup.nimbus.compose.layout.style.model.Size
 import br.com.zup.nimbus.compose.layout.viewmodel.ImageViewModel
 import br.com.zup.nimbus.compose.layout.viewmodel.ImageViewModelState
 import br.zup.com.nimbus.compose.NimbusTheme
-import com.zup.nimbus.processor.Computed
 
 @Composable
 internal fun Image(
-    @Computed<SizeDeserializer>(SizeDeserializer::class) style: Size?,
+    style: Size?,
     scale: ImageScale?,
     id: String? = null,
     url: String? = null,

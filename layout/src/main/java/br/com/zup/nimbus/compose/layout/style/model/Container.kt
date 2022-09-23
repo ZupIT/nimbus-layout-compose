@@ -1,7 +1,10 @@
 package br.com.zup.nimbus.compose.layout.style.model
 
-import br.com.zup.nimbus.compose.layout.utils.Either
-import com.zup.nimbus.processor.Ignore
+import br.com.zup.nimbus.compose.layout.deserialization.AdaptiveSizeDeserializer
+import br.com.zup.nimbus.compose.layout.deserialization.DirectionScopeDeserializer
+import br.com.zup.nimbus.compose.layout.deserialization.ShadowDeserializer
+import com.zup.nimbus.processor.Computed
+import com.zup.nimbus.processor.Root
 
 internal class Container(
     borderWidth: Double?,
@@ -23,15 +26,16 @@ internal class Container(
     paddingBottom: Double?,
     paddingHorizontal: Double?,
     paddingVertical: Double?,
-    @Ignore width: Either<AdaptiveSize, Double>? = null,
-    @Ignore height: Either<AdaptiveSize, Double>? = null,
+    @Root @Computed(AdaptiveSizeDeserializer::class) width: AdaptiveSize? = null,
+    @Root @Computed(AdaptiveSizeDeserializer::class) height: AdaptiveSize? = null,
+    @Root @Computed(DirectionScopeDeserializer::class) directionScope: DirectionScope,
     minWidth: Double?,
     minHeight: Double?,
     maxWidth: Double?,
     maxHeight: Double?,
     clipped: Boolean?,
     backgroundColor: String?,
-    @Ignore shadow: List<Shadow>? = null,
+    @Root @Computed(ShadowDeserializer::class) shadow: List<Shadow>? = null,
     val crossAxisAlignment: CrossAxisAlignment?,
     val mainAxisAlignment: MainAxisAlignment?,
 ): Box(
@@ -56,6 +60,7 @@ internal class Container(
     paddingVertical = paddingVertical,
     width = width,
     height = height,
+    directionScope = directionScope,
     minWidth = minWidth,
     minHeight = minHeight,
     maxWidth = maxWidth,

@@ -15,9 +15,7 @@ internal fun FlowRow(
     content: @Composable () -> Unit,
 ) {
     NimbusSoftwareLayer(condition = style.shouldDisableHardwareAcceleration()) {
-        FlowRow(
-            modifier = Modifier.boxStyle(style)
-        ) {
+        FlowRow(modifier = Modifier.boxStyle(style)) {
             content()
         }
     }

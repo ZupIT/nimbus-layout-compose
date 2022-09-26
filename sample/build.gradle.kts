@@ -67,7 +67,11 @@ android {
 }
 
 kotlin {
-    sourceSets.main {
+    sourceSets.debug {
         kotlin.srcDir("build/generated/ksp/debug/kotlin")
     }
+    sourceSets.release {
+        kotlin.srcDir("build/generated/ksp/release/kotlin")
+    }
+    sourceSets.test {}
 }

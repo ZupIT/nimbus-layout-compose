@@ -10,7 +10,7 @@
         }
       }],
       "properties": {
-        "flex":1,
+        "height": "expand",
         "backgroundColor": "#FF0000"
       }
     },
@@ -23,7 +23,7 @@
         }
       }],
       "properties": {
-        "flex":1,
+        "height": "expand",
         "backgroundColor": "#00FF00"
       }
     },
@@ -36,7 +36,7 @@
         }
       }],
       "properties": {
-        "flex":1,
+        "height": "expand",
         "backgroundColor": "#0000FF"
       }
     }],

@@ -24,10 +24,10 @@
         }
       }],
       "properties": {
-        "flex":1,
+        "height": "expand",
+        "width": 100,
         "backgroundColor": "#00FF00",
-        "marginTop": 20.0,
-        "stretch": true
+        "marginTop": 20.0
       }
     }],
   "properties": {

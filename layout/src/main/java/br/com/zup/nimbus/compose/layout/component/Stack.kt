@@ -15,9 +15,7 @@ internal fun Stack(
     content: @Composable () -> Unit,
 ) {
     NimbusSoftwareLayer(condition = style.shouldDisableHardwareAcceleration()) {
-        Box(
-            modifier = Modifier.boxStyle(style)
-        ) {
+        Box(modifier = Modifier.boxStyle(style)) {
             content()
         }
     }

@@ -14,14 +14,10 @@ import com.zup.nimbus.processor.ServerDrivenComponent
 @ServerDrivenComponent
 internal fun Touchable(
     onPress: () -> Unit,
-    @Computed<AccessibilityDeserializer>(AccessibilityDeserializer::class) accessibility: Accessibility? = null,
+    @Computed(AccessibilityDeserializer::class) accessibility: Accessibility? = null,
     content: @Composable () -> Unit,
 ) {
-    Column(
-        modifier = Modifier
-            .clickable { onPress() }
-            .accessibility(accessibility)
-    ) {
+    Column(modifier = Modifier.clickable { onPress() }.accessibility(accessibility)) {
         content()
     }
 }

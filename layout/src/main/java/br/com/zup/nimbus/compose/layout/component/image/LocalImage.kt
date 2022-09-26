@@ -18,7 +18,7 @@ internal fun LocalImage(
     @Root style: Size,
     scale: ImageScale?,
     id: String,
-    @Computed<AccessibilityDeserializer>(AccessibilityDeserializer::class) accessibility: Accessibility? = null,
+    @Computed(AccessibilityDeserializer::class) accessibility: Accessibility? = null,
     @Ignore viewModel: ImageViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
         factory = ImageViewModel.provideFactory(
             imageProvider = NimbusTheme.nimbus.imageProvider()

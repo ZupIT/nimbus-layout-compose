@@ -21,6 +21,7 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import br.com.zup.nimbus.android.layout.test.BuildConfig
+import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusNavigator
@@ -44,7 +45,7 @@ private val nimbus = Nimbus(
 fun ScreenTest(json: String) {
     AppTheme {
         Surface(color = MaterialTheme.colors.background) {
-            ProvideNimbus(nimbus) {
+            ProvideNimbus(nimbus.imageProvider(DefaultImageProvider())) {
                 NimbusNavigator(json = json)
             }
         }

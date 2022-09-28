@@ -15,133 +15,50 @@ import br.zup.com.nimbus.compose.NimbusNavigator
 import br.zup.com.nimbus.compose.ProvideNimbus
 
 const val JSON = """{
-  "_:component":"layout:screen",
-  "state":{
-    "id":"products",
-    "value":{
-      "isLoading":true,
-      "data":[
-        
-      ]
-    }
-  },
-  "children":[
+  "_:component": "layout:column",
+  "children": [
     {
-      "_:component":"layout:lifecycle",
-      "children":[
-        {
-          "_:component":"layout:column",
-          "children":[
-            {
-              "_:component":"if",
-              "children":[
-                {
-                  "_:component":"then",
-                  "children":[
-                    {
-                      "_:component":"layout:column",
-                      "children":[
-                        {
-                          "_:component":"layout:text",
-                          "properties":{
-                            "text": "Loading..."
-                          }
-                        }
-                      ],
-                      "properties":{
-                        "width":"expand",
-                        "height":"expand",
-                        "mainAxisAlignment":"center",
-                        "crossAxisAlignment":"center"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "_:component":"else",
-                  "children":[
-                    {
-                      "_:component":"layout:scrollView",
-                      "children":[
-                        {
-                          "_:component":"forEach",
-                          "children":[
-                            {
-                              "_:component":"layout:column",
-                              "children":[
-                                {
-                                  "_:component":"layout:text",
-                                  "properties":{
-                                    "text":"@{product.description}"
-                                  }
-                                }
-                              ],
-                              "properties":{
-                                "marginBottom":20
-                              }
-                            }
-                          ],
-                          "properties":{
-                            "iteratorName":"product",
-                            "items":"@{products.data}"
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ],
-              "properties":{
-                "condition":"@{products.isLoading}"
-              }
-            }
-          ],
-          "properties":{
-            "backgroundColor":"#EEEEEE"
-          }
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "layout:text",
+        "properties": {
+          "text": "r"
         }
-      ],
-      "properties":{
-        "onInit":[
-          {
-            "_:action":"sendRequest",
-            "properties":{
-              "onError":[
-                {
-                  "_:action":"log",
-                  "properties":{
-                    "message":"@{onError.message}",
-                    "level":"Error"
-                  }
-                }
-              ],
-              "onSuccess":[
-                {
-                  "_:action":"setState",
-                  "properties":{
-                    "path":"products.data",
-                    "value":"@{onSuccess.data}"
-                  }
-                }
-              ],
-              "onFinish":[
-                {
-                  "_:action":"setState",
-                  "properties":{
-                    "path":"products.isLoading",
-                    "value":false
-                  }
-                }
-              ],
-              "url":"http://10.0.2.2:3000/data/products"
-            }
-          }
-        ]
+      }],
+      "properties": {
+        "height": "expand",
+        "backgroundColor": "#FF0000"
       }
-    }
-  ],
-  "properties":{
-    "title":"Products"
+    },
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "layout:text",
+        "properties": {
+          "text": "g"
+        }
+      }],
+      "properties": {
+        "height": "expand",
+        "backgroundColor": "#00FF00"
+      }
+    },
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "layout:text",
+        "properties": {
+          "text": "b"
+        }
+      }],
+      "properties": {
+        "height": "expand",
+        "backgroundColor": "#0000FF"
+      }
+    }],
+  "properties": {
+    "height": 150.0,
+    "backgroundColor": "#CCCCCCFF"
   }
 }"""
 

@@ -6,10 +6,12 @@ import br.zup.com.nimbus.compose.Nimbus
 
 private const val NIMBUS_IMAGE_PROVIDER_KEY = "NIMBUS_IMAGE_PROVIDER_KEY"
 
-fun Nimbus.imageProvider(imageProvider: ImageProvider) = environmentObject(
+fun Nimbus.imageProvider(imageProvider: ImageProvider) = set(
     key = NIMBUS_IMAGE_PROVIDER_KEY,
     value = imageProvider
 )
 
-internal fun Nimbus.imageProvider(): ImageProvider =
-    environmentObject(key = NIMBUS_IMAGE_PROVIDER_KEY) ?: DefaultImageProvider()
+internal fun Nimbus.imageProvider(): ImageProvider {
+    val current = get(key = NIMBUS_IMAGE_PROVIDER_KEY)
+    return if (current is ImageProvider) current else DefaultImageProvider()
+}

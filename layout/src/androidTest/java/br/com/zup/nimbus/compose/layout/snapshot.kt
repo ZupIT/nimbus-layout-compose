@@ -8,7 +8,6 @@ import androidx.annotation.RawRes
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.semantics.SemanticsNode
@@ -22,10 +21,7 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
 import br.com.zup.nimbus.android.layout.test.BuildConfig
-import br.com.zup.nimbus.compose.layout.component.text.Text
-import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
-import br.zup.com.nimbus.compose.ComponentLibrary
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusNavigator
 import br.zup.com.nimbus.compose.ProvideNimbus
@@ -35,15 +31,9 @@ import java.util.Scanner
 
 const val LOADING_TAG = "loadingTag"
 
-val materialComponents = ComponentLibrary("material")
-    .add("text") @Composable {
-        androidx.compose.material.Text(text = it.node.properties?.get("text").toString(),
-            maxLines = it.node.properties?.get("maxLines")?.toString()?.toInt() ?: Int.MAX_VALUE)
-    }
-
 private val nimbus = Nimbus(
     baseUrl = BASE_URL,
-    components = listOf(layoutComponents, materialComponents),
+    ui = listOf(layoutUI),
     logger = ExceptionLogger(),
     loadingView = {
         androidx.compose.material.Text("Loading...", Modifier.semantics { testTag = LOADING_TAG })
@@ -54,7 +44,7 @@ private val nimbus = Nimbus(
 fun ScreenTest(json: String) {
     AppTheme {
         Surface(color = MaterialTheme.colors.background) {
-            ProvideNimbus(nimbus.imageProvider(DefaultImageProvider())) {
+            ProvideNimbus(nimbus) {
                 NimbusNavigator(json = json)
             }
         }
@@ -164,7 +154,6 @@ fun ScreenshotTest.executeScreenshotTest(
 fun SemanticsNode.isNotInWindow(): Boolean = this.positionInWindow == Offset.Zero
 fun SemanticsNode.isInWindow(): Boolean = this.isNotInWindow().not()
 
-@OptIn(ExperimentalComposeUiApi::class)
 private fun waitFor(
     composeTestRule: ComposeContentTestRule,
     vararg waitMatcher: SemanticsMatcher = emptyArray(),

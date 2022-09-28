@@ -15,6 +15,7 @@ private const val DEFAULT_TEXT_SIZE = 12L
 @OptIn(ExperimentalUnitApi::class)
 @Composable
 @ServerDrivenComponent
+@Suppress("LongParameterList")
 internal fun Text(
     text: String,
     size: Double?,

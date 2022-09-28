@@ -3,75 +3,152 @@ package br.com.zup.nimbus.compose.layout.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.extensions.imageProvider
-import br.com.zup.nimbus.compose.layout.layoutComponents
+import br.com.zup.nimbus.compose.layout.layoutUI
 import br.com.zup.nimbus.compose.layout.sample.components.CustomError
 import br.com.zup.nimbus.compose.layout.sample.components.materialComponents
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.zup.com.nimbus.compose.Nimbus
 import br.zup.com.nimbus.compose.NimbusNavigator
 import br.zup.com.nimbus.compose.ProvideNimbus
-import com.zup.nimbus.core.network.ViewRequest
 
 const val JSON = """{
-  "_:component": "layout:column",
-  "children": [
+  "_:component":"layout:screen",
+  "state":{
+    "id":"products",
+    "value":{
+      "isLoading":true,
+      "data":[
+        
+      ]
+    }
+  },
+  "children":[
     {
-      "_:component": "layout:column",
-      "children": [{
-        "_:component": "layout:text",
-        "properties": {
-          "text": "r"
+      "_:component":"layout:lifecycle",
+      "children":[
+        {
+          "_:component":"layout:column",
+          "children":[
+            {
+              "_:component":"if",
+              "children":[
+                {
+                  "_:component":"then",
+                  "children":[
+                    {
+                      "_:component":"layout:column",
+                      "children":[
+                        {
+                          "_:component":"layout:text",
+                          "properties":{
+                            "text": "Loading..."
+                          }
+                        }
+                      ],
+                      "properties":{
+                        "width":"expand",
+                        "height":"expand",
+                        "mainAxisAlignment":"center",
+                        "crossAxisAlignment":"center"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "_:component":"else",
+                  "children":[
+                    {
+                      "_:component":"layout:scrollView",
+                      "children":[
+                        {
+                          "_:component":"forEach",
+                          "children":[
+                            {
+                              "_:component":"layout:column",
+                              "children":[
+                                {
+                                  "_:component":"layout:text",
+                                  "properties":{
+                                    "text":"@{product.description}"
+                                  }
+                                }
+                              ],
+                              "properties":{
+                                "marginBottom":20
+                              }
+                            }
+                          ],
+                          "properties":{
+                            "iteratorName":"product",
+                            "items":"@{products.data}"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "properties":{
+                "condition":"@{products.isLoading}"
+              }
+            }
+          ],
+          "properties":{
+            "backgroundColor":"#EEEEEE"
+          }
         }
-      }],
-      "properties": {
-        "height": "expand",
-        "backgroundColor": "#FF0000"
+      ],
+      "properties":{
+        "onInit":[
+          {
+            "_:action":"sendRequest",
+            "properties":{
+              "onError":[
+                {
+                  "_:action":"log",
+                  "properties":{
+                    "message":"@{onError.message}",
+                    "level":"Error"
+                  }
+                }
+              ],
+              "onSuccess":[
+                {
+                  "_:action":"setState",
+                  "properties":{
+                    "path":"products.data",
+                    "value":"@{onSuccess.data}"
+                  }
+                }
+              ],
+              "onFinish":[
+                {
+                  "_:action":"setState",
+                  "properties":{
+                    "path":"products.isLoading",
+                    "value":false
+                  }
+                }
+              ],
+              "url":"http://10.0.2.2:3000/data/products"
+            }
+          }
+        ]
       }
-    },
-    {
-      "_:component": "layout:column",
-      "children": [{
-        "_:component": "layout:text",
-        "properties": {
-          "text": "g"
-        }
-      }],
-      "properties": {
-        "height": "expand",
-        "backgroundColor": "#00FF00"
-      }
-    },
-    {
-      "_:component": "layout:column",
-      "children": [{
-        "_:component": "layout:text",
-        "properties": {
-          "text": "b"
-        }
-      }],
-      "properties": {
-        "height": "expand",
-        "backgroundColor": "#0000FF"
-      }
-    }],
-  "properties": {
-    "height": 150.0,
-    "backgroundColor": "#CCCCCCFF"
+    }
+  ],
+  "properties":{
+    "title":"Products"
   }
 }"""
 
 class MainActivity : ComponentActivity() {
     private val nimbus = Nimbus(
         baseUrl = BASE_URL,
-        components = listOf(layoutComponents, materialComponents),
+        ui = listOf(layoutUI, materialComponents),
         logger = AppLogger(),
         errorView = { throwable: Throwable, retry: () -> Unit ->
             CustomError(throwable = throwable, retry = retry)
@@ -84,7 +161,7 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    ProvideNimbus(nimbus.imageProvider(DefaultImageProvider())) {
+                    ProvideNimbus(nimbus) {
                         NimbusNavigator(JSON)
                     }
                 }

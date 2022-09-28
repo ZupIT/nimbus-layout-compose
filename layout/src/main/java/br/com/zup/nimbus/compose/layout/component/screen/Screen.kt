@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout.component
+package br.com.zup.nimbus.compose.layout.component.screen
 
 import android.app.Activity
 import androidx.compose.foundation.layout.Column
@@ -19,11 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
-import br.com.zup.nimbus.compose.layout.component.screen.SafeAreaEdges
-import br.com.zup.nimbus.compose.layout.component.screen.ignoreSafeArea
 import br.com.zup.nimbus.compose.layout.extensions.isTrue
 import br.zup.com.nimbus.compose.NimbusTheme
-import br.zup.com.nimbus.compose.core.ui.internal.NimbusNavHostHelper
+import br.zup.com.nimbus.compose.internal.NimbusNavHostHelper
 import com.google.accompanist.insets.ui.Scaffold
 import com.google.accompanist.insets.ui.TopAppBar
 import com.google.accompanist.systemuicontroller.rememberSystemUiController

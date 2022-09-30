@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package br.com.zup.nimbus.store.ui.theme
 
 import androidx.compose.ui.graphics.Color

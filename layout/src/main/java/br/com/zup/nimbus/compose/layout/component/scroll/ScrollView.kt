@@ -5,11 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.zup.nimbus.processor.Ignore
-import com.zup.nimbus.processor.ServerDrivenComponent
+import com.zup.nimbus.processor.annotation.AutoDeserialize
+import com.zup.nimbus.processor.annotation.Ignore
 
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 internal fun ScrollView(
     direction: ScrollViewDirection?,
     scrollIndicator: Boolean?,

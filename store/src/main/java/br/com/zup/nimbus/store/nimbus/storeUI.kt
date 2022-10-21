@@ -10,6 +10,6 @@ val storeUI = NimbusComposeUILibrary("store")
     .addComponent("button") @Composable { StoreButton(it) }
     .addComponent("textInput") @Composable { TextInput(it) }
     .addComponent("spinner") @Composable { CircularProgressIndicator() }
-    .addOperation("formatPrice", formatPrice)
-    .addOperation("sumProducts", sumProducts)
+    .addOperation("formatPrice") { formatPrice(it) }
+    .addOperation("sumProducts") { sumProducts(it) }
     .addAction("changeBottomNavigatorRoute", BottomTabNavigation.actionHandler)

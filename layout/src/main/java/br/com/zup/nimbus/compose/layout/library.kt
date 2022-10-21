@@ -1,4 +1,5 @@
 package br.com.zup.nimbus.compose.layout
+
 import androidx.compose.runtime.Composable
 import br.com.zup.nimbus.compose.layout.component.Column
 import br.com.zup.nimbus.compose.layout.component.FlowColumn
@@ -14,7 +15,6 @@ import br.com.zup.nimbus.compose.layout.component.screen.Screen
 import br.com.zup.nimbus.compose.layout.component.scroll.ScrollView
 import br.com.zup.nimbus.compose.layout.component.text.Text
 import br.zup.com.nimbus.compose.ui.NimbusComposeUILibrary
-
 
 val layoutUI = NimbusComposeUILibrary(LIBRARY_NAME)
     .addComponent(ComponentNames.COLUMN) @Composable { Column(it) }

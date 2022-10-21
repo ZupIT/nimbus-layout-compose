@@ -1,11 +1,5 @@
 package br.com.zup.nimbus.compose.layout.style.model
 
-import br.com.zup.nimbus.compose.layout.deserialization.AdaptiveSizeDeserializer
-import br.com.zup.nimbus.compose.layout.deserialization.DirectionScopeDeserializer
-import br.com.zup.nimbus.compose.layout.deserialization.ShadowDeserializer
-import com.zup.nimbus.processor.Computed
-import com.zup.nimbus.processor.Root
-
 internal open class Box(
     override val borderWidth: Double?,
     override val borderDashLength: Double?,
@@ -26,16 +20,16 @@ internal open class Box(
     override val paddingBottom: Double?,
     override val paddingHorizontal: Double?,
     override val paddingVertical: Double?,
-    @Root @Computed(AdaptiveSizeDeserializer::class) width: AdaptiveSize? = null,
-    @Root @Computed(AdaptiveSizeDeserializer::class) height: AdaptiveSize? = null,
-    @Root @Computed(DirectionScopeDeserializer::class) directionScope: DirectionScope,
+    width: AdaptiveSize? = null,
+    height: AdaptiveSize? = null,
+    directionScope: DirectionScope,
     minWidth: Double?,
     minHeight: Double?,
     maxWidth: Double?,
     maxHeight: Double?,
     clipped: Boolean?,
     val backgroundColor: String?,
-    @Root @Computed(ShadowDeserializer::class) val shadow: List<Shadow>? = null,
+    val shadow: List<Shadow>? = null,
 ) : Size(
     width = width,
     height = height,

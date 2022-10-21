@@ -5,11 +5,11 @@ import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.style.model.Box
 import br.com.zup.nimbus.compose.layout.style.modifier.boxStyle
 import com.google.accompanist.flowlayout.FlowColumn
-import com.zup.nimbus.processor.Root
-import com.zup.nimbus.processor.ServerDrivenComponent
+import com.zup.nimbus.processor.annotation.AutoDeserialize
+import com.zup.nimbus.processor.annotation.Root
 
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 internal fun FlowColumn(
     @Root style: Box,
     content: @Composable () -> Unit,

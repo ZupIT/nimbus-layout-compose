@@ -5,12 +5,12 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import com.zup.nimbus.processor.ServerDrivenComponent
+import com.zup.nimbus.processor.annotation.AutoDeserialize
 
 typealias InputCallback = (value: String) -> Unit
 
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 fun TextInput(
     label: String,
     value: String?,

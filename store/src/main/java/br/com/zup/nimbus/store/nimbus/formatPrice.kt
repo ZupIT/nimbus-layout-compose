@@ -1,16 +1,13 @@
 package br.com.zup.nimbus.store.nimbus
 
-import com.zup.nimbus.core.OperationHandler
+import com.zup.nimbus.processor.annotation.AutoDeserialize
 import java.text.NumberFormat
 import java.util.Currency
 
-val formatPrice: OperationHandler = {
-    val value = (it[0] as Number).toDouble()
-    val currency = it[1] as String
-
+@AutoDeserialize
+fun formatPrice(value: Double, currency: String): String {
     val formatter: NumberFormat = NumberFormat.getCurrencyInstance()
     formatter.maximumFractionDigits = 2
     formatter.currency = Currency.getInstance(currency)
-
-    formatter.format(value)
+    return formatter.format(value)
 }

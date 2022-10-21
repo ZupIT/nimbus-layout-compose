@@ -7,10 +7,10 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.zup.nimbus.processor.ServerDrivenComponent
+import com.zup.nimbus.processor.annotation.AutoDeserialize
 
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 internal fun Lifecycle(
     onInit: (() -> Unit)?,
     content: @Composable () -> Unit,

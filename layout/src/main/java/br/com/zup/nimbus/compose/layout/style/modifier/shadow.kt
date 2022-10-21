@@ -51,10 +51,6 @@ internal fun Modifier.shadowStyle(style: Box): Modifier {
                 color = it.color
             }
 
-            shadow.spread?.let {
-                spread = it.toFloat()
-            }
-
             current = current.coloredShadow(
                 borderRadius = borderRadius,
                 offsetX = offsetX,

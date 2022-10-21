@@ -1,9 +1,5 @@
 package br.com.zup.nimbus.compose.layout.style.model
 
-import br.com.zup.nimbus.compose.layout.deserialization.AdaptiveSizeDeserializer
-import br.com.zup.nimbus.compose.layout.deserialization.DirectionScopeDeserializer
-import com.zup.nimbus.processor.Computed
-import com.zup.nimbus.processor.Root
 import kotlin.math.roundToInt
 
 sealed class AdaptiveSize {
@@ -27,9 +23,9 @@ sealed class AdaptiveSize {
 enum class DirectionScope { Row, Column, Stack }
 
 open class Size (
-    @Root @Computed(AdaptiveSizeDeserializer::class) val width: AdaptiveSize? = null,
-    @Root @Computed(AdaptiveSizeDeserializer::class) val height: AdaptiveSize? = null,
-    @Root @Computed(DirectionScopeDeserializer::class) val directionScope: DirectionScope,
+    val width: AdaptiveSize? = null,
+    val height: AdaptiveSize? = null,
+    val directionScope: DirectionScope,
     val minWidth: Double?,
     val minHeight: Double?,
     val maxWidth: Double?,

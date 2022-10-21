@@ -1,21 +1,14 @@
 package br.com.zup.nimbus.compose.layout.deserialization
 
 import br.com.zup.nimbus.compose.layout.style.model.AdaptiveSize
-import br.zup.com.nimbus.compose.ComponentData
-import br.zup.com.nimbus.compose.TypeDeserializer
-import com.zup.nimbus.core.deserialization.ComponentDeserializer
+import com.zup.nimbus.core.deserialization.AnyServerDrivenData
+import com.zup.nimbus.processor.annotation.Deserializer
 
-object AdaptiveSizeDeserializer: TypeDeserializer<AdaptiveSize?> {
-    @Suppress("ReturnCount")
-    override fun deserialize(
-        properties: ComponentDeserializer,
-        data: ComponentData,
-        name: String,
-    ): AdaptiveSize? {
-        val sizeString = properties.asStringOrNull(name)?.lowercase()
-        if (sizeString == "expand") return AdaptiveSize.Expand
-        if (sizeString == "fitcontent") return AdaptiveSize.FitContent
-        val sizeDouble = properties.asDoubleOrNull(name)
-        return sizeDouble?.let { AdaptiveSize.Fixed(it) }
-    }
+@Deserializer
+fun deserializeAdaptiveSize(data: AnyServerDrivenData): AdaptiveSize? {
+    val sizeString = data.asStringOrNull()?.lowercase()
+    if (sizeString == "expand") return AdaptiveSize.Expand
+    if (sizeString == "fitcontent") return AdaptiveSize.FitContent
+    val sizeDouble = data.asDoubleOrNull()
+    return sizeDouble?.let { AdaptiveSize.Fixed(it) }
 }

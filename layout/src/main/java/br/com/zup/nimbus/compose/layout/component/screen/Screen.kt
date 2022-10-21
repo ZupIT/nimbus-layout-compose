@@ -25,13 +25,13 @@ import br.zup.com.nimbus.compose.internal.NimbusNavHostHelper
 import com.google.accompanist.insets.ui.Scaffold
 import com.google.accompanist.insets.ui.TopAppBar
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.zup.nimbus.processor.Ignore
-import com.zup.nimbus.processor.ServerDrivenComponent
+import com.zup.nimbus.processor.annotation.AutoDeserialize
+import com.zup.nimbus.processor.annotation.Ignore
 
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 internal fun Screen(
-    @Ignore ignoreSafeArea: List<SafeAreaEdges>? = null,
+    ignoreSafeArea: List<SafeAreaEdges>? = null,
     title: String?,
     showBackButton: Boolean?,
     @Ignore navHostHelper: NimbusNavHostHelper = NimbusTheme.nimbusNavigatorState.navHostHelper,

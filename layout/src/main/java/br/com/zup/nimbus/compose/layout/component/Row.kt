@@ -7,11 +7,11 @@ import br.com.zup.nimbus.compose.layout.style.model.Container
 import br.com.zup.nimbus.compose.layout.style.model.CrossAxisAlignment
 import br.com.zup.nimbus.compose.layout.style.model.MainAxisAlignment
 import br.com.zup.nimbus.compose.layout.style.modifier.containerStyle
-import com.zup.nimbus.processor.Root
-import com.zup.nimbus.processor.ServerDrivenComponent
+import com.zup.nimbus.processor.annotation.AutoDeserialize
+import com.zup.nimbus.processor.annotation.Root
 
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 internal fun Row(
     @Root style: Container,
     content: @Composable () -> Unit,

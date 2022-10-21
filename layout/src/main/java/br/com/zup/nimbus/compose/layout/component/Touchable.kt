@@ -6,15 +6,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.accessibility.Accessibility
 import br.com.zup.nimbus.compose.layout.accessibility.accessibility
-import br.com.zup.nimbus.compose.layout.deserialization.AccessibilityDeserializer
-import com.zup.nimbus.processor.Computed
-import com.zup.nimbus.processor.ServerDrivenComponent
+import com.zup.nimbus.processor.annotation.AutoDeserialize
 
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 internal fun Touchable(
     onPress: () -> Unit,
-    @Computed(AccessibilityDeserializer::class) accessibility: Accessibility? = null,
+    accessibility: Accessibility? = null,
     content: @Composable () -> Unit,
 ) {
     Column(modifier = Modifier.clickable { onPress() }.accessibility(accessibility)) {

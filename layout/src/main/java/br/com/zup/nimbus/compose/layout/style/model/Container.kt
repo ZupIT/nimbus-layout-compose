@@ -1,11 +1,5 @@
 package br.com.zup.nimbus.compose.layout.style.model
 
-import br.com.zup.nimbus.compose.layout.deserialization.AdaptiveSizeDeserializer
-import br.com.zup.nimbus.compose.layout.deserialization.DirectionScopeDeserializer
-import br.com.zup.nimbus.compose.layout.deserialization.ShadowDeserializer
-import com.zup.nimbus.processor.Computed
-import com.zup.nimbus.processor.Root
-
 internal class Container(
     borderWidth: Double?,
     borderDashLength: Double?,
@@ -26,16 +20,16 @@ internal class Container(
     paddingBottom: Double?,
     paddingHorizontal: Double?,
     paddingVertical: Double?,
-    @Root @Computed(AdaptiveSizeDeserializer::class) width: AdaptiveSize? = null,
-    @Root @Computed(AdaptiveSizeDeserializer::class) height: AdaptiveSize? = null,
-    @Root @Computed(DirectionScopeDeserializer::class) directionScope: DirectionScope,
+    width: AdaptiveSize? = null,
+    height: AdaptiveSize? = null,
+    directionScope: DirectionScope,
     minWidth: Double?,
     minHeight: Double?,
     maxWidth: Double?,
     maxHeight: Double?,
     clipped: Boolean?,
     backgroundColor: String?,
-    @Root @Computed(ShadowDeserializer::class) shadow: List<Shadow>? = null,
+    shadow: List<Shadow>? = null,
     val crossAxisAlignment: CrossAxisAlignment?,
     val mainAxisAlignment: MainAxisAlignment?,
 ): Box(

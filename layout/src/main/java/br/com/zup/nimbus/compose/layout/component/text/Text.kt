@@ -8,13 +8,13 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import br.com.zup.nimbus.compose.layout.extensions.color
-import com.zup.nimbus.processor.ServerDrivenComponent
+import com.zup.nimbus.processor.annotation.AutoDeserialize
 
 private const val DEFAULT_TEXT_SIZE = 12L
 
 @OptIn(ExperimentalUnitApi::class)
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 internal fun Text(
     text: String,
     size: Double?,

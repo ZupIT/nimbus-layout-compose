@@ -18,11 +18,11 @@ private const val LOG_TAG = "NimbusImage"
 @Composable
 internal fun ImageRenderer(
     viewModelState: ImageViewModelState,
-    style: Size?,
+    style: Size,
     contentScale: ContentScale?,
     accessibility: Accessibility?,
 ) {
-    var modifier = if(style == null) Modifier else Modifier.sizeStyle(style)
+    var modifier = Modifier.sizeStyle(style)
     when (viewModelState) {
         is ImageViewModelState.ImageResource -> {
             var description: String? = null

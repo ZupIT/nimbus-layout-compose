@@ -13,7 +13,7 @@ import com.zup.nimbus.processor.annotation.Root
 @Composable
 @AutoDeserialize
 internal fun RemoteImage(
-    @Root style: Size?,
+    @Root style: Size,
     scale: ImageScale?,
     url: String,
     placeholder: String?,

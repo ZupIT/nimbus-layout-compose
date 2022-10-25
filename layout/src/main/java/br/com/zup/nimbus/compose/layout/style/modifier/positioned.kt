@@ -16,7 +16,7 @@ internal fun Modifier.positionedStyle(
     Modifier.applyScopeModifier(scope = scope, positioned = style)
     .absoluteOffset(x = style.x?.dp ?: 0.dp)
     .absoluteOffset(y = style.y?.dp ?: 0.dp)
-    .boxStyle(style)
+    .boxStyle(style.box)
 )
 
 internal fun Modifier.applyScopeModifier(

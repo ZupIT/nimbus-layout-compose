@@ -21,7 +21,7 @@ internal fun Positioned(
     @Root style: Positioned,
     content: @Composable () -> Unit,
 ) {
-    NimbusSoftwareLayer(condition = style.shouldDisableHardwareAcceleration()) {
+    NimbusSoftwareLayer(condition = style.box.shouldDisableHardwareAcceleration()) {
         Column(
             modifier = Modifier.positionedStyle(style = style, scope = NimbusBoxScope.instance)
         ) {

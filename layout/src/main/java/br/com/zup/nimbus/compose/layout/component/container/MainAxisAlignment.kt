@@ -1,4 +1,4 @@
-package br.com.zup.nimbus.compose.layout.style.model
+package br.com.zup.nimbus.compose.layout.component.container
 
 import androidx.compose.foundation.layout.Arrangement
 

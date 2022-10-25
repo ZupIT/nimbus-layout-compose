@@ -1,14 +1,14 @@
 package br.com.zup.nimbus.compose.layout
 
 import androidx.compose.runtime.Composable
-import br.com.zup.nimbus.compose.layout.component.Column
 import br.com.zup.nimbus.compose.layout.component.FlowColumn
 import br.com.zup.nimbus.compose.layout.component.FlowRow
 import br.com.zup.nimbus.compose.layout.component.Lifecycle
 import br.com.zup.nimbus.compose.layout.component.Positioned
-import br.com.zup.nimbus.compose.layout.component.Row
 import br.com.zup.nimbus.compose.layout.component.Stack
 import br.com.zup.nimbus.compose.layout.component.Touchable
+import br.com.zup.nimbus.compose.layout.component.container.Column
+import br.com.zup.nimbus.compose.layout.component.container.Row
 import br.com.zup.nimbus.compose.layout.component.image.LocalImage
 import br.com.zup.nimbus.compose.layout.component.image.RemoteImage
 import br.com.zup.nimbus.compose.layout.component.screen.Screen

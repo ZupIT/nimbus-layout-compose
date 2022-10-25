@@ -16,14 +16,14 @@ private const val DEFAULT_TEXT_SIZE = 12L
 @Composable
 @AutoDeserialize
 internal fun Text(
-    text: String,
+    text: String?,
     size: Double?,
     weight: TextWeight?,
     color: String?,
     alignment: TextAlignment?,
 ) {
     Text(
-        text = text,
+        text = text ?: "",
         color = color?.color ?: Color.Black,
         fontSize = TextUnit((size?.toLong() ?: DEFAULT_TEXT_SIZE).toFloat(), TextUnitType.Sp),
         fontWeight = (weight ?: TextWeight.Normal).toFontWeight(),

@@ -23,8 +23,8 @@ sealed class AdaptiveSize {
 enum class DirectionScope { Row, Column, Stack }
 
 open class Size (
-    val width: AdaptiveSize? = null,
-    val height: AdaptiveSize? = null,
+    val width: AdaptiveSize?,
+    val height: AdaptiveSize?,
     val directionScope: DirectionScope,
     val minWidth: Double?,
     val minHeight: Double?,

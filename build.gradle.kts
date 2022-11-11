@@ -8,7 +8,7 @@ plugins{
 buildscript {
     val compose_version by extra("1.3.0")
     val accompanist_version by extra("0.24.11-rc")
-    val nimbus_compose_version by extra("1.0.0-alpha36borracha")
+    val nimbus_compose_version by extra("1.0.0-alpha36")
     repositories {
         gradlePluginPortal()
         google()

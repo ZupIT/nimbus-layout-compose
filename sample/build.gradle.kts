@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("kotlin-android")
-    id("com.google.devtools.ksp") version "1.6.10-1.0.4"
+    id("com.google.devtools.ksp") version "1.7.10-1.0.6"
 }
 
 val serializationVersion = "1.3.2"
@@ -29,11 +29,11 @@ dependencies {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         applicationId = "br.com.zup.nimbus.android.layout"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
         vectorDrawables {

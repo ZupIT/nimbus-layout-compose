@@ -1,6 +1,6 @@
 package br.com.zup.nimbus.store.nimbus
 
-import com.zup.nimbus.processor.annotation.AutoDeserialize
+import br.com.zup.nimbus.annotation.AutoDeserialize
 import java.text.NumberFormat
 import java.util.Currency
 

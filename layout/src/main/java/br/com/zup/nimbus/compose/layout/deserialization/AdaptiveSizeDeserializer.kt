@@ -2,7 +2,7 @@ package br.com.zup.nimbus.compose.layout.deserialization
 
 import br.com.zup.nimbus.compose.layout.style.model.AdaptiveSize
 import com.zup.nimbus.core.deserialization.AnyServerDrivenData
-import com.zup.nimbus.processor.annotation.Deserializer
+import br.com.zup.nimbus.annotation.Deserializer
 
 @Deserializer
 fun deserializeAdaptiveSize(data: AnyServerDrivenData): AdaptiveSize? {

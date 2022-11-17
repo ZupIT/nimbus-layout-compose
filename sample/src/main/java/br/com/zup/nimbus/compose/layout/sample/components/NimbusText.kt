@@ -2,7 +2,7 @@ package br.com.zup.nimbus.compose.layout.sample.components
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import com.zup.nimbus.processor.annotation.AutoDeserialize
+import br.com.zup.nimbus.annotation.AutoDeserialize
 
 @Composable
 @AutoDeserialize

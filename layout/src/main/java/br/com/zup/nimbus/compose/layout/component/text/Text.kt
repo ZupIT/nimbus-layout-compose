@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import br.com.zup.nimbus.compose.layout.extensions.color
-import com.zup.nimbus.processor.annotation.AutoDeserialize
+import br.com.zup.nimbus.annotation.AutoDeserialize
 
 private const val DEFAULT_TEXT_SIZE = 12L
 

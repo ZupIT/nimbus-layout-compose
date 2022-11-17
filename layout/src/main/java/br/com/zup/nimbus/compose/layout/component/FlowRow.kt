@@ -5,8 +5,8 @@ import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.style.model.Box
 import br.com.zup.nimbus.compose.layout.style.modifier.boxStyle
 import com.google.accompanist.flowlayout.FlowRow
-import com.zup.nimbus.processor.annotation.AutoDeserialize
-import com.zup.nimbus.processor.annotation.Root
+import br.com.zup.nimbus.annotation.AutoDeserialize
+import br.com.zup.nimbus.annotation.Root
 
 @Composable
 @AutoDeserialize

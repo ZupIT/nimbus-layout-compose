@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.accessibility.Accessibility
 import br.com.zup.nimbus.compose.layout.accessibility.accessibility
-import com.zup.nimbus.processor.annotation.AutoDeserialize
+import br.com.zup.nimbus.annotation.AutoDeserialize
 
 @Composable
 @AutoDeserialize

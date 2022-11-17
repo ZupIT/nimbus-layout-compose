@@ -3,7 +3,7 @@ package br.com.zup.nimbus.store.component
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import com.zup.nimbus.processor.annotation.AutoDeserialize
+import br.com.zup.nimbus.annotation.AutoDeserialize
 
 @Composable
 @AutoDeserialize

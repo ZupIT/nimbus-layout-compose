@@ -5,7 +5,7 @@ import br.zup.com.nimbus.compose.deserialization.DeserializationContext
 import com.zup.nimbus.core.scope.Scope
 import com.zup.nimbus.core.tree.ServerDrivenNode
 import com.zup.nimbus.core.tree.dynamic.node.DynamicNode
-import com.zup.nimbus.processor.annotation.Deserializer
+import br.com.zup.nimbus.annotation.Deserializer
 
 private val defaultValue = DirectionScope.Column
 

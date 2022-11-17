@@ -25,8 +25,8 @@ import br.zup.com.nimbus.compose.internal.NimbusNavHostHelper
 import com.google.accompanist.insets.ui.Scaffold
 import com.google.accompanist.insets.ui.TopAppBar
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.zup.nimbus.processor.annotation.AutoDeserialize
-import com.zup.nimbus.processor.annotation.Ignore
+import br.com.zup.nimbus.annotation.AutoDeserialize
+import br.com.zup.nimbus.annotation.Ignore
 
 @Composable
 @AutoDeserialize

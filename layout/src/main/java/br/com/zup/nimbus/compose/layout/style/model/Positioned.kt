@@ -1,7 +1,7 @@
 package br.com.zup.nimbus.compose.layout.style.model
 
 import androidx.compose.ui.Alignment
-import com.zup.nimbus.processor.annotation.Root
+import br.com.zup.nimbus.annotation.Root
 
 internal class Positioned(
     @Root val box: Box,

@@ -6,9 +6,9 @@ import br.com.zup.nimbus.compose.layout.accessibility.Accessibility
 import br.com.zup.nimbus.compose.layout.style.model.Size
 import br.com.zup.nimbus.compose.layout.viewmodel.ImageViewModel
 import br.zup.com.nimbus.compose.NimbusTheme
-import com.zup.nimbus.processor.annotation.AutoDeserialize
-import com.zup.nimbus.processor.annotation.Ignore
-import com.zup.nimbus.processor.annotation.Root
+import br.com.zup.nimbus.annotation.AutoDeserialize
+import br.com.zup.nimbus.annotation.Ignore
+import br.com.zup.nimbus.annotation.Root
 
 @Composable
 @AutoDeserialize

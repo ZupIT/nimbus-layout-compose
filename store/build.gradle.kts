@@ -2,16 +2,16 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     // needed for component auto-deserialization
-    id("com.google.devtools.ksp") version "1.6.10-1.0.4"
+    id("com.google.devtools.ksp") version "1.7.10-1.0.6"
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "br.com.zup.nimbus.store"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 

@@ -4,6 +4,8 @@ import br.com.zup.nimbus.compose.layout.component.Column
 import br.com.zup.nimbus.compose.layout.component.FlowColumn
 import br.com.zup.nimbus.compose.layout.component.FlowRow
 import br.com.zup.nimbus.compose.layout.component.Lifecycle
+import br.com.zup.nimbus.compose.layout.component.NimbusLazyColumn
+import br.com.zup.nimbus.compose.layout.component.NimbusLazyRow
 import br.com.zup.nimbus.compose.layout.component.Positioned
 import br.com.zup.nimbus.compose.layout.component.Row
 import br.com.zup.nimbus.compose.layout.component.Stack
@@ -30,3 +32,5 @@ val layoutUI = NimbusComposeUILibrary(LIBRARY_NAME)
     .addComponent(ComponentNames.STACK) @Composable { Stack(it) }
     .addComponent(ComponentNames.TEXT) @Composable { Text(it) }
     .addComponent(ComponentNames.TOUCHABLE) @Composable { Touchable(it) }
+    .addComponent(ComponentNames.LAZY_ROW) @Composable { NimbusLazyRow(it) }
+    .addComponent(ComponentNames.LAZY_COLUMN) @Composable { NimbusLazyColumn(it) }

@@ -23,7 +23,7 @@ object DirectionScopeDeserializer: TypeDeserializer<DirectionScope> {
         // TODO: expose this logic to the user. It must be possible to create non-leaf custom
         //  components that doesn't ruin the Size properties.
         return when(parent?.component) {
-            "layout:row", "layout:flowRow" -> DirectionScope.Row
+            "layout:lazyRow", "layout:row", "layout:flowRow" -> DirectionScope.Row
             "layout:stack" -> DirectionScope.Stack
             else -> DirectionScope.Column
         }

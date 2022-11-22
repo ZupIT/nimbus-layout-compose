@@ -8,6 +8,8 @@ internal object ComponentNames {
     const val COLUMN = "column"
     const val FLOW_COLUMN = "flowColumn"
     const val TOUCHABLE = "touchable"
+    const val LAZY_ROW = "lazyRow"
+    const val LAZY_COLUMN = "lazyColumn"
     const val POSITIONED = "positioned"
     const val STACK = "stack"
     const val REMOTE_IMAGE = "remoteImage"

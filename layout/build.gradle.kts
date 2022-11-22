@@ -4,7 +4,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-parcelize")
     id("shot")
-    id("com.google.devtools.ksp") version "1.6.10-1.0.4"
+    id("com.google.devtools.ksp") version "1.7.10-1.0.6"
 }
 
 val serializationVersion = "1.3.2"
@@ -49,10 +49,10 @@ dependencies {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
         vectorDrawables {
             useSupportLibrary = true
         }

@@ -62,6 +62,57 @@ const val JSON = """{
   }
 }"""
 
+const val JSON_LAZY = """{
+  "_:component": "layout:lazyRow",
+  "children": [
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "layout:text",
+        "properties": {
+          "text": "r"
+        }
+      }],
+      "properties": {
+        "height": 150.0,
+        "width": 100.0,
+        "backgroundColor": "#FF0000"
+      }
+    },
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "layout:text",
+        "properties": {
+          "text": "g"
+        }
+      }],
+      "properties": {
+        "height": 150.0,
+        "width": 100.0,
+        "backgroundColor": "#00FF00"
+      }
+    },
+    {
+      "_:component": "layout:column",
+      "children": [{
+        "_:component": "layout:text",
+        "properties": {
+          "text": "b"
+        }
+      }],
+      "properties": {
+        "height": 150.0,
+        "width": 100.0,
+        "backgroundColor": "#0000FF"
+      }
+    }],
+  "properties": {
+    "width": 150.0,
+    "backgroundColor": "#CCCCCCFF"
+  }
+}"""
+
 class MainActivity : ComponentActivity() {
     private val nimbus = Nimbus(
         baseUrl = BASE_URL,
@@ -78,7 +129,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     ProvideNimbus(nimbus.imageProvider(DefaultImageProvider())) {
-                        NimbusNavigator(JSON)
+                        NimbusNavigator(JSON_LAZY)
                     }
                 }
             }

@@ -1,22 +1,22 @@
 package br.com.zup.nimbus.compose.layout
+
 import androidx.compose.runtime.Composable
-import br.com.zup.nimbus.compose.layout.component.Column
 import br.com.zup.nimbus.compose.layout.component.FlowColumn
 import br.com.zup.nimbus.compose.layout.component.FlowRow
 import br.com.zup.nimbus.compose.layout.component.Lifecycle
-import br.com.zup.nimbus.compose.layout.component.NimbusLazyColumn
-import br.com.zup.nimbus.compose.layout.component.NimbusLazyRow
 import br.com.zup.nimbus.compose.layout.component.Positioned
-import br.com.zup.nimbus.compose.layout.component.Row
 import br.com.zup.nimbus.compose.layout.component.Stack
 import br.com.zup.nimbus.compose.layout.component.Touchable
+import br.com.zup.nimbus.compose.layout.component.container.Column
+import br.com.zup.nimbus.compose.layout.component.container.LazyColumn
+import br.com.zup.nimbus.compose.layout.component.container.LazyRow
+import br.com.zup.nimbus.compose.layout.component.container.Row
 import br.com.zup.nimbus.compose.layout.component.image.LocalImage
 import br.com.zup.nimbus.compose.layout.component.image.RemoteImage
 import br.com.zup.nimbus.compose.layout.component.screen.Screen
 import br.com.zup.nimbus.compose.layout.component.scroll.ScrollView
 import br.com.zup.nimbus.compose.layout.component.text.Text
 import br.zup.com.nimbus.compose.ui.NimbusComposeUILibrary
-
 
 val layoutUI = NimbusComposeUILibrary(LIBRARY_NAME)
     .addComponent(ComponentNames.COLUMN) @Composable { Column(it) }
@@ -32,5 +32,5 @@ val layoutUI = NimbusComposeUILibrary(LIBRARY_NAME)
     .addComponent(ComponentNames.STACK) @Composable { Stack(it) }
     .addComponent(ComponentNames.TEXT) @Composable { Text(it) }
     .addComponent(ComponentNames.TOUCHABLE) @Composable { Touchable(it) }
-    .addComponent(ComponentNames.LAZY_ROW) @Composable { NimbusLazyRow(it) }
-    .addComponent(ComponentNames.LAZY_COLUMN) @Composable { NimbusLazyColumn(it) }
+    .addComponent(ComponentNames.LAZY_ROW) @Composable { LazyRow(it) }
+    .addComponent(ComponentNames.LAZY_COLUMN) @Composable { LazyColumn(it) }

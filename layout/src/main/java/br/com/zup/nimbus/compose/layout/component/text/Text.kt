@@ -8,22 +8,22 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import br.com.zup.nimbus.compose.layout.extensions.color
-import com.zup.nimbus.processor.ServerDrivenComponent
+import br.com.zup.nimbus.annotation.AutoDeserialize
 
 private const val DEFAULT_TEXT_SIZE = 12L
 
 @OptIn(ExperimentalUnitApi::class)
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 internal fun Text(
-    text: String,
+    text: String?,
     size: Double?,
     weight: TextWeight?,
     color: String?,
     alignment: TextAlignment?,
 ) {
     Text(
-        text = text,
+        text = text ?: "",
         color = color?.color ?: Color.Black,
         fontSize = TextUnit((size?.toLong() ?: DEFAULT_TEXT_SIZE).toFloat(), TextUnitType.Sp),
         fontWeight = (weight ?: TextWeight.Normal).toFontWeight(),

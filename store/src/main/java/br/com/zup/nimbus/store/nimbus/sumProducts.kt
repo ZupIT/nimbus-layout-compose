@@ -1,17 +1,7 @@
 package br.com.zup.nimbus.store.nimbus
 
-import com.zup.nimbus.core.OperationHandler
+import br.com.zup.nimbus.store.model.Product
+import br.com.zup.nimbus.annotation.AutoDeserialize
 
-val sumProducts: OperationHandler = {
-    val products = it[0]
-    var sum = 0.0
-    if (products is List<*>) {
-        products.forEach { product ->
-            if (product is Map<*, *>) {
-                val price = product["price"]
-                sum += if (price is Number) price.toDouble() else 0.0
-            }
-        }
-    }
-    sum
-}
+@AutoDeserialize
+fun sumProducts(products: List<Product>): Double = products.sumOf { it.price }

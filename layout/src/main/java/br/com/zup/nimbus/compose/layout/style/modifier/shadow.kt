@@ -29,9 +29,8 @@ internal fun Modifier.shadowStyle(style: Box): Modifier {
             var blur: Dp = 0.dp // blur default: 0
             var borderRadius: Dp = 0.dp // blur default: 0
             var color: Color = Color.Black // default: black
-            var spread = 0f
 
-            style.cornerRadius?.let {
+            style.border.cornerRadius?.let {
                 borderRadius = it.dp
             }
 
@@ -51,17 +50,12 @@ internal fun Modifier.shadowStyle(style: Box): Modifier {
                 color = it.color
             }
 
-            shadow.spread?.let {
-                spread = it.toFloat()
-            }
-
             current = current.coloredShadow(
                 borderRadius = borderRadius,
                 offsetX = offsetX,
                 offsetY = offsetY,
                 blurRadius = blur,
                 color = color,
-                spread = spread,
             )
         }
 

@@ -6,43 +6,32 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.text.input.KeyboardType
-import com.zup.nimbus.processor.Root
-import com.zup.nimbus.processor.ServerDrivenComponent
-
-class TextInputEvents(
-    val onChange: ((String) -> Unit)?,
-    val onFocus: ((String) -> Unit)?,
-    val onBlur: ((String) -> Unit)?,
-)
-
-enum class TextInputType(val keyboard: KeyboardType) {
-    Text(KeyboardType.Text),
-    Password(KeyboardType.Password),
-    Email(KeyboardType.Email),
-    Number(KeyboardType.Number),
-}
+import br.com.zup.nimbus.annotation.AutoDeserialize
+import br.com.zup.nimbus.store.model.TextInputType
 
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 fun TextInput(
-    value: String,
     label: String,
+    value: String,
     type: TextInputType? = null,
     enabled: Boolean? = null,
-    @Root events: TextInputEvents? = null,
+    onChange: ((value: String) -> Unit)? = null,
+    onBlur: ((value: String) -> Unit)? = null,
+    onFocus: ((value: String) -> Unit)? = null,
 ) {
+
     val modifier = Modifier.onFocusChanged {
-        if (it.isFocused) events?.onFocus?.let { it(value) }
-        else events?.onBlur?.let { it(value) }
+        if (it.isFocused) onFocus?.let { it(value) }
+        else onBlur?.let { it(value) }
     }
 
     TextField(
         value = value,
-        label = { Text(label) },
         enabled = enabled == true,
         keyboardOptions = KeyboardOptions(keyboardType = (type ?: TextInputType.Text).keyboard),
-        onValueChange = { newValue -> events?.onChange?.let { it(newValue) } },
+        onValueChange = { newValue -> onChange?.let { it(newValue) } },
+        label = { Text(label) },
         modifier = modifier,
     )
 }

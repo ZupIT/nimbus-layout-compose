@@ -117,7 +117,6 @@ class MainActivity : ComponentActivity() {
     private val nimbus = Nimbus(
         baseUrl = BASE_URL,
         ui = listOf(layoutUI, materialComponents),
-        logger = AppLogger(),
         errorView = { throwable: Throwable, retry: () -> Unit ->
             CustomError(throwable = throwable, retry = retry)
         }
@@ -137,5 +136,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-

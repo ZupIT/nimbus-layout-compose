@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.store.navigation.navigate
 import com.zup.nimbus.core.ActionHandler
 
@@ -23,9 +24,9 @@ object BottomTabNavigation {
         }
     }
 
-    val actionHandler: ActionHandler = {
-        val route = it.action.properties?.get("route")
+    @AutoDeserialize
+    fun changeTab(route: String) {
         val navController = nimbus.get(NAV_CONTROLLER_KEY)
-        if (route is String && navController is NavController) navigate(navController, route)
+        if (navController is NavController) navigate(navController, route)
     }
 }

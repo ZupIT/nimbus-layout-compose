@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.compose.layout.style.model.Positioned
 import br.com.zup.nimbus.compose.layout.style.modifier.positionedStyle
-import com.zup.nimbus.processor.Root
-import com.zup.nimbus.processor.ServerDrivenComponent
+import br.com.zup.nimbus.annotation.AutoDeserialize
+import br.com.zup.nimbus.annotation.Root
 
 private object NimbusBoxScope {
     private val kClass =
@@ -16,12 +16,12 @@ private object NimbusBoxScope {
 }
 
 @Composable
-@ServerDrivenComponent
+@AutoDeserialize
 internal fun Positioned(
     @Root style: Positioned,
     content: @Composable () -> Unit,
 ) {
-    NimbusSoftwareLayer(condition = style.shouldDisableHardwareAcceleration()) {
+    NimbusSoftwareLayer(condition = style.box.shouldDisableHardwareAcceleration()) {
         Column(
             modifier = Modifier.positionedStyle(style = style, scope = NimbusBoxScope.instance)
         ) {

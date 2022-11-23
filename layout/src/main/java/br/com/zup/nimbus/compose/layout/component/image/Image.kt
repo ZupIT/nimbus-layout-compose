@@ -14,7 +14,7 @@ import br.zup.com.nimbus.compose.NimbusTheme
 
 @Composable
 internal fun Image(
-    style: Size?,
+    style: Size,
     scale: ImageScale?,
     id: String? = null,
     url: String? = null,

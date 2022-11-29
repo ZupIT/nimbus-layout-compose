@@ -20,13 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import br.com.zup.nimbus.compose.layout.extensions.isTrue
-import br.zup.com.nimbus.compose.NimbusTheme
 import br.zup.com.nimbus.compose.internal.NimbusNavHostHelper
 import com.google.accompanist.insets.ui.Scaffold
 import com.google.accompanist.insets.ui.TopAppBar
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.annotation.Ignore
+import br.zup.com.nimbus.compose.Nimbus
 
 @Composable
 @AutoDeserialize
@@ -34,7 +34,7 @@ internal fun Screen(
     ignoreSafeArea: List<SafeAreaEdges>? = null,
     title: String?,
     showBackButton: Boolean?,
-    @Ignore navHostHelper: NimbusNavHostHelper = NimbusTheme.nimbusNavigatorState.navHostHelper,
+    @Ignore navHostHelper: NimbusNavHostHelper = Nimbus.navigatorInstance.navHostHelper,
     content: @Composable () -> Unit,
 ) {
     // The following line has been commented because it doesn't work unless the server driven view

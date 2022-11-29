@@ -20,11 +20,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.zup.com.nimbus.compose.NimbusTheme
+import br.zup.com.nimbus.compose.Nimbus
 
 @Composable
 fun CartIcon() {
-    val nimbus = NimbusTheme.nimbus
+    val nimbus = Nimbus.instance
     val coroutineScope = rememberCoroutineScope()
     val cart = remember { ObservableCart(nimbus, coroutineScope) }
     val numberOfItemsInCart = cart.collectAsState()

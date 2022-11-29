@@ -5,10 +5,10 @@ import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.accessibility.Accessibility
 import br.com.zup.nimbus.compose.layout.style.model.Size
 import br.com.zup.nimbus.compose.layout.viewmodel.ImageViewModel
-import br.zup.com.nimbus.compose.NimbusTheme
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.annotation.Ignore
 import br.com.zup.nimbus.annotation.Root
+import br.zup.com.nimbus.compose.Nimbus
 
 @Composable
 @AutoDeserialize
@@ -20,7 +20,7 @@ internal fun RemoteImage(
     accessibility: Accessibility? = null,
     @Ignore viewModel: ImageViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
         factory = ImageViewModel.provideFactory(
-            imageProvider = NimbusTheme.nimbus.imageProvider()
+            imageProvider = Nimbus.instance.imageProvider()
         )
     )
 ) {

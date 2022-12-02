@@ -8,7 +8,7 @@ import br.com.zup.nimbus.compose.layout.viewmodel.ImageViewModel
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.annotation.Ignore
 import br.com.zup.nimbus.annotation.Root
-import br.zup.com.nimbus.compose.Nimbus
+import br.com.zup.nimbus.compose.Nimbus
 
 @Composable
 @AutoDeserialize

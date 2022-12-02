@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.zup.nimbus.core.network.ViewRequest
-import br.zup.com.nimbus.compose.NimbusNavigator
+import br.com.zup.nimbus.compose.NimbusNavigator
 
 @Composable
 fun CartScreen() {

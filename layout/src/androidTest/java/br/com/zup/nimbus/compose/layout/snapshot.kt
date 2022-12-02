@@ -23,9 +23,9 @@ import androidx.test.runner.lifecycle.Stage
 import br.com.zup.nimbus.android.layout.BuildConfig
 import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
-import br.zup.com.nimbus.compose.Nimbus
-import br.zup.com.nimbus.compose.NimbusNavigator
-import br.zup.com.nimbus.compose.ProvideNimbus
+import br.com.zup.nimbus.compose.Nimbus
+import br.com.zup.nimbus.compose.NimbusNavigator
+import br.com.zup.nimbus.compose.ProvideNimbus
 import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner

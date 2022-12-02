@@ -1,7 +1,7 @@
 package br.com.zup.nimbus.compose.layout.deserialization
 
 import br.com.zup.nimbus.compose.layout.style.model.DirectionScope
-import br.zup.com.nimbus.compose.deserialization.DeserializationContext
+import br.com.zup.nimbus.compose.deserialization.DeserializationContext
 import br.com.zup.nimbus.core.scope.Scope
 import br.com.zup.nimbus.core.tree.ServerDrivenNode
 import br.com.zup.nimbus.core.tree.dynamic.node.DynamicNode

@@ -12,7 +12,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import br.zup.com.nimbus.compose.ProvideNimbus
+import br.com.zup.nimbus.compose.ProvideNimbus
 import br.com.zup.nimbus.store.navigation.BottomNavigator
 import br.com.zup.nimbus.store.navigation.NavigationGraph
 import br.com.zup.nimbus.store.nimbus.BottomTabNavigation

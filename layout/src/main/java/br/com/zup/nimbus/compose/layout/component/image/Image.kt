@@ -10,7 +10,7 @@ import br.com.zup.nimbus.compose.layout.accessibility.Accessibility
 import br.com.zup.nimbus.compose.layout.style.model.Size
 import br.com.zup.nimbus.compose.layout.viewmodel.ImageViewModel
 import br.com.zup.nimbus.compose.layout.viewmodel.ImageViewModelState
-import br.zup.com.nimbus.compose.Nimbus
+import br.com.zup.nimbus.compose.Nimbus
 
 @Composable
 internal fun Image(

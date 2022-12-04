@@ -3,9 +3,9 @@ package br.com.zup.nimbus.store.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
-import br.zup.com.nimbus.compose.Nimbus
-import com.zup.nimbus.core.ServerDrivenState
-import com.zup.nimbus.core.dependency.Dependent
+import br.com.zup.nimbus.compose.Nimbus
+import br.com.zup.nimbus.core.ServerDrivenState
+import br.com.zup.nimbus.core.dependency.Dependent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

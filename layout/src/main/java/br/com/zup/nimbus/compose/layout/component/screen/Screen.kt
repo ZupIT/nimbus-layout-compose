@@ -20,13 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import br.com.zup.nimbus.compose.layout.extensions.isTrue
-import br.zup.com.nimbus.compose.internal.NimbusNavHostHelper
+import br.com.zup.nimbus.compose.internal.NimbusNavHostHelper
 import com.google.accompanist.insets.ui.Scaffold
 import com.google.accompanist.insets.ui.TopAppBar
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.annotation.Ignore
-import br.zup.com.nimbus.compose.Nimbus
+import br.com.zup.nimbus.compose.Nimbus
 
 @Composable
 @AutoDeserialize

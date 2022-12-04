@@ -1,9 +1,7 @@
 package br.com.zup.nimbus.compose.layout.sample.components
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import br.zup.com.nimbus.compose.ui.NimbusComposeUILibrary
-import com.zup.nimbus.core.deserialization.AnyServerDrivenData
+import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
 
 val materialComponents = NimbusComposeUILibrary("material")
     .addComponent("button") @Composable { Button(it) }

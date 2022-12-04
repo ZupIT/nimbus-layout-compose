@@ -3,10 +3,10 @@ package br.com.zup.nimbus.compose.layout.sample
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import br.com.zup.nimbus.compose.layout.configuration.ImageProvider
-import com.zup.nimbus.core.network.DefaultHttpClient
-import com.zup.nimbus.core.network.HttpClient
-import com.zup.nimbus.core.network.ServerDrivenHttpMethod
-import com.zup.nimbus.core.network.ServerDrivenRequest
+import br.com.zup.nimbus.core.network.DefaultHttpClient
+import br.com.zup.nimbus.core.network.HttpClient
+import br.com.zup.nimbus.core.network.ServerDrivenHttpMethod
+import br.com.zup.nimbus.core.network.ServerDrivenRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

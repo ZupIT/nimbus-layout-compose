@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.store.navigation.navigate
-import com.zup.nimbus.core.ActionHandler
 
 private const val NAV_CONTROLLER_KEY = "navController"
 

@@ -9,7 +9,7 @@ import br.com.zup.nimbus.annotation.Root
 import br.com.zup.nimbus.compose.layout.component.NimbusSoftwareLayer
 import br.com.zup.nimbus.compose.layout.style.model.Box
 import br.com.zup.nimbus.compose.layout.style.modifier.boxStyle
-import br.zup.com.nimbus.compose.deserialization.DeserializationContext
+import br.com.zup.nimbus.compose.deserialization.DeserializationContext
 
 @Composable
 @AutoDeserialize

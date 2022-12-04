@@ -1,7 +1,7 @@
 package br.com.zup.nimbus.compose.layout
 
-import com.zup.nimbus.core.log.LogLevel
-import com.zup.nimbus.core.log.Logger
+import br.com.zup.nimbus.core.log.LogLevel
+import br.com.zup.nimbus.core.log.Logger
 
 class ExceptionLogger: Logger {
     override fun disable() {

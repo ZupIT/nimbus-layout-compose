@@ -5,14 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import br.com.zup.nimbus.compose.Nimbus
+import br.com.zup.nimbus.compose.NimbusNavigator
+import br.com.zup.nimbus.compose.ProvideNimbus
 import br.com.zup.nimbus.compose.layout.extensions.imageProvider
 import br.com.zup.nimbus.compose.layout.layoutUI
 import br.com.zup.nimbus.compose.layout.sample.components.CustomError
 import br.com.zup.nimbus.compose.layout.sample.components.materialComponents
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
-import br.zup.com.nimbus.compose.Nimbus
-import br.zup.com.nimbus.compose.NimbusNavigator
-import br.zup.com.nimbus.compose.ProvideNimbus
 
 const val JSON = """{
   "_:component": "layout:column",

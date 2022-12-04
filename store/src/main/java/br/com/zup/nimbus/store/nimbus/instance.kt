@@ -1,8 +1,8 @@
 package br.com.zup.nimbus.store.nimbus
 
 import br.com.zup.nimbus.compose.layout.layoutUI
-import br.zup.com.nimbus.compose.Nimbus
-import br.zup.com.nimbus.compose.NimbusMode
+import br.com.zup.nimbus.compose.Nimbus
+import br.com.zup.nimbus.compose.NimbusMode
 import br.com.zup.nimbus.store.BuildConfig
 
 val nimbus = Nimbus(

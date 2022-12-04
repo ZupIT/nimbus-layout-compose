@@ -16,7 +16,7 @@ import br.com.zup.nimbus.compose.layout.component.image.RemoteImage
 import br.com.zup.nimbus.compose.layout.component.screen.Screen
 import br.com.zup.nimbus.compose.layout.component.scroll.ScrollView
 import br.com.zup.nimbus.compose.layout.component.text.Text
-import br.zup.com.nimbus.compose.ui.NimbusComposeUILibrary
+import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
 
 val layoutUI = NimbusComposeUILibrary(LIBRARY_NAME)
     .addComponent(ComponentNames.COLUMN) @Composable { Column(it) }

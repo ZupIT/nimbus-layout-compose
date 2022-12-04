@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.zup.com.nimbus.compose.Nimbus
+import br.com.zup.nimbus.compose.Nimbus
 
 @Composable
 fun CartIcon() {

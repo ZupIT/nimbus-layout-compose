@@ -32,7 +32,7 @@ jobs:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd2-${{ matrix.android-version }}
+          key: avd3-${{ matrix.android-version }}
 
       - name: Setup Java version
         uses: actions/setup-java@v3

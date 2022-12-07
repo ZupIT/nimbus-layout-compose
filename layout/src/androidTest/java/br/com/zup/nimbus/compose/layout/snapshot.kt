@@ -60,15 +60,16 @@ fun ScreenTest(json: String) {
 
 fun getContext(): Context = getInstrumentation().targetContext
 
-fun ComposeContentTestRule.waitForElementWithTagToBeVisible(testTag: String) =
-    this.waitUntil {
-        this.onAllNodesWithTag(testTag).fetchSemanticsNodes().isNotEmpty()
-    }
+fun ComposeContentTestRule.waitForElementWithTagToBeVisible(testTag: String) = this.waitUntil {
+    this.onAllNodesWithTag(testTag).fetchSemanticsNodes().isNotEmpty()
+}
 
-fun ComposeContentTestRule.waitForElementWithDescriptionToBeVisible(description: String) =
-    this.waitUntil {
-        this.onAllNodesWithContentDescription(description).fetchSemanticsNodes().isNotEmpty()
-    }
+fun ComposeContentTestRule.waitForElementWithDescriptionToBeVisible(
+    description: String,
+    timeoutMillis: Long = 1_000,
+) = this.waitUntil(timeoutMillis) {
+    this.onAllNodesWithContentDescription(description).fetchSemanticsNodes().isNotEmpty()
+}
 
 private fun ComposeContentTestRule.waitForServerDrivenViewToBeVisible() =
     waitForElementWithTagToBeVisible(ROOT_NODE_ID)

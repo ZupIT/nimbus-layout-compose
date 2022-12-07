@@ -24,7 +24,7 @@ class RemoteImageTest : ScreenshotTest {
     private val scaleReplace = "@(scale)"
 
     private val waitForImage = {
-        composeTestRule.waitForElementWithDescriptionToBeVisible(contentDescriptionImage)
+        composeTestRule.waitForElementWithDescriptionToBeVisible(contentDescriptionImage, 10000)
     }
 
     @Test

@@ -8,8 +8,8 @@ import br.com.zup.nimbus.compose.NimbusNavigator
 import br.com.zup.nimbus.core.network.ViewRequest
 
 @Composable
-fun ProductsScreen() {
+fun ProductsScreen(key: String = "products") {
     Column(modifier = Modifier.fillMaxSize()) {
-        NimbusNavigator(ViewRequest("/products"))
+        NimbusNavigator(ViewRequest("/products"), viewModelKey = key)
     }
 }

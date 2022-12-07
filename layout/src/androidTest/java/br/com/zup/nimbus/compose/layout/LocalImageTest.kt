@@ -23,41 +23,51 @@ class LocalImageTest : ScreenshotTest {
 
     private val scaleReplace = "@(scale)"
 
-    private val waitSemanticMatcher = hasContentDescription(contentDescriptionImage)
+    private val waitForImage = {
+        composeTestRule.waitForElementWithDescriptionToBeVisible(contentDescriptionImage)
+    }
 
     @Test
     fun test_image_center() {
         val scale = ImageScale.Center.toString()
-        executeScreenshotTest(jsonFile = jsonFileName,
+        executeScreenshotTest(
+            jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
-        waitMatcher = waitSemanticMatcher,
-        replaceInJson = scaleReplace to scale)
+            replaceInJson = scaleReplace to scale,
+            afterScreenRendered = waitForImage,
+        )
     }
 
     @Test
     fun test_image_fill_bounds() {
         val scale = ImageScale.FillBounds.toString()
-        executeScreenshotTest(jsonFile = jsonFileName,
+        executeScreenshotTest(
+            jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
-            waitMatcher = waitSemanticMatcher,
-            replaceInJson = scaleReplace to scale)
+            replaceInJson = scaleReplace to scale,
+            afterScreenRendered = waitForImage,
+        )
     }
 
     @Test
     fun test_image_fill_height() {
         val scale = ImageScale.FillHeight.toString()
-        executeScreenshotTest(jsonFile = jsonFileName,
+        executeScreenshotTest(
+            jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
-            waitMatcher = waitSemanticMatcher,
-            replaceInJson = scaleReplace to scale)
+            replaceInJson = scaleReplace to scale,
+            afterScreenRendered = waitForImage,
+        )
     }
 
     @Test
     fun test_image_fill_width() {
         val scale = ImageScale.FillWidth.toString()
-        executeScreenshotTest(jsonFile = jsonFileName,
+        executeScreenshotTest(
+            jsonFile = jsonFileName,
             composeTestRule = composeTestRule,
-            waitMatcher = waitSemanticMatcher,
-            replaceInJson = scaleReplace to scale)
+            replaceInJson = scaleReplace to scale,
+            afterScreenRendered = waitForImage,
+        )
     }
 }

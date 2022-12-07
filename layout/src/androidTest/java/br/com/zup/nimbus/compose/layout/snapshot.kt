@@ -11,14 +11,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
-import androidx.compose.ui.test.ComposeTimeoutException
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
+import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
@@ -34,16 +31,12 @@ import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner
 
-const val LOADING_TAG = "loadingTag"
 const val ROOT_NODE_ID = "nimbus:root"
 
 private val nimbus = Nimbus(
     baseUrl = BASE_URL,
     ui = listOf(layoutUI),
     logger = ExceptionLogger(),
-    loadingView = {
-        Text("Loading...", Modifier.semantics { testTag = LOADING_TAG })
-    }
 ).run {
     // overrides the component "fragment" in the core UI to include the id as a testTag
     (composeUILibrary as NimbusComposeUILibrary).addComponent("fragment") @Composable {
@@ -65,116 +58,37 @@ fun ScreenTest(json: String) {
     }
 }
 
-private const val WAIT_UNTIL_TIMEOUT = 60_000L
-private const val WAIT_TIME_IN_MILLIS = 10L
-private const val ADVANCE_TIME_IN_MILLIS = 35L
-private const val LOADING_TIMEOUT_MILLIS = 500L
-
-fun ComposeContentTestRule.waitUntilNodeCount(
-    matcher: SemanticsMatcher,
-    count: Int,
-    timeoutMillis: Long = WAIT_UNTIL_TIMEOUT,
-    advanceTime: Long = ADVANCE_TIME_IN_MILLIS,
-    waitTime: Long = WAIT_TIME_IN_MILLIS,
-) : SemanticsNode {
-    var semanticsNode: SemanticsNode? = null
-    waitUntilCompat(timeoutMillis, advanceTime, waitTime) {
-        val semanticsNodes = onAllNodes(matcher).fetchSemanticsNodes()
-        val nodeFound = semanticsNodes.size == count
-        if (nodeFound) {
-            semanticsNode = semanticsNodes.firstOrNull()
-        }
-        nodeFound
-    }
-    return semanticsNode!!
-}
-
-fun ComposeContentTestRule.waitUntilCompat(
-    timeoutMillis: Long = WAIT_UNTIL_TIMEOUT,
-    advanceTime: Long = ADVANCE_TIME_IN_MILLIS,
-    waitTime: Long = WAIT_TIME_IN_MILLIS,
-    condition: () -> Boolean,
-) {
-    val startTime = System.nanoTime()
-    while (!condition()) {
-        mainClock.advanceTimeBy(advanceTime)
-        // Let Android run measure, draw and in general any other async operations.
-        Thread.sleep(waitTime)
-        if (System.nanoTime() - startTime > timeoutMillis * 1_000_000) {
-            throw ComposeTimeoutException(
-                "Condition still not satisfied after $timeoutMillis ms"
-            )
-        }
-    }
-}
-
-/**
- * Returns the node when found
- */
-fun ComposeContentTestRule.waitUntilExists(
-    matcher: SemanticsMatcher,
-    timeoutMillis: Long = WAIT_UNTIL_TIMEOUT,
-) = waitUntilNodeCount(matcher, 1, timeoutMillis)
-
-fun ComposeContentTestRule.waitUntilDoesNotExist(
-    matcher: SemanticsMatcher,
-    timeoutMillis: Long = WAIT_UNTIL_TIMEOUT,
-) = waitUntilNodeCount(matcher, 0, timeoutMillis)
-
 fun getContext(): Context = getInstrumentation().targetContext
 
+fun ComposeContentTestRule.waitForElementWithTagToBeVisible(testTag: String) =
+    this.waitUntil {
+        this.onAllNodesWithTag(testTag).fetchSemanticsNodes().isNotEmpty()
+    }
+
+fun ComposeContentTestRule.waitForElementWithDescriptionToBeVisible(description: String) =
+    this.waitUntil {
+        this.onAllNodesWithContentDescription(description).fetchSemanticsNodes().isNotEmpty()
+    }
+
+private fun ComposeContentTestRule.waitForServerDrivenViewToBeVisible() =
+    waitForElementWithTagToBeVisible(ROOT_NODE_ID)
+
 fun ScreenshotTest.executeScreenshotTest(
     jsonFile: String,
     composeTestRule: ComposeContentTestRule,
-    useActivityScreenshot: Boolean = true,
     replaceInJson: Pair<String, String>? = null,
-    waitMatcher: SemanticsMatcher? = null,
+    afterScreenRendered: () -> Unit = {},
 ) {
-    executeScreenshotTest(
-        jsonFile = jsonFile,
-        composeTestRule = composeTestRule,
-        useActivityScreenshot = useActivityScreenshot,
-        replaceInJson = replaceInJson?.let { listOf(it) } ?: emptyList(),
-        waitMatcher = waitMatcher?.let { arrayOf(it) } ?: emptyArray()
+    val json = replaceJson(
+        getJson(jsonFile),
+        replaceInJson?.let { listOf(it) } ?: emptyList(),
     )
-}
-
-fun ScreenshotTest.executeScreenshotTest(
-    jsonFile: String,
-    composeTestRule: ComposeContentTestRule,
-    useActivityScreenshot: Boolean = true,
-    replaceInJson: List<Pair<String, String>> = emptyList(),
-    vararg waitMatcher: SemanticsMatcher = emptyArray(),
-) {
-    val json = replaceJson(getJson(jsonFile), replaceInJson)
-
-    composeTestRule.mainClock.autoAdvance = false
     composeTestRule.setContent {
         ScreenTest(json ?: throw IllegalArgumentException("Json file can't be null."))
     }
-
-    waitFor(composeTestRule = composeTestRule, waitMatcher = waitMatcher)
-    composeTestRule.mainClock.autoAdvance = true
-    if (useActivityScreenshot) {
-        getCurrentActivity()?.let {
-            compareScreenshot(it)
-        }
-    } else {
-        compareScreenshot(composeTestRule)
-    }
-}
-
-fun SemanticsNode.isNotInWindow(): Boolean = this.positionInWindow == Offset.Zero
-fun SemanticsNode.isInWindow(): Boolean = this.isNotInWindow().not()
-
-private fun waitFor(
-    composeTestRule: ComposeContentTestRule,
-    vararg waitMatcher: SemanticsMatcher = emptyArray(),
-) {
-    composeTestRule.waitUntilExists(hasTestTag(ROOT_NODE_ID), LOADING_TIMEOUT_MILLIS)
-    waitMatcher.forEach {
-        composeTestRule.waitUntilExists(it)
-    }
+    composeTestRule.waitForServerDrivenViewToBeVisible()
+    afterScreenRendered()
+    getCurrentActivity()?.let { compareScreenshot(it) }
 }
 
 private fun replaceJson(json: String?, replaceInJson: List<Pair<String, String>>): String? {
@@ -208,7 +122,7 @@ fun Context.readImageAsBytes(@DrawableRes res: Int): ByteArray {
     return resources.openRawResource(res).readBytes()
 }
 
-fun ScreenshotTest.getJson(jsonFile: String): String? {
+fun getJson(jsonFile: String): String? {
     return getContext().readRawResource(
         getIdentifierResourceByName(getContext().resources,
             "raw/$jsonFile"))

@@ -5,8 +5,10 @@ import android.content.Context
 import android.content.res.Resources
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -26,20 +28,31 @@ import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 import br.com.zup.nimbus.compose.Nimbus
 import br.com.zup.nimbus.compose.NimbusNavigator
 import br.com.zup.nimbus.compose.ProvideNimbus
+import br.com.zup.nimbus.compose.ui.NimbusComposeUILibrary
+import br.com.zup.nimbus.compose.ui.composeUILibrary
 import com.karumi.shot.ScreenshotTest
 import java.io.InputStream
 import java.util.Scanner
 
 const val LOADING_TAG = "loadingTag"
+const val ROOT_NODE_ID = "nimbus:root"
 
 private val nimbus = Nimbus(
     baseUrl = BASE_URL,
     ui = listOf(layoutUI),
     logger = ExceptionLogger(),
     loadingView = {
-        androidx.compose.material.Text("Loading...", Modifier.semantics { testTag = LOADING_TAG })
+        Text("Loading...", Modifier.semantics { testTag = LOADING_TAG })
     }
-)
+).run {
+    // overrides the component "fragment" in the core UI to include the id as a testTag
+    (composeUILibrary as NimbusComposeUILibrary).addComponent("fragment") @Composable {
+        Column(Modifier.semantics { testTag = it.node.id }) {
+            it.children()
+        }
+    }
+    this
+}
 
 @Composable
 fun ScreenTest(json: String) {
@@ -133,7 +146,6 @@ fun ScreenshotTest.executeScreenshotTest(
     replaceInJson: List<Pair<String, String>> = emptyList(),
     vararg waitMatcher: SemanticsMatcher = emptyArray(),
 ) {
-
     val json = replaceJson(getJson(jsonFile), replaceInJson)
 
     composeTestRule.mainClock.autoAdvance = false
@@ -159,18 +171,7 @@ private fun waitFor(
     composeTestRule: ComposeContentTestRule,
     vararg waitMatcher: SemanticsMatcher = emptyArray(),
 ) {
-    /* Sometimes the state is updated too fast and the loading can't be seen, so we need a timeout
-    here. If the timeout is reached, then we keep going with our test. A better solution would be to
-    wait for a server driven content to appear, but we'd need to correctly tag it in the Nimbus
-    Compose lib. An even better solution would be to have the ServerDrivenNode's id as something
-    searchable within the test. */
-    try {
-        val loadingNode = composeTestRule
-            .waitUntilExists(hasTestTag(LOADING_TAG), LOADING_TIMEOUT_MILLIS)
-        composeTestRule.waitUntilCompat {
-            loadingNode.isNotInWindow()
-        }
-    } catch (e: ComposeTimeoutException) {}
+    composeTestRule.waitUntilExists(hasTestTag(ROOT_NODE_ID), LOADING_TIMEOUT_MILLIS)
     waitMatcher.forEach {
         composeTestRule.waitUntilExists(it)
     }

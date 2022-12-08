@@ -14,10 +14,10 @@ import br.com.zup.nimbus.store.screen.ProductsScreen
 fun NavigationGraph(navController: NavHostController) {
     NavHost(navController, startDestination = BottomNavItem.Products.screenRoute) {
         composable(BottomNavItem.Products.screenRoute) {
-            ProductsScreen()
+            ProductsScreen("products${navController}")
         }
         composable(BottomNavItem.Cart.screenRoute) {
-            CartScreen()
+            CartScreen("cart${navController}")
         }
         composable(BottomNavItem.Orders.screenRoute) {
             OrdersScreen()

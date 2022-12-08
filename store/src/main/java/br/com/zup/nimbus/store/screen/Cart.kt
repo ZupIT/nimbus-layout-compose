@@ -8,9 +8,10 @@ import br.com.zup.nimbus.core.network.ViewRequest
 import br.com.zup.nimbus.compose.NimbusNavigator
 
 @Composable
-fun CartScreen() {
+fun CartScreen(key: String = "cart") {
+
     Column(modifier = Modifier.fillMaxSize()) {
-        NimbusNavigator(ViewRequest("/cart"))
+        NimbusNavigator(ViewRequest("/cart"), viewModelKey = key)
         //NimbusNavigator(json = SCROLL_VIEW_TEST)
     }
 }

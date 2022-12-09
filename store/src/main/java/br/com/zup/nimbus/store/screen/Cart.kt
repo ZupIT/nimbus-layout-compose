@@ -9,9 +9,7 @@ import br.com.zup.nimbus.compose.NimbusNavigator
 
 @Composable
 fun CartScreen(key: String = "cart") {
-
     Column(modifier = Modifier.fillMaxSize()) {
         NimbusNavigator(ViewRequest("/cart"), viewModelKey = key)
-        //NimbusNavigator(json = SCROLL_VIEW_TEST)
     }
 }

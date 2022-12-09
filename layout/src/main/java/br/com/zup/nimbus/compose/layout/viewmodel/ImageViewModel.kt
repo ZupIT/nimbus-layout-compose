@@ -31,26 +31,21 @@ internal class ImageViewModel(val imageProvider: ImageProvider) : ViewModel() {
         }
     }
 
-    fun fetchRemoteImage(url: String, onResult: (ImageViewModelState) -> Unit) =
-        viewModelScope.launch(Dispatchers.IO) {
-            imageProvider.fetchRemote(
-                url,
-                onFetch = {
-                    onResult(ImageViewModelState.BitmapImage(bitmap = it))
-                },
-                onError = {
-                    onResult(ImageViewModelState.Error(throwable = it))
-                })
+    suspend fun fetchRemoteImage(url: String): ImageViewModelState =
+        try {
+            val bitmap = imageProvider.fetchRemote(url)
+            ImageViewModelState.BitmapImage(bitmap)
+        } catch (throwable: Throwable) {
+            ImageViewModelState.Error(throwable)
         }
 
-    fun fetchLocalImage(id: String, isPlaceholder: Boolean = false, onResult: (ImageViewModelState) -> Unit) {
+    fun fetchLocalImage(id: String, isPlaceholder: Boolean = false) =
         try {
             val resourceId = imageProvider.fetchLocal(id)
             resourceId?.let {
-                onResult(ImageViewModelState.ImageResource(id = it, isPlaceholder = isPlaceholder))
+                ImageViewModelState.ImageResource(id = it, isPlaceholder = isPlaceholder)
             }
         } catch (e: Throwable) {
-            onResult(ImageViewModelState.Error(throwable = e))
+            ImageViewModelState.Error(throwable = e)
         }
     }
-}

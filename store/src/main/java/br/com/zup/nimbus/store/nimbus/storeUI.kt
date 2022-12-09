@@ -12,4 +12,3 @@ val storeUI = NimbusComposeUILibrary("store")
     .addComponent("spinner") @Composable { CircularProgressIndicator() }
     .addOperation("formatPrice") { formatPrice(it) }
     .addOperation("sumProducts") { sumProducts(it) }
-    .addAction("changeBottomNavigatorRoute") { BottomTabNavigation.changeTab(it) }

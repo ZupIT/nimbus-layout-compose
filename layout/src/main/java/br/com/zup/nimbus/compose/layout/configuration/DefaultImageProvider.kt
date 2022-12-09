@@ -10,28 +10,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-internal class DefaultImageProvider(
+open class DefaultImageProvider(
     private val httpClient: HttpClient = DefaultHttpClient(),
-    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO),
 ): ImageProvider {
-
-    override fun fetchRemote(url: String, onFetch: (Bitmap) -> Unit, onError: (Throwable) -> Unit) {
-        coroutineScope.launch {
-            try {
-                val response = httpClient.sendRequest(ServerDrivenRequest(
-                    url = url,
-                    method = ServerDrivenHttpMethod.Get,
-                    headers = null, body = null))
-                response.let {
-                    val bitmap = BitmapFactory.decodeByteArray(
-                        it.bodyBytes,
-                        0,
-                        it.bodyBytes.size)
-                    onFetch(bitmap)
-                }
-            } catch (e: Throwable) {
-                onError(e)
-            }
+    override suspend fun fetchRemote(url: String): Bitmap {
+        val response = httpClient.sendRequest(ServerDrivenRequest(
+            url = url,
+            method = ServerDrivenHttpMethod.Get,
+            headers = null, body = null))
+        return response.let {
+            BitmapFactory.decodeByteArray(
+                it.bodyBytes,
+                0,
+                it.bodyBytes.size)
         }
     }
 

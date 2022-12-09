@@ -20,7 +20,7 @@ fun NavigationGraph(navController: NavHostController) {
             CartScreen("cart${navController}")
         }
         composable(BottomNavItem.Orders.screenRoute) {
-            OrdersScreen()
+            OrdersScreen("orders${navController}")
         }
         composable(BottomNavItem.Exit.screenRoute) {
             ExitScreen()

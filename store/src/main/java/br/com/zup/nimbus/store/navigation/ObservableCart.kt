@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import br.com.zup.nimbus.compose.Nimbus
 import br.com.zup.nimbus.core.ServerDrivenState
 import br.com.zup.nimbus.core.dependency.Dependent
+import br.com.zup.nimbus.core.deserialization.AnyServerDrivenData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -27,14 +28,10 @@ class ObservableCart(nimbus: Nimbus, private val scope: CoroutineScope): Depende
     }
 
     override fun update() {
-        val global = global?.get()
-        if (global is Map<*, *>) {
-            val cart = global["cart"]
-            if (cart is List<*>) {
-                scope.launch {
-                    flow.emit(cart.size)
-                }
-            }
+        val products = AnyServerDrivenData(global?.get()).get("cart").get("products").asList()
+        val count = products.sumOf { it.get("quantity").asInt()  }
+        scope.launch {
+            flow.emit(count)
         }
     }
 }

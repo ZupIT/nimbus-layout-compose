@@ -8,7 +8,6 @@ import androidx.annotation.RawRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
@@ -51,7 +50,7 @@ private val nimbus = Nimbus(
 fun ScreenTest(json: String) {
     AppTheme {
         Surface(color = MaterialTheme.colors.background) {
-            ProvideNimbus(nimbus.imageProvider(DefaultImageProvider())) {
+            ProvideNimbus(nimbus.imageProvider(TestImageProvider())) {
                 NimbusNavigator(json = json)
             }
         }

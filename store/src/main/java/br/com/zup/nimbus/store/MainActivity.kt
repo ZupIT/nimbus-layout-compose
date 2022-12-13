@@ -10,13 +10,18 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import br.com.zup.nimbus.compose.ProvideNimbus
+import br.com.zup.nimbus.compose.layout.extensions.imageProvider
+import br.com.zup.nimbus.core.deserialization.AnyServerDrivenData
 import br.com.zup.nimbus.store.navigation.BottomNavigator
 import br.com.zup.nimbus.store.navigation.NavigationGraph
-import br.com.zup.nimbus.store.nimbus.BottomTabNavigation
+import br.com.zup.nimbus.store.navigation.navigate
+import br.com.zup.nimbus.store.nimbus.CachedImageProvider
 import br.com.zup.nimbus.store.nimbus.nimbus
+import br.com.zup.nimbus.store.nimbus.storeUI
 import br.com.zup.nimbus.store.ui.theme.NimbusStoreTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    ProvideNimbus(nimbus) {
+                    ProvideNimbus(nimbus.imageProvider(CachedImageProvider())) {
                         MainContent()
                     }
                 }
@@ -42,7 +47,12 @@ class MainActivity : ComponentActivity() {
 fun MainContent() {
     val navController = rememberNavController()
 
-    BottomTabNavigation.SideEffect()
+    LaunchedEffect(navController) {
+        storeUI.addAction("changeBottomNavigatorRoute") {
+            val route = AnyServerDrivenData(it.action.properties).get("route").asStringOrNull()
+            route?.let { navigate(navController, route) }
+        }
+    }
 
     Scaffold(
         bottomBar = { BottomNavigator(navController = navController) }

@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun ExitScreen() {
-    Column(modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .wrapContentSize(Alignment.Center)) {
         Text("Exit")
     }
 }

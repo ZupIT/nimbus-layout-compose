@@ -11,7 +11,6 @@ import br.com.zup.nimbus.compose.layout.component.NimbusSoftwareLayer
 import br.com.zup.nimbus.compose.layout.style.model.Box
 import br.com.zup.nimbus.compose.layout.style.modifier.boxStyle
 import br.com.zup.nimbus.compose.deserialization.DeserializationContext
-import br.com.zup.nimbus.compose.layout.style.model.Padding
 
 @Composable
 @AutoDeserialize

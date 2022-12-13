@@ -8,4 +8,8 @@ internal data class Margin(
     val marginBottom: Double?,
     val marginHorizontal: Double?,
     val marginVertical: Double?,
-)
+) {
+    companion object {
+        val empty = Margin(null, null, null, null, null, null, null)
+    }
+}

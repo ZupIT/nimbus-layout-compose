@@ -1,5 +1,6 @@
 package br.com.zup.nimbus.store.screen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
@@ -12,7 +13,11 @@ import br.com.zup.nimbus.core.network.ViewRequest
 
 @Composable
 fun OrdersScreen(key: String = "orders") {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         NimbusNavigator(ViewRequest("/orders"), viewModelKey = key)
     }
 }

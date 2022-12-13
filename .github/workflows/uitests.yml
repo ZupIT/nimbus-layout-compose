@@ -18,21 +18,21 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Gradle cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
-      - name: AVD cache
-        uses: actions/cache@v2
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd4-${{ matrix.android-version }}
+#      - name: Gradle cache
+#        uses: actions/cache@v2
+#        with:
+#          path: |
+#            ~/.gradle/caches
+#            ~/.gradle/wrapper
+#          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+#      - name: AVD cache
+#        uses: actions/cache@v2
+#        id: avd-cache
+#        with:
+#          path: |
+#            ~/.android/avd/*
+#            ~/.android/adb*
+#          key: avd5-${{ matrix.android-version }}
 
       - name: Setup Java version
         uses: actions/setup-java@v3

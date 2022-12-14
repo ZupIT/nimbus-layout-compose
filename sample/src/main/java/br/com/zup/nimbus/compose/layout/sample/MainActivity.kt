@@ -144,7 +144,7 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    ProvideNimbus(nimbus.imageProvider(DefaultImageProvider())) {
+                    ProvideNimbus(nimbus.imageProvider(LocalImageProvider())) {
                         NimbusNavigator(JSON_LAZY)
                     }
                 }

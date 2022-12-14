@@ -39,7 +39,7 @@ sealed class BottomNavItem(
         "cart",
     )
     object Orders: BottomNavItem(
-        "My Orders",
+        "Orders",
         { Icon(Icons.Rounded.AccountBox, contentDescription = "orders") },
         "orders",
     )

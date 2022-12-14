@@ -17,8 +17,8 @@
 package br.com.zup.nimbus.compose.layout
 
 import android.graphics.Color
+import android.util.Log
 
-internal const val COLOR_BLACK = "#000000"
 internal const val COLOR_WHITE = "#FFFFFF"
 
 internal const val RGB_LENGTH = 4
@@ -26,10 +26,15 @@ internal const val RGBA_LENGTH = 9
 internal object ColorUtils {
 
     fun hexColor(hexColor: String): Int {
-        return when (hexColor.length) {
-            RGB_LENGTH -> Color.parseColor(formatHexRGBColor(hexColor))
-            RGBA_LENGTH -> Color.parseColor(formatHexColorAlpha(hexColor))
-            else -> Color.parseColor(formatHexRGBAColor(hexColor))
+        return try {
+            when (hexColor.length) {
+                RGB_LENGTH -> Color.parseColor(formatHexRGBColor(hexColor))
+                RGBA_LENGTH -> Color.parseColor(formatHexColorAlpha(hexColor))
+                else -> Color.parseColor(formatHexRGBAColor(hexColor))
+            }
+        } catch (e: IllegalArgumentException) {
+            Log.d("Color", "$hexColor is not a valid color. Using black instead.")
+            Color.BLACK
         }
     }
 

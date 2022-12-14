@@ -47,4 +47,8 @@ open class Size (
     val maxWidth: Double?,
     val maxHeight: Double?,
     val clipped: Boolean?,
-)
+) {
+    companion object {
+        val empty = Size(null, null, DirectionScope.Column, null, null, null, null, null)
+    }
+}

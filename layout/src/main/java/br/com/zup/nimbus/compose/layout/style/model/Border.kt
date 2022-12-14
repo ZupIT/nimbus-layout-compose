@@ -22,4 +22,8 @@ internal data class Border(
     val borderDashSpacing: Double?, // default: 0
     val cornerRadius: Double?, // default: 0
     val borderColor: String?, // default: black
-)
+) {
+    companion object {
+        val empty = Border(null, null, null, null, null)
+    }
+}

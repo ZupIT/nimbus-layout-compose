@@ -17,6 +17,7 @@
 package br.com.zup.nimbus.compose.layout.component.image
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,25 +47,24 @@ internal fun Image(
     var viewModelState: ImageViewModelState by remember {
         mutableStateOf(ImageViewModelState.Nothing)
     }
-    val contentScale = scale?.toContentScale()
 
-    if (isLocal && viewModelState == ImageViewModelState.Nothing) {
-       viewModel.fetchLocalImage(id ?: "") { viewModelState = it }
-    } else if (viewModelState == ImageViewModelState.Nothing) {
-        placeholder?.let { placeholderId ->
-            viewModel.fetchLocalImage(placeholderId, isPlaceholder = true) {
-                viewModelState = it
+    LaunchedEffect(url) {
+        if (isLocal) {
+           viewModel.fetchLocalImage(id ?: "")?.let { viewModelState = it }
+        } else {
+            placeholder?.let { placeholderId ->
+                viewModel.fetchLocalImage(placeholderId, isPlaceholder = true)?.let {
+                    viewModelState = it
+                }
             }
-        }
-        viewModel.fetchRemoteImage(url ?: "") {
-            viewModelState = it
+            viewModelState = viewModel.fetchRemoteImage(url ?: "")
         }
     }
 
     ImageRenderer(
         viewModelState = viewModelState,
         style = style,
-        contentScale = contentScale,
+        contentScale = scale?.toContentScale(),
         accessibility = accessibility,
     )
 }

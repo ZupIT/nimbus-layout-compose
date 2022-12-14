@@ -67,6 +67,8 @@ internal fun ImageRenderer(
                 contentScale = contentScale ?: ContentScale.Inside
             )
         }
-        is ImageViewModelState.Nothing -> {}
+        is ImageViewModelState.Nothing -> {
+            Box(modifier = modifier)
+        }
     }
 }

@@ -20,8 +20,7 @@ import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
 
 interface ImageProvider {
-
-    fun fetchRemote(url: String, onFetch: (Bitmap) -> Unit, onError: (Throwable) -> Unit)
+    suspend fun fetchRemote(url: String): Bitmap
 
     @DrawableRes
     fun fetchLocal(id: String): Int?

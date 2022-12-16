@@ -27,4 +27,4 @@ Nimbus Compose Layout is currently in beta.
 3. Run tests: ```./gradlew executeScreenshotTests ```
 
 ## **License**
-[**Apache License 2.0**](https://github.com/ZupIT/nimbus-compose/blob/main/LICENSE.txt).
+[**Apache License 2.0**](https://github.com/ZupIT/nimbus-layout-compose/blob/main/LICENSE.txt).

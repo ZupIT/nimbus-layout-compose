@@ -28,6 +28,7 @@ internal object ComponentNames {
     const val LAZY_COLUMN = "lazyColumn"
     const val POSITIONED = "positioned"
     const val STACK = "stack"
+    const val STICKY_HEADER = "stickyHeader"
     const val REMOTE_IMAGE = "remoteImage"
     const val LOCAL_IMAGE = "localImage"
     const val SCROLL_VIEW = "scrollView"

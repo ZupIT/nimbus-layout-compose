@@ -27,6 +27,7 @@ import br.com.zup.nimbus.compose.layout.component.container.Column
 import br.com.zup.nimbus.compose.layout.component.container.LazyColumn
 import br.com.zup.nimbus.compose.layout.component.container.LazyRow
 import br.com.zup.nimbus.compose.layout.component.container.Row
+import br.com.zup.nimbus.compose.layout.component.container.StickyHeader
 import br.com.zup.nimbus.compose.layout.component.image.LocalImage
 import br.com.zup.nimbus.compose.layout.component.image.RemoteImage
 import br.com.zup.nimbus.compose.layout.component.screen.Screen
@@ -46,6 +47,7 @@ val layoutUI = NimbusComposeUILibrary(LIBRARY_NAME)
     .addComponent(ComponentNames.SCREEN) @Composable { Screen(it) }
     .addComponent(ComponentNames.SCROLL_VIEW) @Composable { ScrollView(it) }
     .addComponent(ComponentNames.STACK) @Composable { Stack(it) }
+    .addComponent(ComponentNames.STICKY_HEADER) @Composable { StickyHeader(it) }
     .addComponent(ComponentNames.TEXT) @Composable { Text(it) }
     .addComponent(ComponentNames.TOUCHABLE) @Composable { Touchable(it) }
     .addComponent(ComponentNames.LAZY_ROW) @Composable { LazyRow(it) }

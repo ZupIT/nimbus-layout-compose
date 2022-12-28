@@ -30,6 +30,296 @@ import br.com.zup.nimbus.compose.layout.sample.components.CustomError
 import br.com.zup.nimbus.compose.layout.sample.components.materialComponents
 import br.com.zup.nimbus.compose.layout.sample.theme.AppTheme
 
+const val STICKY_HEADER_JSON = """
+    {
+  "_:component": "layout:lazyColumn",
+  "children": [
+    
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo 1"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:stickyHeader",
+      "children": [
+        {
+          "_:component": "layout:text",
+          "properties": {
+            "size": 15,
+            "text": "H"
+          }
+        }
+      ]
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:stickyHeader",
+      "children": [
+        {
+          "_:component": "layout:text",
+          "properties": {
+            "size": 15,
+            "text": "J"
+          }
+        }
+      ]
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    },
+    {
+      "_:component": "layout:text",
+      "properties": {
+        "size": 15,
+        "text": "Hernand Azevedo"
+      }
+    }
+  ],
+  "properties": {
+    "height": 400.0,
+    "width": 400.0,
+    "backgroundColor": "#CCCCCCFF"
+  }
+}
+"""
+
 const val JSON = """{
   "_:component": "layout:column",
   "children": [
@@ -145,7 +435,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     ProvideNimbus(nimbus.imageProvider(LocalImageProvider())) {
-                        NimbusNavigator(JSON_LAZY)
+                        NimbusNavigator(STICKY_HEADER_JSON)
                     }
                 }
             }

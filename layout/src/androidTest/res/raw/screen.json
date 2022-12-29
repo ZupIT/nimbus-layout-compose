@@ -55,6 +55,7 @@
   "properties": {
     "title": "Nimbus screen title",
     "ignoreSafeArea": [],
+    "safeAreaTopBackground": "#3700B3",
     "showBackButton": false
   }
 }

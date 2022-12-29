@@ -55,6 +55,7 @@
   "properties": {
     "title": "Screen ignoreSafeArea top",
     "ignoreSafeArea": ["top"],
+    "safeAreaTopBackground": "#3700B3",
     "showBackButton": false
   }
 }

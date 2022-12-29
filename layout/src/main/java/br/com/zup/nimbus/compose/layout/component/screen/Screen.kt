@@ -16,12 +16,12 @@
 
 package br.com.zup.nimbus.compose.layout.component.screen
 
-import android.app.Activity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -33,45 +33,48 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.view.WindowCompat
-import br.com.zup.nimbus.compose.layout.extensions.isTrue
-import br.com.zup.nimbus.compose.internal.NimbusNavHostHelper
-import com.google.accompanist.insets.ui.Scaffold
-import com.google.accompanist.insets.ui.TopAppBar
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import androidx.compose.ui.unit.dp
 import br.com.zup.nimbus.annotation.AutoDeserialize
 import br.com.zup.nimbus.annotation.Ignore
 import br.com.zup.nimbus.compose.Nimbus
+import br.com.zup.nimbus.compose.internal.NimbusNavHostHelper
+import br.com.zup.nimbus.compose.layout.extensions.color
+import br.com.zup.nimbus.compose.layout.extensions.isTrue
+import com.google.accompanist.insets.ui.Scaffold
+import com.google.accompanist.insets.ui.TopAppBar
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 @AutoDeserialize
 internal fun Screen(
     ignoreSafeArea: List<SafeAreaEdges>? = null,
-    title: String?,
-    showBackButton: Boolean?,
+    title: String? = null,
+    safeAreaTopBackground: String? = null,
+    showBackButton: Boolean? = true,
     @Ignore navHostHelper: NimbusNavHostHelper = Nimbus.navigatorInstance.navHostHelper,
     content: @Composable () -> Unit,
 ) {
-    // The following line has been commented because it doesn't work unless the server driven view
-    // is the only thing in the screen.
-    // ConfigureSafeArea()
+     ConfigureSafeArea(safeAreaTopBackground)
 
+    val canShowBackButton = !navHostHelper.isFirstScreen() && showBackButton.isTrue()
+    val canShowTitle = title != null
     Scaffold(
         topBar = {
             // We use TopAppBar from accompanist-insets-ui which allows us to provide
             // content padding matching the system bars insets.
             TopAppBar(
-                title = { Text(title ?: "") },
+                title = { if (canShowTitle) Text(title ?: "") },
                 backgroundColor = MaterialTheme.colors.surface.copy(alpha = 0.9f),
                 navigationIcon = shouldShowNavigationIcon(
-                    showBackButton = !navHostHelper.isFirstScreen() &&
-                            showBackButton.isTrue()
+                    showBackButton = canShowBackButton
                 ) { navHostHelper.pop() },
                 contentPadding = WindowInsets.statusBars
                     .ignoreSafeArea(edgesToIgnore = ignoreSafeArea ?: emptyList())
                     .asPaddingValues(),
-                modifier = Modifier.fillMaxWidth()
+                modifier = if (canShowTitle || canShowBackButton)
+                    Modifier.fillMaxWidth()
+                else
+                    Modifier.size(0.dp)
             )
         }
     ) { contentPadding ->
@@ -104,17 +107,20 @@ internal fun NavigationIcon(onClick: () -> Unit = {}) {
 }
 
 @Composable
-internal fun ConfigureSafeArea() {
+internal fun ConfigureSafeArea(safeAreaTopBackground: String?) {
     // Turn off the decor fitting system windows, which means we need to through handling
     // insets
+// FIXME The following line has been commented because it doesn't work unless the server driven view
+// is the only thing in the screen.
+//    val activity = LocalContext.current as Activity
+//    WindowCompat.setDecorFitsSystemWindows(activity.window, false)
 
-    val activity = LocalContext.current as Activity
-    WindowCompat.setDecorFitsSystemWindows(activity.window, false)
-
-    // Update the system bars to be translucent
     val systemUiController = rememberSystemUiController()
     val useDarkIcons = MaterialTheme.colors.isLight
+    val statusBarBg = safeAreaTopBackground?.color ?: Color.Transparent
     SideEffect {
-        systemUiController.setSystemBarsColor(Color.Transparent, darkIcons = useDarkIcons)
+        //TODO set navigationBar color
+//        systemUiController.setNavigationBarColor(backgroundColor, darkIcons = useDarkIcons)
+        systemUiController.setStatusBarColor(statusBarBg, darkIcons = useDarkIcons)
     }
 }

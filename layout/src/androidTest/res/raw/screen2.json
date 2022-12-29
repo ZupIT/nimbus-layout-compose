@@ -55,6 +55,7 @@
   "properties": {
     "title": "Screen ignore all SafeArea edges",
     "ignoreSafeArea": ["top", "bottom", "trailing" , "leading"],
+    "safeAreaTopBackground": "#3700B3",
     "showBackButton": false
   }
 }

@@ -35,12 +35,12 @@ internal fun Text(
     text: String?,
     size: Double?,
     weight: TextWeight?,
-    color: String?,
+    color: Color?,
     alignment: TextAlignment?,
 ) {
     Text(
         text = text ?: "",
-        color = color?.color ?: Color.Black,
+        color = color ?: Color.Black,
         fontSize = TextUnit((size?.toLong() ?: DEFAULT_TEXT_SIZE).toFloat(), TextUnitType.Sp),
         fontWeight = (weight ?: TextWeight.Normal).toFontWeight(),
         textAlign = when (alignment) {

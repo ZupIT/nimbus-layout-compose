@@ -16,6 +16,7 @@
 
 package br.com.zup.nimbus.compose.layout.style.model
 
+import androidx.compose.ui.graphics.Color
 import br.com.zup.nimbus.annotation.Root
 
 internal open class Box(
@@ -23,7 +24,7 @@ internal open class Box(
     @Root val padding: Padding,
     @Root val border: Border,
     @Root val size: Size,
-    val backgroundColor: String?,
+    val backgroundColor: Color?,
     val shadow: List<Shadow>?,
 ) {
     fun shouldDisableHardwareAcceleration(): Boolean {

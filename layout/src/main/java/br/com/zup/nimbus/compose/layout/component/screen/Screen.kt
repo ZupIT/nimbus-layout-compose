@@ -49,7 +49,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 internal fun Screen(
     ignoreSafeArea: List<SafeAreaEdges>? = null,
     title: String? = null,
-    safeAreaTopBackground: String? = null,
+    safeAreaTopBackground: Color? = null,
     showBackButton: Boolean? = true,
     @Ignore navHostHelper: NimbusNavHostHelper = Nimbus.navigatorInstance.navHostHelper,
     content: @Composable () -> Unit,
@@ -107,7 +107,7 @@ internal fun NavigationIcon(onClick: () -> Unit = {}) {
 }
 
 @Composable
-internal fun ConfigureSafeArea(safeAreaTopBackground: String?) {
+internal fun ConfigureSafeArea(safeAreaTopBackground: Color?) {
     // Turn off the decor fitting system windows, which means we need to through handling
     // insets
 // FIXME The following line has been commented because it doesn't work unless the server driven view
@@ -117,7 +117,7 @@ internal fun ConfigureSafeArea(safeAreaTopBackground: String?) {
 
     val systemUiController = rememberSystemUiController()
     val useDarkIcons = MaterialTheme.colors.isLight
-    val statusBarBg = safeAreaTopBackground?.color ?: Color.Transparent
+    val statusBarBg = safeAreaTopBackground ?: Color.Transparent
     SideEffect {
         //TODO set navigationBar color
 //        systemUiController.setNavigationBarColor(backgroundColor, darkIcons = useDarkIcons)

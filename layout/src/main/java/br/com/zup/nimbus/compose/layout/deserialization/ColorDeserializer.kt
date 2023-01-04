@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package br.com.zup.nimbus.compose.layout.style.modifier
+package br.com.zup.nimbus.compose.layout.deserialization
 
-import androidx.compose.foundation.background
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import br.com.zup.nimbus.core.deserialization.AnyServerDrivenData
+import br.com.zup.nimbus.annotation.Deserializer
 import br.com.zup.nimbus.compose.layout.extensions.color
 
-internal fun Modifier.background(color: Color?): Modifier {
-    return color?.let { this.background(it) } ?: this
-}
+@Deserializer
+fun deserializeColor(data: AnyServerDrivenData) = data.asStringOrNull()?.color

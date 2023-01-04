@@ -31,7 +31,7 @@ import br.com.zup.nimbus.compose.layout.style.model.Shadow
 import androidx.compose.foundation.background
 import br.com.zup.nimbus.compose.layout.style.model.Box
 
-internal fun Modifier.applyBackgroundForShadow(shadows: List<Shadow>, backgroundColor: String?): Modifier {
+internal fun Modifier.applyBackgroundForShadow(shadows: List<Shadow>, backgroundColor: Color?): Modifier {
     return if (shadows.isNotEmpty() && backgroundColor == null) this.background(COLOR_WHITE.color)
     else this
 }
@@ -63,7 +63,7 @@ internal fun Modifier.shadowStyle(style: Box): Modifier {
             }
 
             shadow.color?.let {
-                color = it.color
+                color = it
             }
 
             current = current.coloredShadow(

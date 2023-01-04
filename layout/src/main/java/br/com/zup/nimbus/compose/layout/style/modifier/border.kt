@@ -54,7 +54,7 @@ internal fun Modifier.borderStyle(style: Border): Modifier {
     }
 
     style.borderColor?.let {
-        color = it.color
+        color = it
     }
 
     return this.border(

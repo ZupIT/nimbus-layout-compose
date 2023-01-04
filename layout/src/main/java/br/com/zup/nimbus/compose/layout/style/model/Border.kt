@@ -16,12 +16,14 @@
 
 package br.com.zup.nimbus.compose.layout.style.model
 
+import androidx.compose.ui.graphics.Color
+
 internal data class Border(
     val borderWidth: Double?, // default: 0
     val borderDashLength: Double?, // default: 1
     val borderDashSpacing: Double?, // default: 0
     val cornerRadius: Double?, // default: 0
-    val borderColor: String?, // default: black
+    val borderColor: Color?, // default: black
 ) {
     companion object {
         val empty = Border(null, null, null, null, null)

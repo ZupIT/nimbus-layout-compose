@@ -50,11 +50,12 @@ internal fun Screen(
     ignoreSafeArea: List<SafeAreaEdges>? = null,
     title: String? = null,
     safeAreaTopBackground: Color? = null,
+    statusBarColorScheme: StatusBarColorScheme? = null,
     showBackButton: Boolean? = true,
     @Ignore navHostHelper: NimbusNavHostHelper = Nimbus.navigatorInstance.navHostHelper,
     content: @Composable () -> Unit,
 ) {
-     ConfigureSafeArea(safeAreaTopBackground)
+     ConfigureSafeArea(safeAreaTopBackground, statusBarColorScheme)
 
     val canShowBackButton = !navHostHelper.isFirstScreen() && showBackButton.isTrue()
     val canShowTitle = title != null
@@ -107,7 +108,10 @@ internal fun NavigationIcon(onClick: () -> Unit = {}) {
 }
 
 @Composable
-internal fun ConfigureSafeArea(safeAreaTopBackground: Color?) {
+internal fun ConfigureSafeArea(
+    safeAreaTopBackground: Color?,
+    statusBarColorScheme: StatusBarColorScheme?,
+) {
     // Turn off the decor fitting system windows, which means we need to through handling
     // insets
 // FIXME The following line has been commented because it doesn't work unless the server driven view
@@ -116,11 +120,16 @@ internal fun ConfigureSafeArea(safeAreaTopBackground: Color?) {
 //    WindowCompat.setDecorFitsSystemWindows(activity.window, false)
 
     val systemUiController = rememberSystemUiController()
-    val useDarkIcons = MaterialTheme.colors.isLight
-    val statusBarBg = safeAreaTopBackground ?: Color.Transparent
+    val useDarkIcons = when (statusBarColorScheme) {
+        StatusBarColorScheme.Dark -> false
+        StatusBarColorScheme.Light -> true
+        else ->  MaterialTheme.colors.isLight
+    }
     SideEffect {
-        //TODO set navigationBar color
+        safeAreaTopBackground?.let { statusBarBg ->
+            systemUiController.setStatusBarColor(statusBarBg, darkIcons = useDarkIcons)
+            //TODO set navigationBar color
 //        systemUiController.setNavigationBarColor(backgroundColor, darkIcons = useDarkIcons)
-        systemUiController.setStatusBarColor(statusBarBg, darkIcons = useDarkIcons)
+        }
     }
 }

@@ -125,10 +125,11 @@ internal fun ConfigureSafeArea(
         StatusBarColorScheme.Light -> true
         else ->  MaterialTheme.colors.isLight
     }
-    val statusBarBg = safeAreaTopBackground ?: Color.Transparent
     SideEffect {
-        //TODO set navigationBar color
+        safeAreaTopBackground?.let { statusBarBg ->
+            systemUiController.setStatusBarColor(statusBarBg, darkIcons = useDarkIcons)
+            //TODO set navigationBar color
 //        systemUiController.setNavigationBarColor(backgroundColor, darkIcons = useDarkIcons)
-        systemUiController.setStatusBarColor(statusBarBg, darkIcons = useDarkIcons)
+        }
     }
 }

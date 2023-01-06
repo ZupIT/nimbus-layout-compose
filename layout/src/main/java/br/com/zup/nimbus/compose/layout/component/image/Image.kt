@@ -48,7 +48,7 @@ internal fun Image(
         mutableStateOf(ImageViewModelState.Nothing)
     }
 
-    LaunchedEffect(url) {
+    LaunchedEffect(url, id) {
         if (isLocal) {
            viewModel.fetchLocalImage(id ?: "")?.let { viewModelState = it }
         } else {

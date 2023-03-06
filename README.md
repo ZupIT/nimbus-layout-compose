@@ -1,3 +1,5 @@
+> Important: this project is currently on halt. The latest version is in Beta because it needs more testing. Use it at your own risk. Having said this, Nimbus is still probably the best open source library for implementing server driven ui with Jetpack Compose and Swift. This project is not archived because there is a good chance it will get some investment later this year (2023). If you need to talk to the developers, please send an e-mail to tiago.franca@zup.com.br.
+
 # [**Nimbus Layout Compose**](https://github.com/ZupIT/nimbus-docs/) &middot; [![GitHub license](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/ZupIT/nimbus-layout-compose/blob/main/LICENSE.txt) [![maven version](https://img.shields.io/maven-central/v/br.com.zup.nimbus/nimbus-layout-compose)](https://search.maven.org/artifact/br.com.zup.nimbus/nimbus-layout-compose)
 
 Nimbus Layout Compose is a library for [Nimbus Compose](https://github.com/ZupIT/nimbus-compose) that implements a set of layout components.
